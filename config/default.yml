@@ -1,7 +1,7 @@
 AllCops:
-  # Target versions for maximum compatibility
+  # Target versions for Rails 6-8.x applications (2025)
   TargetRubyVersion: 3.1
-  TargetRailsVersion: 7.0
+  TargetRailsVersion: 8.0
   
   # Enhanced exclusions for typical Rails project structure
   Exclude:
@@ -31,10 +31,12 @@ AllCops:
   # Enable new cops for modern Rails/Ruby features
   NewCops: enable
   
-  # Enhanced extension suggestions
+  # Extension suggestions for Rails 6-8.x
   SuggestExtensions:
     rubocop-performance: true
     rubocop-thread_safety: false
+    rubocop-minitest: false
+    rubocop-capybara: true
 
 Rails:
   Enabled: true

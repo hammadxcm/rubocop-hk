@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency("rubocop-rails", "~> 2.32.0")
   spec.add_dependency("rubocop-rspec", "~> 3.6.0")
   spec.add_dependency("rubocop-performance", "~> 1.25.0")
+  spec.add_dependency("thor", "~> 1.0")
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
