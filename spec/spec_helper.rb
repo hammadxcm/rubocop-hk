@@ -4,30 +4,30 @@ require "simplecov"
 SimpleCov.start do
   add_filter "/spec/"
   add_filter "/vendor/"
-  
+
   # Explicitly track all Ruby files in lib
   track_files "lib/**/*.rb"
-  
+
   # Add specific files to ensure they're tracked
   add_group "Main Library", "lib/rubocop/hk.rb"
-  add_group "Version", "lib/rubocop/hk/version.rb" 
+  add_group "Version", "lib/rubocop/hk/version.rb"
   add_group "Command", "lib/rubocop/hk/command.rb"
-  
+
   # Coverage thresholds - achieved 100%!
   minimum_coverage 100
   minimum_coverage_by_file 100
-  
+
   # HTML and console output
   formatter SimpleCov::Formatter::MultiFormatter.new([
-    SimpleCov::Formatter::HTMLFormatter,
-    SimpleCov::Formatter::SimpleFormatter
-  ])
+                                                       SimpleCov::Formatter::HTMLFormatter,
+                                                       SimpleCov::Formatter::SimpleFormatter,
+                                                     ])
 end
 
 require "webmock/rspec"
 require "rubocop"
 require "rubocop-rails"
-require "rubocop-rspec"  
+require "rubocop-rspec"
 require "rubocop-performance"
 require "rubocop/hk"
 require "rubocop/hk/command"

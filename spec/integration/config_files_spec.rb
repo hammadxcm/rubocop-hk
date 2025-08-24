@@ -42,7 +42,7 @@ RSpec.describe "Configuration Files Integration" do
 
     it "includes all required plugins" do
       expect(config["plugins"]).to include("rubocop-rails")
-      expect(config["plugins"]).to include("rubocop-rspec") 
+      expect(config["plugins"]).to include("rubocop-rspec")
       expect(config["plugins"]).to include("rubocop-performance")
     end
 
@@ -130,7 +130,7 @@ RSpec.describe "Configuration Files Integration" do
 
     it "resolves all inherited configurations successfully" do
       config = RuboCop::ConfigLoader.load_file("config/default.yml")
-      
+
       # Verify that cops from inherited files are present
       expect(config["Style/StringLiterals"]).not_to be_nil
       expect(config["Performance/Casecmp"]).not_to be_nil

@@ -4,7 +4,7 @@ RSpec.describe "Gem Integration" do
   describe "gem loading and requirements" do
     it "loads all required dependencies" do
       expect { require "rubocop" }.not_to raise_error
-      expect { require "rubocop-rails" }.not_to raise_error  
+      expect { require "rubocop-rails" }.not_to raise_error
       expect { require "rubocop-rspec" }.not_to raise_error
       expect { require "rubocop-performance" }.not_to raise_error
       expect { require "thor" }.not_to raise_error
@@ -71,8 +71,8 @@ RSpec.describe "Gem Integration" do
 
     it "main config inherits from all sub-configs" do
       default_config = YAML.load_file("config/default.yml")
-      expected_inherits = config_files.reject { |f| f.include?("default") }
-                                    .map { |f| File.basename(f) }
+      expected_inherits = config_files.reject { |f| f.include?("default") }.
+                          map { |f| File.basename(f) }
 
       expect(default_config["inherit_from"]).to match_array(expected_inherits)
     end

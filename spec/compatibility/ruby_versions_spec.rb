@@ -18,9 +18,9 @@ RSpec.describe "Ruby Version Compatibility" do
 
   describe "RuboCop configuration loading" do
     it "loads default configuration without errors" do
-      expect {
+      expect do
         RuboCop::ConfigLoader.load_file("config/default.yml")
-      }.not_to raise_error
+      end.not_to raise_error
     end
 
     it "loads all configuration files without errors" do
@@ -32,20 +32,20 @@ RSpec.describe "Ruby Version Compatibility" do
         "config/rubocop-style.yml",
         "config/rubocop-layout.yml",
         "config/rubocop-metrics.yml",
-        "config/rubocop-lint.yml"
+        "config/rubocop-lint.yml",
       ]
 
       config_files.each do |config_file|
-        expect {
+        expect do
           RuboCop::ConfigLoader.load_file(config_file)
-        }.not_to raise_error, "Failed to load #{config_file}"
+        end.not_to raise_error, "Failed to load #{config_file}"
       end
     end
 
     it "validates performance cops are available" do
       config = RuboCop::ConfigLoader.load_file("config/rubocop-performance.yml")
       performance_cops = config.keys.select { |key| key.start_with?("Performance/") }
-      
+
       expect(performance_cops).not_to be_empty
       expect(performance_cops.size).to be >= 30
     end

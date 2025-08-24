@@ -15,7 +15,7 @@ RSpec.describe Rubocop::Hk do
     end
 
     it "is nested under Rubocop module" do
-      expect(Rubocop::Hk.name).to eq("Rubocop::Hk")
+      expect(described_class.name).to eq("Rubocop::Hk")
     end
 
     it "includes the version submodule" do
@@ -23,11 +23,11 @@ RSpec.describe Rubocop::Hk do
     end
 
     it "is a proper Ruby module" do
-      expect(Rubocop::Hk).to be_a(Module)
+      expect(described_class).to be_a(Module)
     end
 
     it "belongs to the Rubocop namespace" do
-      expect(Rubocop::Hk.name).to start_with("Rubocop::")
+      expect(described_class.name).to start_with("Rubocop::")
     end
   end
 
@@ -49,15 +49,15 @@ RSpec.describe Rubocop::Hk do
     end
 
     it "can be raised and caught" do
-      expect {
+      expect do
         raise Rubocop::Hk::Error, "test error"
-      }.to raise_error(Rubocop::Hk::Error, "test error")
+      end.to raise_error(Rubocop::Hk::Error, "test error")
     end
 
     it "can be raised without message" do
-      expect {
+      expect do
         raise Rubocop::Hk::Error
-      }.to raise_error(Rubocop::Hk::Error)
+      end.to raise_error(Rubocop::Hk::Error)
     end
 
     it "inherits StandardError methods" do
@@ -79,11 +79,11 @@ RSpec.describe Rubocop::Hk do
     end
 
     it "defines its own constants" do
-      expect(Rubocop::Hk.constants).to include(:VERSION, :Error)
+      expect(described_class.constants).to include(:VERSION, :Error)
     end
 
     it "can access parent module" do
-      expect(Rubocop::Hk.name.split("::").first).to eq("Rubocop")
+      expect(described_class.name.split("::").first).to eq("Rubocop")
     end
   end
 
@@ -99,14 +99,16 @@ RSpec.describe Rubocop::Hk do
 
     it "can be used for namespace purposes" do
       # Should be able to define new classes/modules within it
-      expect { 
-        module Rubocop::Hk
-          class TestClass; end
+      expect do
+        module Rubocop
+          module Hk
+            class TestClass; end
+          end
         end
-      }.not_to raise_error
-      
+      end.not_to raise_error
+
       # Clean up
-      Rubocop::Hk.send(:remove_const, :TestClass)
+      described_class.send(:remove_const, :TestClass)
     end
   end
 
@@ -118,7 +120,7 @@ RSpec.describe Rubocop::Hk do
 
     it "has consistent naming with gem name" do
       # Module name should relate to gem name rubocop-hk
-      expect(Rubocop::Hk.name.downcase.gsub("::", "-")).to include("hk")
+      expect(described_class.name.downcase.gsub("::", "-")).to include("hk")
     end
   end
 end

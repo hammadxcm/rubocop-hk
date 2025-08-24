@@ -1,9 +1,34 @@
-inherit_from:
-  - ./config/default.yml
+inherit_gem:
+  rubocop-hk: config/default.yml
 
-AllCops:
-  CacheRootDirectory: tmp/rubocop
-  TargetRubyVersion: 3.1.7
-
-Rails:
+# Disable some strict rules for our own gem's tests
+RSpec/DescribeClass:
   Enabled: false
+
+RSpec/RepeatedExample:
+  Enabled: false
+
+RSpec/LeakyConstantDeclaration:
+  Enabled: false
+
+RSpec/RemoveConst:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120  # Slightly more lenient for complex test expectations
+
+Performance/ChainArrayAllocation:
+  Enabled: false  # Allow for readable test code
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: false  # Needed for testing module behavior
+
+Lint/EmptyClass:
+  Enabled: false  # Test classes can be empty
+
+Rails/Output:
+  Exclude:
+    - "lib/rubocop/hk/command.rb"  # CLI tools need to output to stdout

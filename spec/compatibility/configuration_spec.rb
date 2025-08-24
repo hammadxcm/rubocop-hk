@@ -27,7 +27,7 @@ RSpec.describe "Configuration Compatibility" do
 
     it "uses modern plugin architecture" do
       expect(yaml_config["plugins"]).to include("rubocop-rails")
-      expect(yaml_config["plugins"]).to include("rubocop-rspec") 
+      expect(yaml_config["plugins"]).to include("rubocop-rspec")
       expect(yaml_config["plugins"]).to include("rubocop-performance")
     end
 
@@ -50,9 +50,9 @@ RSpec.describe "Configuration Compatibility" do
 
     it "excludes standard Rails directories" do
       exclusions = yaml_config["AllCops"]["Exclude"]
-      
+
       expect(exclusions).to include("bin/**/*")
-      expect(exclusions).to include("db/**/*") 
+      expect(exclusions).to include("db/**/*")
       expect(exclusions).to include("tmp/**/*")
       expect(exclusions).to include("log/**/*")
       expect(exclusions).to include("public/**/*")
@@ -62,7 +62,7 @@ RSpec.describe "Configuration Compatibility" do
 
     it "excludes Rails configuration files" do
       exclusions = yaml_config["AllCops"]["Exclude"]
-      
+
       expect(exclusions).to include("config/boot.rb")
       expect(exclusions).to include("config/environment.rb")
       expect(exclusions).to include("config/puma.rb")
