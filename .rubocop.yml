@@ -32,3 +32,6 @@ Lint/EmptyClass:
 Rails/Output:
   Exclude:
     - "lib/rubocop/hk/command.rb"  # CLI tools need to output to stdout
+
+Gemspec/RequireMFA:
+  Enabled: false  # Disabled for automated publishing workflow
