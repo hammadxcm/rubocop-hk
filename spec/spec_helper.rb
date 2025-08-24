@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 require "webmock/rspec"
+require "rubocop"
+require "rubocop-rails"
+require "rubocop-rspec"  
+require "rubocop-performance"
 require "rubocop/hk"
 
 WebMock.disable_net_connect!(allow_localhost: true)
