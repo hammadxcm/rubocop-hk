@@ -2,6 +2,6 @@
 
 module Rubocop
   module Hk
-    VERSION = "1.0.0"
+    VERSION = "1.0.9"
   end
 end
