@@ -51,7 +51,7 @@ jobs:
     - name: Test gem installation
       run: |
         gem install ./rubocop-hk-*.gem
-        ruby -e "require 'rubocop-hk'; puts Rubocop::Hk::VERSION"
+        ruby -e "require 'rubocop/hk'; puts Rubocop::Hk::VERSION"
     
     - name: Publish to RubyGems
       env:
