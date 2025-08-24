@@ -1,0 +1,38 @@
+name: Release Gem
+on:
+  release:
+    types:
+      - released
+      - prereleased
+
+env:
+  BUNDLE_RUBYGEMS__PKG__GITHUB__COM: ${{secrets.GPR_READONLY_TOKEN}}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+          bundler-cache: true
+
+      - name: "Setup Gem Credentials"
+        run: |
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          printf -- "---\n:github: Bearer ${GITHUB_TOKEN}\n" > $HOME/.gem/credentials
+        env:
+          GITHUB_TOKEN: ${{ secrets.GPR_WRITEONLY_TOKEN }}
+
+      - name: "Publish Gem"
+        run: |
+          bundle exec gem bump -v ${RELEASE_TAG#"v"} --no-commit
+
+          bundle exec gem build *.gemspec
+          bundle exec gem push --key github *.gem
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}

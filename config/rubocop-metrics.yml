@@ -1,0 +1,14 @@
+Metrics/AbcSize:
+  Description: Checks that the ABC size of methods is not higher than the configured maximum.
+  Enabled: false
+
+Metrics/BlockLength:
+  Description: Cop checks if the length of a block exceeds some maximum value.
+  Enabled: false
+
+Metrics/MethodLength:
+  Description: Checks if the length of a method exceeds some maximum value.
+  Enabled: false
+
+Metrics/ParameterLists:
+  CountKeywordArgs: false

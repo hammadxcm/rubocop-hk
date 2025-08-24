@@ -1,0 +1,9 @@
+inherit_from:
+  - ./config/default.yml
+
+AllCops:
+  CacheRootDirectory: tmp/rubocop
+  TargetRubyVersion: 3.1.7
+
+Rails:
+  Enabled: false

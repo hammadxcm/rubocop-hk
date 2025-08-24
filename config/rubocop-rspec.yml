@@ -1,0 +1,29 @@
+RSpec/AnyInstance:
+  Description: Check that instances are not being stubbed globally.
+    Prefer instance doubles over stubbing any instance of a class
+  Enabled: false
+
+RSpec/ContextWording:
+  Description: Checks that context docstring starts with an allowed prefix.
+  Enabled: true
+  Prefixes:
+    - when
+    - with
+    - without
+    - and # custom
+
+RSpec/ExampleLength:
+  Description: Checks for long examples.
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Description: Checks if examples contain too many expect calls.
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Description: Checks if example groups contain too many let and subject calls.
+  Enabled: false
+
+RSpec/NestedGroups:
+  Description: Checks for nested example groups.
+  Enabled: false

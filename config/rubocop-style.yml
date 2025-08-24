@@ -1,0 +1,197 @@
+Style/AndOr:
+  Description: Use &&/|| instead of and/or.
+  Enabled: true
+  EnforcedStyle: always
+  SupportedStyles:
+  - always
+  - conditionals
+
+Style/ClassAndModuleChildren:
+  Description: Checks the style of children definitions at classes and modules.
+  Enabled: true
+  EnforcedStyle: nested
+
+Style/ColonMethodCall:
+  Description: Checks for methods invoked via the operator instead of the . operator
+  Enabled: true
+
+Style/DefWithParentheses:
+  Description: Checks for parentheses in the definition of a method, that does not take any
+    arguments.
+  Enabled: true
+
+Style/DisableCopsWithinSourceCodeDirective:
+  Description: Detects comments to enable/disable RuboCop. This is useful if want to make sure that every RuboCop error gets fixed and not quickly disabled with a comment.
+  Enabled: true
+  AllowedCops:
+  - Layout/ArgumentAlignment
+  - Layout/ArrayAlignment
+  - Layout/HashAlignment
+  - Layout/IndentationConsistency
+  - Layout/IndentationWidth
+  - Layout/LineLength
+  - Layout/MultilineArrayBraceLayout
+  - Lint/DuplicateMethods
+  - Lint/RescueException
+  - Lint/UnusedMethodArgument
+  - Lint/UselessAssignment
+  - Lint/Void
+  - Metrics/BlockNesting
+  - Metrics/ClassLength
+  - Metrics/CyclomaticComplexity
+  - Metrics/ModuleLength
+  - Metrics/ParameterLists
+  - Metrics/PerceivedComplexity
+  - Naming/AccessorMethodName
+  - Naming/PredicateName
+  - Naming/VariableNumber
+  - Rails/ApplicationController
+  - Rails/FilePath
+  - Rails/HasManyOrHasOneDependent
+  - Rails/InverseOf
+  - Rails/OutputSafety
+  - Rails/UniqueValidationWithoutIndex
+  - RSpec/BeforeAfterAll
+  - RSpec/DescribeClass
+  - RSpec/DescribedClass
+  - RSpec/EmptyLineAfterFinalLet
+  - RSpec/ExampleLength
+  - RSpec/FilePath
+  - RSpec/ImplicitExpect
+  - RSpec/ImplicitSubject
+  - RSpec/InstanceVariable
+  - RSpec/LeadingSubject
+  - RSpec/LetSetup
+  - RSpec/MessageChain
+  - RSpec/MessageSpies
+  - RSpec/MultipleExpectations
+  - RSpec/NamedSubject
+  - RSpec/PredicateMatcher
+  - RSpec/StubbedMock
+  - RSpec/SubjectStub
+  - RSpec/VerifiedDoubles
+  - Security/Open
+  - Style/AccessModifierDeclarations
+  - Style/CaseLikeIf
+  - Style/Documentation
+  - Style/DoubleNegation
+  - Style/GlobalVars
+  - Style/GuardClause
+  - Style/IfUnlessModifier
+  - Style/OptionalBooleanParameter
+  - Style/RedundantBegin
+  - Style/RescueModifier
+  - Style/SignalException
+  - Style/StringConcatenation
+  - Style/SymbolArray
+  - Style/WordArray
+
+
+
+Style/FrozenStringLiteralComment:
+  Description: Add the frozen_string_literal comment to the top of files to help transition
+    from Ruby 2.3.0 to Ruby 3.0. Enabled for Ruby 3.1+ performance benefits.
+  Enabled: true
+  EnforcedStyle: always_true
+  SupportedStyles:
+  - always
+  - always_true
+  - never
+  # Only require in Ruby 3.0+ projects for performance benefits
+  Include:
+    - "**/*.rb"
+  Exclude:
+    - "bin/**/*"
+    - "config/boot.rb"
+    - "db/migrate/**/*"
+
+Style/HashSyntax:
+  Description: Checks hash literal syntax
+  Enabled: true
+  EnforcedStyle: ruby19
+  UseHashRocketsWithSymbolValues: false
+  PreferHashRocketsForNonAlnumEndingSymbols: false
+  SupportedStyles:
+  - ruby19
+  - hash_rockets
+  - no_mixed_keys
+  - ruby19_no_mixed_keys
+
+Style/MethodDefParentheses:
+  Description: Checks if the method definitions have or don't have parentheses.
+  Enabled: true
+  EnforcedStyle: require_parentheses
+  SupportedStyles:
+  - require_parentheses
+  - require_no_parentheses
+  - require_no_parentheses_except_multiline
+
+Style/NumericLiterals:
+  Description: Checks for big numeric literals without _ between groups of digits in them
+  Enabled: false
+
+Style/ParenthesesAroundCondition:
+  Description: Checks for the presence of superfluous parentheses around the condition of
+    if/unless/while/until.
+  Enabled: true
+  AllowSafeAssignment: true
+  AllowInMultilineConditions: false
+
+Style/RedundantBegin:
+  Description: Checks for redundant begin blocks.
+  Enabled: true
+
+Style/RedundantFreeze:
+  Description: Checks usages of Object#freeze on immutable objects.
+  Enabled: true
+
+Style/RedundantPercentQ:
+  Description: Checks for %q/%Q when single quotes or double quotes would do.
+  Enabled: true
+
+Style/RedundantReturn:
+  Description: Checks for redundant return expressions.
+  Enabled: true
+  AllowMultipleReturnValues: true
+
+Style/RegexpLiteral:
+  Description: Use / or %r around regular expressions.
+  Enabled: true
+  EnforcedStyle: slashes
+  AllowInnerSlashes: false
+  SupportedStyles:
+  - slashes
+  - percent_r
+  - mixed
+
+Style/Semicolon:
+  Description: Checks for multiple expressions placed on the same line. It also checks for lines
+    terminated with a semicolon.
+  Enabled: true
+  AllowAsExpressionSeparator: true
+
+Style/StringLiterals:
+  Description: Checks if uses of quotes match the configured preference.
+  Enabled: true
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: true
+
+Style/TrailingCommaInArrayLiteral:
+  Description: Checks for trailing comma in array literals
+  Enabled: true
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  Description: Checks for trailing comma in hash literals
+  Enabled: true
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrivialAccessors:
+  Description: Checks for trivial reader/writer methods, that c`ould have been created with the
+    attr_* family of functions automatically.
+  Enabled: true
+  ExactNameMatch: true
+  AllowPredicates: true
+  AllowDSLWriters: true
+  IgnoreClassMethods: false
+

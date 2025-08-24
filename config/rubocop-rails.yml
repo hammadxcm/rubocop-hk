@@ -1,0 +1,31 @@
+Rails/EnumHash:
+  Description: Checks for enums written with array syntax.
+  Enabled: true
+
+Rails/FilePath:
+  Description: Identifies usages of file path joining process to use Rails.root.join clause.
+  Enabled: true
+  EnforcedStyle: arguments
+  SupportedStyles:
+  - slashes
+  - arguments
+
+Rails/IndexBy:
+  Description: This cop looks for uses of each_with_object({}) { …​ }, map { …​ }.to_h, and
+    Hash[map { …​ }] that are transforming an enumerable into a hash where the values are the
+    original elements. Rails provides the index_by method for this purpose.
+  Enabled: true
+
+Rails/IndexWith:
+  Description: This cop looks for uses of each_with_object({}) { …​ }, map { …​ }.to_h, and
+    Hash[map { …​ }] that are transforming an enumerable into a hash where the keys are the
+    original elements. Rails provides the index_with method for this purpose.
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Description: This cop checks for the use of methods which skip validations which are listed in
+    guides.rubyonrails.org/active_record_validations.html#skipping-validations
+  Enabled: true
+  Exclude:
+    - spec/**/*
+    - db/data/**/*

@@ -1,0 +1,52 @@
+version: 2.1
+
+commands:
+  set_registry_credentials:
+    steps:
+      - run:
+          name: Set Github Registry credentials
+          command: |
+            mkdir ~/.gem
+            cat .circleci/github_registry_credentials | sed -e "s/GITHUB_REGISTRY_API_KEY/${GITHUB_REGISTRY_API_KEY}/" > ~/.gem/credentials
+            chmod 0600 ~/.gem/credentials
+
+  build_gem:
+    steps:
+      - run:
+          name: Build gem
+          command: gem build *.gemspec
+
+  publish_gem:
+    steps:
+      - run:
+          name: Publish gem to Github Registry
+          command: gem push --KEY github --host https://rubygems.pkg.github.com/sendoso rubocop-sendoso-*.gem
+
+  delete_registry_credentials:
+    steps:
+      - run:
+          name: Delete Github Registry credentials
+          command: shred -u ~/.gem/credentials
+          when: always
+
+jobs:
+  publish_gem:
+    docker:
+      - image: cimg/ruby:3.0.2
+    steps:
+      - checkout
+      - set_registry_credentials
+      - build_gem
+      - publish_gem
+      - delete_registry_credentials
+
+workflows:
+  version: 2
+  publish:
+    jobs:
+      - publish_gem:
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /^v.*/

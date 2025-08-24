@@ -1,0 +1,16 @@
+services:
+  gem:
+    container_name: rubocop-sendoso-gem
+    image: ruby:3.1.7
+    init: true
+    working_dir: /app
+    environment:
+      BUNDLE_RUBYGEMS__PKG__GITHUB__COM: $GITHUB_PKG_REG_TOKEN
+    tty: true
+    volumes:
+      - .:/app:delegated
+      - bundle_dir:/usr/local/bundle
+    command: sh -c "./bin/setup && bundle exec rake"
+
+volumes:
+  bundle_dir:

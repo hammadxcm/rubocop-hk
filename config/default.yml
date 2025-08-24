@@ -1,0 +1,57 @@
+AllCops:
+  # Target versions for maximum compatibility
+  TargetRubyVersion: 3.1
+  TargetRailsVersion: 7.0
+  
+  # Enhanced exclusions for typical Rails project structure
+  Exclude:
+    - "bin/**/*"
+    - "db/**/*"
+    - "db/schema.rb"
+    - "db/migrate/**/*"
+    - "node_modules/**/*"
+    - "**/vendor/**/*"
+    - "**/vendor/**/.*"
+    - ".git/**/*"
+    - "tmp/**/*"
+    - "log/**/*"
+    - "public/**/*"
+    - "storage/**/*"
+    - "config/boot.rb"
+    - "config/environment.rb"
+    - "config/puma.rb"
+    - "config/spring.rb"
+
+  # Enhanced output formatting
+  DefaultFormatter: progress
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
+  
+  # Enable new cops for modern Rails/Ruby features
+  NewCops: enable
+  
+  # Enhanced extension suggestions
+  SuggestExtensions:
+    rubocop-performance: true
+    rubocop-thread_safety: false
+
+Rails:
+  Enabled: true
+
+# Modern plugin architecture (RuboCop 1.72+)
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+# Configuration inheritance - modular approach
+inherit_from:
+  - rubocop-layout.yml
+  - rubocop-lint.yml
+  - rubocop-metrics.yml
+  - rubocop-rspec.yml
+  - rubocop-rails.yml
+  - rubocop-style.yml
+  - rubocop-performance.yml
+

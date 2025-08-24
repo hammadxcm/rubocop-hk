@@ -1,0 +1,43 @@
+Lint/AmbiguousOperator:
+  Description: Checks for ambiguous operators in the first argument of a method invocation
+    without parentheses.
+  Enabled: true
+
+Lint/AmbiguousRegexpLiteral:
+  Description: Checks for ambiguous regexp literals in the first argument of a method
+    invocation without parenthesis.
+  Enabled: true
+
+Lint/DeprecatedClassMethods:
+  Description: Check for deprecated class method calls.
+  Enabled: true
+
+Lint/ErbNewArguments:
+  Description: Emulates warnings in Ruby 2.6
+  Enabled: true
+
+Lint/RedundantStringCoercion:
+  Description: Checks for Object#to_s usage in string interpolation.
+  Enabled: true
+
+Lint/RequireParentheses:
+  Description: Checks for expressions where there is a call to a predicate method with at least one
+    argument, where no parentheses are used around the parameter list, and a boolean operator, &&
+    or ||, is used in the last argument.
+  Enabled: true
+
+Lint/ShadowingOuterLocalVariable:
+  Description: checks for the use of local variable names from an outer scope in block arguments or
+    block-local variables.
+  Enabled: true
+
+Lint/UriEscapeUnescape:
+  Description: This cop identifies places where URI.escape can be replaced by CGI.escape,
+    URI.encode_www_form, or URI.encode_www_form_component depending on your specific use case.
+    Also this cop identifies places where URI.unescape can be replaced by CGI.unescape,
+    URI.decode_www_form, or URI.decode_www_form_component depending on your specific use case.
+  Enabled: true
+
+Lint/UselessAssignment:
+  Description: Checks for useless assignment to a local variable.
+  Enabled: true
