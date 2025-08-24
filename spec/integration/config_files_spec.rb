@@ -73,16 +73,15 @@ RSpec.describe "Configuration Files Integration" do
   describe "rubocop-performance.yml" do
     let(:config) { YAML.load_file("config/rubocop-performance.yml") }
 
-    it "enables key performance cops" do
-      expect(config["Performance/Casecmp"]["Enabled"]).to be true
-      expect(config["Performance/StringReplacement"]["Enabled"]).to be true
-      expect(config["Performance/FlatMap"]["Enabled"]).to be true
+    it "enables performance cops globally" do
+      expect(config["Performance"]["Enabled"]).to be true
     end
 
     it "has performance-specific configurations" do
+      expect(config).to have_key("Performance/OpenStruct")
+      expect(config).to have_key("Performance/StringIdentifierArgument")
+      expect(config).to have_key("Performance/ChainArrayAllocation")
       expect(config).to have_key("Performance/CollectionLiteralInLoop")
-      expect(config).to have_key("Performance/ConcurrentMonotonicTime")
-      expect(config).to have_key("Performance/MapCompact")
     end
   end
 
@@ -133,8 +132,8 @@ RSpec.describe "Configuration Files Integration" do
 
       # Verify that cops from inherited files are present
       expect(config["Style/StringLiterals"]).not_to be_nil
-      expect(config["Performance/Casecmp"]).not_to be_nil
-      expect(config["Rails/EnumHash"]).not_to be_nil
+      expect(config["Performance"]["Enabled"]).to be true  # Performance cops enabled globally
+      expect(config["Rails/IndexBy"]).not_to be_nil
       expect(config["RSpec/ExampleLength"]).not_to be_nil
     end
   end

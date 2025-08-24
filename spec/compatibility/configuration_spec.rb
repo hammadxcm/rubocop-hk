@@ -81,12 +81,16 @@ RSpec.describe "Configuration Compatibility" do
   end
 
   describe "Performance configuration" do
-    let(:performance_config) { RuboCop::ConfigLoader.load_file("config/rubocop-performance.yml") }
+    let(:default_config) { RuboCop::ConfigLoader.load_file("config/default.yml") }
 
-    it "enables key performance cops" do
-      expect(performance_config["Performance/FlatMap"]["Enabled"]).to be true
-      expect(performance_config["Performance/Count"]["Enabled"]).to be true
-      expect(performance_config["Performance/MapCompact"]["Enabled"]).to be true
+    it "enables performance cops through main configuration" do
+      # Performance cops are now enabled through the main config via rubocop-performance plugin
+      expect(default_config["Performance"]["Enabled"]).to be true
+    end
+
+    it "loads performance configuration without errors" do
+      # Test that the performance config can be loaded as part of the inheritance chain
+      expect { RuboCop::ConfigLoader.load_file("config/default.yml") }.not_to raise_error
     end
   end
 end

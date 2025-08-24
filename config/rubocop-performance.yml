@@ -1,188 +1,33 @@
 # Performance Optimization Rules
-# Focused on Ruby performance patterns and anti-patterns for Rails 7.0+ applications
+# Configuration for rubocop-performance plugin
+# Focused on Ruby performance patterns for Rails 6.0+ applications
 
-Performance/AncestorsInclude:
-  Description: Use `Module#<=` instead of `ancestors.include?` for performance
+# Note: Performance cops are now provided by the rubocop-performance gem
+# This configuration file provides sensible defaults for performance-oriented development
+
+# Enable all performance cops by default (can be overridden individually)
+Performance:
   Enabled: true
 
-Performance/ArraySemiInfiniteRangeSlice:
-  Description: Use `drop` instead of `[n..-1]` for better performance
-  Enabled: true
-
-Performance/BigDecimalWithNumericArgument:
-  Description: Avoid BigDecimal.new with numeric arguments
-  Enabled: true
-
-Performance/BlockGivenWithExplicitBlock:
-  Description: Optimize `block_given?` usage
-  Enabled: true
-
-Performance/Caller:
-  Description: Use `caller(n..n)` instead of `caller[n]`
-  Enabled: true
-
-Performance/CaseWhenSplat:
-  Description: Avoid splat operators in case/when statements
-  Enabled: true
-
-Performance/Casecmp:
-  Description: Use `casecmp` instead of `downcase` comparison
-  Enabled: true
-
-Performance/ChainArrayAllocation:
-  Description: Avoid method chains that create unnecessary arrays
-  Enabled: true
-
-Performance/CollectionLiteralInLoop:
-  Description: Avoid creating collection literals in loops
-  Enabled: true
-
-Performance/CompareWithBlock:
-  Description: Use `min/max_by` instead of `sort.first/last`
-  Enabled: true
-
-Performance/ConcurrentMonotonicTime:
-  Description: Use `Process.clock_gettime` for better precision
-  Enabled: true
-
-Performance/ConstantRegexp:
-  Description: Extract regexp to constants for better performance
-  Enabled: true
-
-Performance/Count:
-  Description: Use `count` instead of `select.size/length`
-  Enabled: true
-
-Performance/Detect:
-  Description: Use `detect` instead of `select.first`
-  Enabled: true
-
-Performance/DoubleStartEndWith:
-  Description: Use single `start_with?/end_with?` call
-  Enabled: true
-
-Performance/EndWith:
-  Description: Use `String#end_with?` instead of regexp
-  Enabled: true
-
-Performance/FixedSize:
-  Description: Avoid `size == 0` on fixed-size collections
-  Enabled: true
-
-Performance/FlatMap:
-  Description: Use `flat_map` instead of `map.flatten`
-  Enabled: true
-
-Performance/InefficientHashSearch:
-  Description: Use `key?/value?` instead of `keys.include?/values.include?`
-  Enabled: true
-
-Performance/IoReadlines:
-  Description: Use `File.foreach` instead of `File.readlines`
-  Enabled: true
-
-Performance/MapCompact:
-  Description: Use `filter_map` instead of `map.compact`
-  Enabled: true
-
-Performance/MethodObjectAsBlock:
-  Description: Use method objects as blocks when possible
-  Enabled: true
-
+# Specific configurations for key performance cops
 Performance/OpenStruct:
-  Description: Avoid OpenStruct for performance-critical code
-  Enabled: false # Can be too restrictive in some Rails apps
+  Enabled: false # Can be too restrictive in some Rails applications
   Severity: warning
-
-Performance/RangeInclude:
-  Description: Use `cover?` instead of `include?` for ranges
-  Enabled: true
-
-Performance/RedundantBlockCall:
-  Description: Avoid redundant `block.call` usage
-  Enabled: true
-
-Performance/RedundantEqualityComparisonBlock:
-  Description: Simplify equality comparison blocks
-  Enabled: true
-
-Performance/RedundantMatch:
-  Description: Avoid redundant `match` calls
-  Enabled: true
-
-Performance/RedundantMerge:
-  Description: Avoid redundant Hash#merge usage
-  Enabled: true
-
-Performance/RedundantSortBlock:
-  Description: Use `sort` without block when possible
-  Enabled: true
-
-Performance/RedundantSplitRegexpArgument:
-  Description: Avoid redundant regexp in `split`
-  Enabled: true
-
-Performance/RedundantStringChars:
-  Description: Avoid redundant `String#chars` usage
-  Enabled: true
-
-Performance/RegexpMatch:
-  Description: Use `match?` instead of `match` for boolean checks
-  Enabled: true
-
-Performance/ReverseEach:
-  Description: Use `reverse_each` instead of `reverse.each`
-  Enabled: true
-
-Performance/ReverseFirst:
-  Description: Use `last(n)` instead of `reverse.first(n)`
-  Enabled: true
-
-Performance/SelectMap:
-  Description: Use `filter_map` instead of `select.map`
-  Enabled: true
-
-Performance/Size:
-  Description: Use `size` instead of `count` for collections
-  Enabled: true
-
-Performance/SortReverse:
-  Description: Use `sort.reverse` instead of `sort { |a, b| b <=> a }`
-  Enabled: true
-
-Performance/Squeeze:
-  Description: Use `squeeze` instead of regexp for character removal
-  Enabled: true
-
-Performance/StartWith:
-  Description: Use `String#start_with?` instead of regexp
-  Enabled: true
 
 Performance/StringIdentifierArgument:
-  Description: Use symbols instead of strings for identifiers
   Enabled: true
-  Severity: warning
+  Severity: warning # Warn instead of error for gradual adoption
 
-Performance/StringInclude:
-  Description: Use `include?` instead of regexp for substring checks
+Performance/ChainArrayAllocation:
   Enabled: true
+  # Allow chaining in test files where readability is more important
+  Exclude:
+    - "spec/**/*"
+    - "test/**/*"
 
-Performance/StringReplacement:
-  Description: Use string replacement methods appropriately
+Performance/CollectionLiteralInLoop:
   Enabled: true
-
-Performance/Sum:
-  Description: Use `sum` instead of `inject(:+)` or `reduce(:+)`
-  Enabled: true
-
-Performance/TimesMap:
-  Description: Use `Array.new` instead of `n.times.map`
-  Enabled: true
-
-Performance/UnfreezeString:
-  Description: Use `+""` or `dup` to unfreeze strings
-  Enabled: true
-
-Performance/UriDefaultParser:
-  Description: Use `URI::DEFAULT_PARSER` instead of `URI::Parser.new`
-  Enabled: true
+  # More permissive in configuration and initializer files
+  Exclude:
+    - "config/**/*"
+    - "db/**/*"
