@@ -1,6 +1,20 @@
-# Ruby Style Guide
+<div align="center">
 
-## Table of Contents
+# 🎨 Ruby Style Guide - RuboCop HK
+
+> **The complete coding standards and conventions used by RuboCop HK**
+
+[![RuboCop](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
+[![Ruby Style Guide](https://img.shields.io/badge/ruby-style_guide-red.svg)](https://rubystyle.guide)
+[![Rails](https://img.shields.io/badge/rails-conventions-red.svg)](https://rubyonrails.org)
+
+**[📚 Back to README](README.md) • [⚡ Quick Start](QUICK_START.md) • [📖 Usage Guide](USAGE.md) • [⚙️ Customization](CUSTOMIZATION.md)**
+
+</div>
+
+---
+
+## 📋 Table of Contents
   1. [Whitespace](#whitespace)
       1. [Indentation](#indentation)
       1. [Inline](#inline)

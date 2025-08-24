@@ -586,6 +586,6 @@ flowchart TD
 
 **Architecture designed with ❤️ for the Ruby community**
 
-[📖 Back to README](README.md) • [🐛 Report Issue](https://github.com/yourusername/rubocop-hk/issues)
+[📖 Back to README](README.md) • [🐛 Report Issue](https://github.com/hammadxcm/rubocop-hk/issues)
 
 </div>
