@@ -17,19 +17,19 @@ RSpec.describe Rubocop::Hk::Command do
     context "when plain option is false" do
       it "outputs formatted version" do
         allow(command).to receive(:options).and_return(plain: false)
-        
+
         expect { command.version }.to output("rubocop-hk version: #{Rubocop::Hk::VERSION}\n").to_stdout
       end
 
       it "outputs formatted version when plain is explicitly false" do
         allow(command).to receive(:options).and_return({ plain: false })
-        
+
         expect { command.version }.to output("rubocop-hk version: #{Rubocop::Hk::VERSION}\n").to_stdout
       end
 
       it "handles options hash correctly" do
         allow(command).to receive(:options).and_return({})
-        
+
         expect { command.version }.to output("rubocop-hk version: #{Rubocop::Hk::VERSION}\n").to_stdout
       end
     end
@@ -37,20 +37,20 @@ RSpec.describe Rubocop::Hk::Command do
     context "when plain option is true" do
       it "outputs plain version" do
         allow(command).to receive(:options).and_return(plain: true)
-        
+
         expect { command.version }.to output("#{Rubocop::Hk::VERSION}\n").to_stdout
       end
 
       it "outputs plain version when plain is explicitly true" do
         allow(command).to receive(:options).and_return({ plain: true })
-        
+
         expect { command.version }.to output("#{Rubocop::Hk::VERSION}\n").to_stdout
       end
 
       it "returns early when plain is true" do
         allow(command).to receive(:options).and_return(plain: true)
         allow(command).to receive(:puts)
-        
+
         expect(command.version).to be_nil
         expect(command).to have_received(:puts).with(Rubocop::Hk::VERSION)
       end

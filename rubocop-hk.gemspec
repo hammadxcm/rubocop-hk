@@ -17,15 +17,16 @@ Gem::Specification.new do |spec|
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/hammadxcm/rubocop-hk"
   spec.metadata["changelog_uri"] = "https://github.com/hammadxcm/rubocop-hk/blob/main/CHANGELOG.md"
+  spec.metadata["rubygems_mfa_required"] = "true"
 
   spec.files = Dir["README.md", "STYLEGUIDE.md", "LICENSE", "config/*.yml", "lib/**/*.rb"]
   spec.require_paths = ["lib"]
 
   # Gem dependencies
   spec.add_dependency("rubocop", "~> 1.79.2")
+  spec.add_dependency("rubocop-performance", "~> 1.25.0")
   spec.add_dependency("rubocop-rails", "~> 2.32.0")
   spec.add_dependency("rubocop-rspec", "~> 3.6.0")
-  spec.add_dependency("rubocop-performance", "~> 1.25.0")
   spec.add_dependency("thor", "~> 1.0")
 
   # For more information and examples about making a new gem, checkout our
