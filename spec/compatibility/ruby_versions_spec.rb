@@ -44,11 +44,11 @@ RSpec.describe "Ruby Version Compatibility" do
 
     it "validates performance cops are available" do
       default_config = RuboCop::ConfigLoader.load_file("config/default.yml")
-      
+
       # Test that performance plugin is loaded via main config
       yaml_config = YAML.load_file("config/default.yml")
       expect(yaml_config["plugins"]).to include("rubocop-performance")
-      
+
       # Performance cops are enabled globally through rubocop-performance plugin
       expect(default_config["Performance"]["Enabled"]).to be true
     end

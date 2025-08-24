@@ -132,7 +132,7 @@ RSpec.describe "Configuration Files Integration" do
 
       # Verify that cops from inherited files are present
       expect(config["Style/StringLiterals"]).not_to be_nil
-      expect(config["Performance"]["Enabled"]).to be true  # Performance cops enabled globally
+      expect(config["Performance"]["Enabled"]).to be true # Performance cops enabled globally
       expect(config["Rails/IndexBy"]).not_to be_nil
       expect(config["RSpec/ExampleLength"]).not_to be_nil
     end
