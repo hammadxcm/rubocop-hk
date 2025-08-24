@@ -11,7 +11,7 @@ RSpec.describe Rubocop::Hk do
     end
 
     it "has the expected version" do
-      expect(Rubocop::Hk::VERSION).to eq("1.0.0")
+      expect(Rubocop::Hk::VERSION).to eq("1.0.9")
     end
 
     it "is nested under Rubocop module" do
