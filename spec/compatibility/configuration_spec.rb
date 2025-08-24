@@ -23,11 +23,12 @@ RSpec.describe "Configuration Compatibility" do
 
   describe "Plugin configuration" do
     let(:default_config) { RuboCop::ConfigLoader.load_file("config/default.yml") }
+    let(:yaml_config) { YAML.load_file("config/default.yml") }
 
     it "uses modern plugin architecture" do
-      expect(default_config["plugins"]).to include("rubocop-rails")
-      expect(default_config["plugins"]).to include("rubocop-rspec") 
-      expect(default_config["plugins"]).to include("rubocop-performance")
+      expect(yaml_config["plugins"]).to include("rubocop-rails")
+      expect(yaml_config["plugins"]).to include("rubocop-rspec") 
+      expect(yaml_config["plugins"]).to include("rubocop-performance")
     end
 
     it "targets modern Ruby and Rails versions" do
@@ -45,10 +46,10 @@ RSpec.describe "Configuration Compatibility" do
   end
 
   describe "Exclusions" do
-    let(:default_config) { RuboCop::ConfigLoader.load_file("config/default.yml") }
+    let(:yaml_config) { YAML.load_file("config/default.yml") }
 
     it "excludes standard Rails directories" do
-      exclusions = default_config["AllCops"]["Exclude"]
+      exclusions = yaml_config["AllCops"]["Exclude"]
       
       expect(exclusions).to include("bin/**/*")
       expect(exclusions).to include("db/**/*") 
@@ -60,7 +61,7 @@ RSpec.describe "Configuration Compatibility" do
     end
 
     it "excludes Rails configuration files" do
-      exclusions = default_config["AllCops"]["Exclude"]
+      exclusions = yaml_config["AllCops"]["Exclude"]
       
       expect(exclusions).to include("config/boot.rb")
       expect(exclusions).to include("config/environment.rb")
