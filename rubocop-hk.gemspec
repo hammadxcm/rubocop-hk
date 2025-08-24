@@ -10,13 +10,13 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "RuboCop HK"
   spec.description   = "Modern RuboCop configuration for Ruby and Rails applications"
-  spec.homepage      = "https://github.com/hammadkhan/rubocop-hk"
+  spec.homepage      = "https://github.com/hammadxcm/rubocop-hk"
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 3.1.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/hammadkhan/rubocop-hk"
-  spec.metadata["changelog_uri"] = "https://github.com/hammadkhan/rubocop-hk"
+  spec.metadata["source_code_uri"] = "https://github.com/hammadxcm/rubocop-hk"
+  spec.metadata["changelog_uri"] = "https://github.com/hammadxcm/rubocop-hk/blob/main/CHANGELOG.md"
 
   spec.files = Dir["README.md", "STYLEGUIDE.md", "LICENSE", "config/*.yml", "lib/**/*.rb"]
   spec.require_paths = ["lib"]

@@ -1,6 +1,6 @@
 services:
   gem:
-    container_name: rubocop-sendoso-gem
+    container_name: rubocop-hk-gem
     image: ruby:3.1.7
     init: true
     working_dir: /app

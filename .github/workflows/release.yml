@@ -1,38 +1,41 @@
-name: Release Gem
-on:
-  release:
-    types:
-      - released
-      - prereleased
+name: Release
 
-env:
-  BUNDLE_RUBYGEMS__PKG__GITHUB__COM: ${{secrets.GPR_READONLY_TOKEN}}
+on:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'hammadxcm'
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@v4
+      
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1
+          ruby-version: '3.3'
           bundler-cache: true
 
-      - name: "Setup Gem Credentials"
+      - name: Build gem
+        run: gem build *.gemspec
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: '*.gem'
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
+      - name: Publish to RubyGems
         run: |
           mkdir -p $HOME/.gem
           touch $HOME/.gem/credentials
           chmod 0600 $HOME/.gem/credentials
-          printf -- "---\n:github: Bearer ${GITHUB_TOKEN}\n" > $HOME/.gem/credentials
+          printf -- "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}\n" > $HOME/.gem/credentials
+          gem push *.gem
         env:
-          GITHUB_TOKEN: ${{ secrets.GPR_WRITEONLY_TOKEN }}
-
-      - name: "Publish Gem"
-        run: |
-          bundle exec gem bump -v ${RELEASE_TAG#"v"} --no-commit
-
-          bundle exec gem build *.gemspec
-          bundle exec gem push --key github *.gem
-        env:
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}

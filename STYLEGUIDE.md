@@ -1,4 +1,4 @@
-# Sendoso's Ruby Style Guide.
+# Ruby Style Guide
 
 ## Table of Contents
   1. [Whitespace](#whitespace)
