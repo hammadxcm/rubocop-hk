@@ -17,7 +17,8 @@ Gem::Specification.new do |spec|
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/hammadxcm/rubocop-hk"
   spec.metadata["changelog_uri"] = "https://github.com/hammadxcm/rubocop-hk/blob/main/CHANGELOG.md"
-  spec.metadata["rubygems_mfa_required"] = "true"
+  # MFA disabled for automated publishing - consider enabling for manual releases
+  # spec.metadata["rubygems_mfa_required"] = "true"
 
   spec.files = Dir["README.md", "STYLEGUIDE.md", "LICENSE", "config/*.yml", "lib/**/*.rb"]
   spec.require_paths = ["lib"]
