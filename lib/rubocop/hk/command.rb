@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require "thor"
 
-require "rubocop/sendoso"
+require "rubocop/hk"
 
 module Rubocop
-  module Sendoso
+  module Hk
     ##
     # CLI entry point for commands
     #
@@ -12,12 +14,12 @@ module Rubocop
         true
       end
 
-      desc "version", "Get the version of rubocop-sendoso"
+      desc "version", "Get the version of rubocop-hk"
       option :plain, type: :boolean, default: false, aliases: ["-p"]
       def version
-        return puts Rubocop::Sendoso::VERSION if options[:plain]
+        return puts Rubocop::Hk::VERSION if options[:plain]
 
-        puts "rubocop-sendoso version: #{Rubocop::Sendoso::VERSION}"
+        puts "rubocop-hk version: #{Rubocop::Hk::VERSION}"
       end
       map ["-v", "--version"] => :version
     end

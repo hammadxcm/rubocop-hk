@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in rubocop-sendoso.gemspec
+# Specify your gem's dependencies in rubocop-hk.gemspec
 gemspec
 
 gem "rake", "~> 13.0"

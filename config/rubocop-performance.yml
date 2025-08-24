@@ -84,7 +84,6 @@ Performance/IoReadlines:
 Performance/MapCompact:
   Description: Use `filter_map` instead of `map.compact`
   Enabled: true
-  Safe: false
 
 Performance/MethodObjectAsBlock:
   Description: Use method objects as blocks when possible

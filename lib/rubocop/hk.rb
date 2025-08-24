@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "sendoso/version"
+require_relative "hk/version"
 
 module Rubocop
-  module Sendoso
+  module Hk
     class Error < StandardError; end
   end
 end
