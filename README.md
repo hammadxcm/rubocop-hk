@@ -3797,6 +3797,8 @@ If RuboCop HK helps you write better Ruby code, please consider:
 
 **Made with ❤️ by [Hammad Khan](https://github.com/hammadxcm)**
 
+**🌐 Visit: [https://fyniti.co.uk](https://fyniti.co.uk)**
+
 **[🐛 Report Bug](https://github.com/hammadxcm/rubocop-hk/issues) • 
 [✨ Request Feature](https://github.com/hammadxcm/rubocop-hk/issues/new?template=feature_request.md) • 
 [📖 Documentation](https://github.com/hammadxcm/rubocop-hk/wiki) •
