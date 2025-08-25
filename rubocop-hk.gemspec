@@ -30,6 +30,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency("rubocop-rspec", "~> 3.6.0")
   spec.add_dependency("thor", "~> 1.0")
 
+  # Development dependencies
+  spec.add_development_dependency("rspec", "~> 3.13.0")
+  spec.add_development_dependency("rspec_junit_formatter", "~> 0.6.0")
+  spec.add_development_dependency("simplecov", "~> 0.22.0")
+
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html
 end
