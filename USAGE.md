@@ -180,7 +180,7 @@ cat << 'EOF' >> Gemfile
 
 # Code quality and style
 group :development, :test do
-  gem 'rubocop-hk', '~> 1.0.0', require: false
+  gem 'rubocop-hk', '~> 1.0.9', require: false
 end
 EOF
 
@@ -229,7 +229,7 @@ cd my_awesome_gem
 cat << 'EOF' >> my_awesome_gem.gemspec
 
   # Development dependencies
-  spec.add_development_dependency "rubocop-hk", "~> 1.0.0"
+  spec.add_development_dependency "rubocop-hk", "~> 1.0.9"
 EOF
 
 # Step 3: Configure for gem development
@@ -1037,7 +1037,7 @@ rm -rf ~/.cache/rubocop_cache/
 ```bash
 # Solutions:
 # 1. Lock gem versions
-echo 'gem "rubocop-hk", "~> 1.0.0"' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.0.9"' >> Gemfile
 bundle lock
 
 # 2. Share exact configuration

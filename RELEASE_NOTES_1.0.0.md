@@ -78,7 +78,7 @@ RuboCop HK is a comprehensive RuboCop configuration gem designed for modern Ruby
 ### **Quick Start - New Project**
 ```bash
 # Add to Gemfile
-echo 'gem "rubocop-hk", "~> 1.0.0", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.0.9", require: false' >> Gemfile
 
 # Install
 bundle install

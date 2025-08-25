@@ -80,7 +80,7 @@ end
 
 ```bash
 # 1. Add to your Gemfile
-echo 'gem "rubocop-hk", "~> 1.0.0", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.0.9", require: false' >> Gemfile
 
 # 2. Install the gem
 bundle install
@@ -163,7 +163,7 @@ cat << 'EOF' >> Gemfile
 
 # Code quality and style enforcement
 group :development, :test do
-  gem "rubocop-hk", "~> 1.0.0", require: false
+  gem "rubocop-hk", "~> 1.0.9", require: false
 end
 EOF
 
@@ -248,7 +248,7 @@ Add this line to your application's Gemfile:
 
 ```ruby
 group :development, :test do
-  gem "rubocop-hk", "~> 1.0.0", require: false
+  gem "rubocop-hk", "~> 1.0.9", require: false
 end
 ```
 
@@ -522,7 +522,7 @@ cat >> Gemfile << 'EOF'
 
 # Code quality and linting
 group :development, :test do
-  gem "rubocop-hk", "~> 1.0.0", require: false
+  gem "rubocop-hk", "~> 1.0.9", require: false
 end
 EOF
 
@@ -636,7 +636,7 @@ cd my_api
 cat >> Gemfile << 'EOF'
 
 group :development, :test do
-  gem "rubocop-hk", "~> 1.0.0", require: false
+  gem "rubocop-hk", "~> 1.0.9", require: false
 end
 EOF
 
@@ -1226,6 +1226,79 @@ bundle exec rubocop --only Style/StringLiterals
 bundle exec rubocop --auto-gen-config
 ```
 
+### 🎛️ **Overriding RuboCop Rules**
+
+You can easily override or customize any RuboCop rule by adding it to your `.rubocop.yml` file:
+
+```yaml
+# .rubocop.yml
+inherit_gem:
+  rubocop-hk: config/default.yml
+
+AllCops:
+  TargetRubyVersion: 3.3
+  TargetRailsVersion: 8.0
+
+# 🚫 Disable specific cops
+Style/Documentation:
+  Enabled: false                    # Turn off documentation requirement
+
+# 🔢 Adjust cop parameters
+Metrics/ClassLength:
+  Max: 200                          # Allow longer classes (default: 100)
+
+Layout/LineLength:
+  Max: 120                          # Extend line length (default: 80)
+  Exclude:
+    - "db/migrate/*.rb"             # Exclude migrations from line length
+
+# 🎯 Enable/disable cops for specific files
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Exclude:
+    - "bin/*"
+    - "db/seeds.rb"
+
+# 📊 Customize severity levels
+Style/StringLiterals:
+  EnforcedStyle: double_quotes      # Enforce double quotes
+  Severity: error                   # Make violations errors instead of warnings
+
+# 🧪 RSpec-specific overrides
+RSpec/ExampleLength:
+  Max: 25                           # Allow longer test examples (default: 15)
+
+RSpec/MultipleExpectations:
+  Max: 5                            # Allow more expectations per test
+
+# ⚡ Performance cop customization
+Performance/Casecmp:
+  Enabled: true
+  Severity: warning
+
+# 🚂 Rails-specific overrides  
+Rails/HasManyOrHasOneDependent:
+  Enabled: true
+  Severity: error                   # Make missing dependent option an error
+```
+
+**💡 Pro Tips for Overriding Rules:**
+
+- **Start small**: Override one rule at a time and test the impact
+- **Use Exclude**: Prefer excluding specific files rather than disabling cops entirely
+- **Check severity**: Use `warning` instead of disabling if you want to keep visibility
+- **Document why**: Add comments explaining why you're overriding specific rules
+- **Team agreement**: Make sure your team agrees on rule changes
+
+**🔍 Finding Rule Names:**
+```bash
+# See all available cops
+bundle exec rubocop --show-cops
+
+# Find which cop is flagging a specific issue
+bundle exec rubocop --format offenses
+```
+
 ### 🔧 **Pre-commit Hook Setup**
 
 ```bash
@@ -1356,7 +1429,7 @@ EOF
    ```ruby
    # Gemfile updates for Rails 7 compatibility
    gem "rails", "~> 7.0.0"
-   gem "rubocop-hk", "~> 1.0.0"
+   gem "rubocop-hk", "~> 1.0.9"
    
    # Update other gems
    gem "rspec-rails", "~> 6.0"  # Rails 7 compatible
@@ -3082,7 +3155,7 @@ bundle install
 gem install rubocop-hk -v "~> 1.0.0"
 
 # Version-specific fix for Rails 6:
-echo 'gem "rubocop-hk", "~> 1.0.0", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.0.9", require: false' >> Gemfile
 bundle install
 ```
 

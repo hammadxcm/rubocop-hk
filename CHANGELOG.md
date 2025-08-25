@@ -118,7 +118,7 @@ Modern RuboCop configuration gem optimized for Ruby and Rails applications with 
 Add to your Gemfile:
 ```ruby
 group :development, :test do
-  gem "rubocop-hk", "~> 1.0.0", require: false
+  gem "rubocop-hk", "~> 1.0.9", require: false
 end
 ```
 

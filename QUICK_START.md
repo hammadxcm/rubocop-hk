@@ -75,7 +75,7 @@ cat << 'EOF' >> Gemfile
 
 # 🔧 Code quality and style enforcement  
 group :development, :test do
-  gem "rubocop-hk", "~> 1.0.0", require: false
+  gem "rubocop-hk", "~> 1.0.9", require: false
 end
 EOF
 
