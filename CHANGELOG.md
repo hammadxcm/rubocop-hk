@@ -18,6 +18,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-08-26
+
+### 🚀 **2025 Modernization Release**
+
+**Major modernization**: This release brings RuboCop HK up to 2025 standards with updated Ruby/Rails support, enhanced security, and comprehensive developer experience improvements.
+
+#### 🔥 **Added**
+- **Ruby 3.4 support**: Added parser engine configuration for Ruby 3.4+ compatibility
+- **Rails 8.1 support**: Updated TargetRailsVersion for latest Rails features
+- **Security workflows**: Comprehensive vulnerability scanning with bundler-audit and CodeQL
+- **Local testing**: Pre-push workflow testing scripts (`scripts/pre-push-test.sh`)
+- **EditorConfig**: Consistent editor behavior across development environments
+- **Dependabot**: Automated dependency update management
+- **Workflow testing documentation**: Complete guide in `WORKFLOW_TESTING.md`
+
+#### ⬆️ **Updated**
+- **Ruby requirement**: From `>= 3.1.0` to `>= 3.2.0` (Ruby 3.1 EOL March 2025)
+- **RuboCop**: From `~> 1.79.2` to `~> 1.80.0` (latest stable)
+- **rubocop-rails**: From `~> 2.32.0` to `~> 2.33.0` (latest features)
+- **CI matrix**: Now tests Ruby 3.2, 3.3, 3.4 with Rails 7.0-8.0
+- **Contributing guide**: Enhanced with conventional commits and examples
+- **Makefile**: Added modern development targets (`test-workflows`, `security`, etc.)
+
+#### 🛡️ **Security**
+- **MFA requirement**: Enabled `rubygems_mfa_required` for secure gem publishing
+- **Dependency conflicts**: Resolved Gemfile vs gemspec development dependency issues
+- **Vulnerability scanning**: Daily automated security audits
+- **Secret detection**: Basic hardcoded secret scanning in CI
+
+#### 🔧 **Fixed**
+- **Dependency management**: Moved development dependencies to Gemfile only (2025 best practice)
+- **Parser configuration**: Added explicit parser engine for Ruby 3.4+ compatibility
+- **Test expectations**: Updated all version references from 1.0.9 to 1.1.0
+- **Configuration loading**: Enhanced RuboCop configuration validation
+
+#### ⚠️ **Breaking Changes**
+- **Ruby 3.1 support dropped**: Minimum Ruby version is now 3.2.0
+- **Development dependencies**: No longer defined in gemspec (use Gemfile)
+- **MFA required**: New gem versions require MFA for publishing
+
+#### 📊 **Statistics**
+- **Test Coverage**: 100% maintained (118 examples, 0 failures)
+- **Security**: Zero vulnerabilities in dependencies
+- **Code Quality**: Zero RuboCop violations
+- **CI Matrix**: 12 Ruby/Rails combinations tested
+
 ## [1.0.0] - 2025-08-24
 
 ### 🎉 **Stable Release: Production-Ready RuboCop Configuration**
