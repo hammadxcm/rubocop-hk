@@ -335,15 +335,42 @@ When modifying RuboCop configurations:
 
 ### Commit Message Guidelines
 
-Follow conventional commit format:
+We use [Conventional Commits](https://www.conventionalcommits.org/) for automated release management:
 
-- `fix: description` - Bug fixes
-- `feat: description` - New features
-- `docs: description` - Documentation changes
-- `style: description` - Code style changes
-- `refactor: description` - Code refactoring
-- `test: description` - Test improvements
-- `chore: description` - Maintenance tasks
+#### Format
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+#### Types
+- `fix:` - Bug fixes (triggers PATCH version)
+- `feat:` - New features (triggers MINOR version)
+- `docs:` - Documentation changes
+- `style:` - Code style changes (formatting, semicolons, etc.)
+- `refactor:` - Code refactoring without feature changes
+- `test:` - Adding or updating tests
+- `chore:` - Maintenance tasks (dependencies, CI, etc.)
+- `perf:` - Performance improvements
+- `security:` - Security-related fixes
+
+#### Breaking Changes
+Use `!` after type or add `BREAKING CHANGE:` in footer (triggers MAJOR version):
+```
+feat!: change default configuration format
+```
+
+#### Examples
+```bash
+# Good examples
+feat: add support for Rails 8.1 configuration
+fix: resolve conflict with rubocop-performance 1.25
+docs: update installation guide for Ruby 3.4
+chore(deps): update rubocop to 1.80.0
+```
 
 ## Release Process
 
