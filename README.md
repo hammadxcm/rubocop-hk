@@ -80,7 +80,7 @@ end
 
 ```bash
 # 1. Add to your Gemfile
-echo 'gem "rubocop-hk", "~> 1.1.0", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.1.1", require: false' >> Gemfile
 
 # 2. Install the gem
 bundle install
@@ -163,7 +163,7 @@ cat << 'EOF' >> Gemfile
 
 # Code quality and style enforcement
 group :development, :test do
-  gem "rubocop-hk", "~> 1.1.0", require: false
+  gem "rubocop-hk", "~> 1.1.1", require: false
 end
 EOF
 
@@ -248,7 +248,7 @@ Add this line to your application's Gemfile:
 
 ```ruby
 group :development, :test do
-  gem "rubocop-hk", "~> 1.1.0", require: false
+  gem "rubocop-hk", "~> 1.1.1", require: false
 end
 ```
 
@@ -522,7 +522,7 @@ cat >> Gemfile << 'EOF'
 
 # Code quality and linting
 group :development, :test do
-  gem "rubocop-hk", "~> 1.1.0", require: false
+  gem "rubocop-hk", "~> 1.1.1", require: false
 end
 EOF
 
@@ -636,7 +636,7 @@ cd my_api
 cat >> Gemfile << 'EOF'
 
 group :development, :test do
-  gem "rubocop-hk", "~> 1.1.0", require: false
+  gem "rubocop-hk", "~> 1.1.1", require: false
 end
 EOF
 
@@ -1429,7 +1429,7 @@ EOF
    ```ruby
    # Gemfile updates for Rails 7 compatibility
    gem "rails", "~> 7.0.0"
-   gem "rubocop-hk", "~> 1.1.0"
+   gem "rubocop-hk", "~> 1.1.1"
    
    # Update other gems
    gem "rspec-rails", "~> 6.0"  # Rails 7 compatible
@@ -3155,7 +3155,7 @@ bundle install
 gem install rubocop-hk -v "~> 1.0.0"
 
 # Version-specific fix for Rails 6:
-echo 'gem "rubocop-hk", "~> 1.1.0", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.1.1", require: false' >> Gemfile
 bundle install
 ```
 

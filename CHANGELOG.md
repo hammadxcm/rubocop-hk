@@ -18,6 +18,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.1.1] - 2025-08-26
+
+### 🔧 **Security Patch Release**
+
+**Bug fix**: This patch release fixes security audit false positives in CI/CD workflows.
+
+#### 🛡️ **Fixed**
+- **Security scanning false positives**: Improved secret detection to exclude vendor dependencies
+- **CI/CD reliability**: Security workflows no longer fail on legitimate code examples in gem dependencies
+- **Testing scope**: Secret scanning now focuses only on source code directories (`lib/`, `config/`)
+- **Performance**: Faster security scans by excluding irrelevant directories
+
+#### 🔍 **Security Improvements**
+- **Better filtering**: Exclude `vendor/bundle`, `.bundle`, test files from secret scanning  
+- **Source code focus**: Only scan actual project code, not dependencies
+- **Pattern refinement**: Improved regex to avoid common false positive patterns
+- **Documentation**: Enhanced security testing documentation
+
+#### 📊 **Technical Details**
+- **Files changed**: `.github/workflows/security.yml`, `scripts/test-workflows.sh`
+- **Scope**: No functional changes to RuboCop configuration
+- **Compatibility**: Fully backward compatible with v1.1.0
+
 ## [1.1.0] - 2025-08-26
 
 ### 🚀 **2025 Modernization Release**
