@@ -25,10 +25,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 **Bug fix**: This patch release fixes security audit false positives in CI/CD workflows.
 
 #### 🛡️ **Fixed**
-- **Security scanning false positives**: Improved secret detection to exclude vendor dependencies
-- **CI/CD reliability**: Security workflows no longer fail on legitimate code examples in gem dependencies
-- **Testing scope**: Secret scanning now focuses only on source code directories (`lib/`, `config/`)
-- **Performance**: Faster security scans by excluding irrelevant directories
+- **Security workflow bash logic error**: Fixed incorrect conditional logic causing false failures when no secrets were found
+- **CI/CD reliability**: Security workflows now properly distinguish between no secrets found vs actual secrets detected  
+- **Testing scope**: Secret scanning correctly handles empty results without false positive failures
+- **Performance**: Improved secret scanning logic eliminates unnecessary workflow failures
 
 #### 🔍 **Security Improvements**
 - **Better filtering**: Exclude `vendor/bundle`, `.bundle`, test files from secret scanning  
@@ -37,7 +37,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Documentation**: Enhanced security testing documentation
 
 #### 📊 **Technical Details**
-- **Files changed**: `.github/workflows/security.yml`, `scripts/test-workflows.sh`
+- **Root cause**: Bash logic error with `|| true` in conditional statements
+- **Files changed**: `.github/workflows/security.yml` (fixed bash logic), `scripts/test-workflows.sh`
+- **Solution**: Variable capture with proper empty string testing (`[ -n "$VAR" ]`)
 - **Scope**: No functional changes to RuboCop configuration
 - **Compatibility**: Fully backward compatible with v1.1.0
 

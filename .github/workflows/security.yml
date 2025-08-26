@@ -44,7 +44,7 @@ jobs:
       - name: Check for hard-coded secrets
         run: |
           # Simple secret scanning - exclude vendor, bundle, and common false positives
-          if grep -r -E "(password|secret|key|token)\s*=\s*['\"][^'\"]{8,}" . \
+          SECRET_MATCHES=$(grep -r -E "(password|secret|key|token)\s*=\s*['\"][^'\"]{8,}" . \
             --exclude-dir=.git \
             --exclude-dir=node_modules \
             --exclude-dir=vendor \
@@ -54,8 +54,12 @@ jobs:
             --exclude="*.md" \
             --exclude="security.yml" \
             --exclude="*_spec.rb" \
-            --exclude="*_test.rb" | grep -v -E "(example|test|spec|comment|documentation)" || true; then
-            echo "Potential secrets found in source code!"
+            --exclude="*_test.rb" \
+            | grep -v -E "(example|test|spec|comment|documentation)" || true)
+          
+          if [ -n "$SECRET_MATCHES" ]; then
+            echo "Potential secrets found in source code:"
+            echo "$SECRET_MATCHES"
             exit 1
           else
             echo "No obvious secrets detected in source code"

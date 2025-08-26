@@ -24,18 +24,21 @@ The security scanning was incorrectly flagging legitimate code examples in gem d
 ## 🔧 **Technical Changes**
 
 ### Files Modified
-- `.github/workflows/security.yml` - Enhanced secret scanning exclusions
-- `scripts/test-workflows.sh` - Improved local testing security checks
+- `.github/workflows/security.yml` - Fixed bash logic error in secret scanning
+- `scripts/test-workflows.sh` - Enhanced local testing security checks
 
 ### Security Scanning Improvements
 ```bash
-# Old (caused false positives):
-grep -r -E "(password|secret|key|token)..." . --exclude-dir=.git
+# Old (bash logic error caused false failures):
+if grep ... || true; then echo "Failed"; exit 1; fi
 
-# New (focused and accurate):
-grep -r -E "(password|secret|key|token)..." lib/ config/ | \
-  grep -v -E "(example|test|spec|comment|documentation)"
+# New (correct logic with variable capture):
+SECRET_MATCHES=$(grep ... || true)
+if [ -n "$SECRET_MATCHES" ]; then echo "Failed"; exit 1; fi
 ```
+
+#### Root Cause Fixed
+The security workflow was failing due to incorrect bash conditional logic. The `|| true` operator combined with `if` statements was causing false positives when no secrets were found. The fix uses proper variable capture and testing to only fail when actual secrets are detected.
 
 ## 📊 **Impact**
 
