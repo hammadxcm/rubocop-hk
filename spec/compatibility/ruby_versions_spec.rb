@@ -4,14 +4,14 @@ require "spec_helper"
 
 RSpec.describe "Ruby Version Compatibility" do
   describe "Ruby version requirements" do
-    it "supports Ruby 3.1+" do
-      expect(Gem::Version.new(RUBY_VERSION)).to be >= Gem::Version.new("3.1.0")
+    it "supports Ruby 3.2+" do
+      expect(Gem::Version.new(RUBY_VERSION)).to be >= Gem::Version.new("3.2.0")
     end
 
     it "has correct Ruby version requirement in gemspec" do
       gemspec = Gem::Specification.load("rubocop-hk.gemspec")
       expect(gemspec.required_ruby_version).to satisfy do |requirement|
-        requirement.satisfied_by?(Gem::Version.new("3.1.0"))
+        requirement.satisfied_by?(Gem::Version.new("3.2.0"))
       end
     end
   end
@@ -74,13 +74,13 @@ RSpec.describe "Ruby Version Compatibility" do
     it "has compatible RuboCop dependency" do
       rubocop_dep = gemspec.dependencies.find { |dep| dep.name == "rubocop" }
       expect(rubocop_dep).not_to be_nil
-      expect(rubocop_dep.requirement.to_s).to include("1.79")
+      expect(rubocop_dep.requirement.to_s).to include("1.80")
     end
 
     it "has compatible rubocop-rails dependency" do
       rails_dep = gemspec.dependencies.find { |dep| dep.name == "rubocop-rails" }
       expect(rails_dep).not_to be_nil
-      expect(rails_dep.requirement.to_s).to include("2.32")
+      expect(rails_dep.requirement.to_s).to include("2.33")
     end
 
     it "has compatible rubocop-rspec dependency" do

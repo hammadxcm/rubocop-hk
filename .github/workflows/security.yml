@@ -1,0 +1,84 @@
+name: Security
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * 1' # Weekly on Monday at 6 AM UTC
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  security_audit:
+    runs-on: ubuntu-latest
+    name: Security audit
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Install bundler-audit
+        run: |
+          gem install bundler-audit
+          bundle-audit update
+
+      - name: Run bundler-audit
+        run: bundle-audit check
+
+      - name: Run RuboCop security checks
+        run: |
+          bundle exec rubocop \
+            --only Security \
+            --format github
+
+      - name: Check for hard-coded secrets
+        run: |
+          # Simple secret scanning
+          if grep -r -E "(password|secret|key|token)\s*=\s*['\"][^'\"]{8,}" . --exclude-dir=.git --exclude-dir=node_modules --exclude="*.md" --exclude="security.yml"; then
+            echo "Potential secrets found!"
+            exit 1
+          else
+            echo "No obvious secrets detected"
+          fi
+
+  dependency_review:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: moderate
+
+  codeql:
+    name: CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ruby
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
