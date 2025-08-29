@@ -18,7 +18,11 @@ jobs:
           # Rails 8.0 requires Ruby 3.2+
           - ruby-version: '3.1'
             rails-version: '8.0'
-          # Rails 7.0 has Logger issues with newer Ruby versions  
+          # Rails 7.0 has Logger compatibility issues with Ruby 3.2+
+          - ruby-version: '3.2'
+            rails-version: '7.0'
+          - ruby-version: '3.3'
+            rails-version: '7.0'
           - ruby-version: '3.4'
             rails-version: '7.0'
     
@@ -35,8 +39,7 @@ jobs:
     
     - name: Create test Rails app
       run: |
-        # Require logger to avoid Rails Logger issues with newer Ruby versions
-        ruby -e "require 'logger'" || true
+        # Install Rails version
         gem install rails -v "~> ${{ matrix.rails-version }}.0"
         RAILS_ENV=test rails new test_app --skip-git --skip-bundle --api
         cd test_app
