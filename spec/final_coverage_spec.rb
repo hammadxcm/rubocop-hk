@@ -2,7 +2,14 @@
 
 # This spec ensures 100% test coverage by exercising all code paths
 RSpec.describe "Final Coverage Validation" do
-  # Ensure the version file is executed and tracked
+  # Ensure all entry points are covered
+  it "covers rubocop-hk.rb entry point" do
+    # This ensures lib/rubocop-hk.rb is covered
+    expect { require "rubocop-hk" }.not_to raise_error
+    expect(defined?(Rubocop::Hk)).to be_truthy
+  end
+
+  # Ensure the version file is executed and tracked  
   it "covers version.rb by accessing VERSION constant multiple times" do
     # Multiple accesses to ensure all lines of version.rb are hit
     expect(Rubocop::Hk::VERSION).to eq("1.2.1")
