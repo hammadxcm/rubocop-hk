@@ -1,10 +1,12 @@
 # 🏗️ RuboCop HK Architecture
 
-> **Comprehensive architecture documentation for RuboCop HK configuration gem**
+> **Comprehensive architecture documentation for RuboCop HK configuration gem**  
+> **🆕 v1.2.0: Warning-Only Modern Rules with Team-Focused Adoption Strategy**
 
 ## 📋 Table of Contents
 
 - [🎯 Overview](#-overview)
+- [🆕 v1.2.0 Architecture Changes](#-v120-architecture-changes)
 - [🏛️ System Architecture](#️-system-architecture)
 - [📦 Module Structure](#-module-structure)
 - [⚙️ Configuration System](#️-configuration-system)
@@ -13,10 +15,13 @@
 - [🚀 Deployment Flow](#-deployment-flow)
 - [🔧 Extension Points](#-extension-points)
 - [📊 Performance Considerations](#-performance-considerations)
+- [🛠️ Team Adoption Architecture](#️-team-adoption-architecture)
 
 ## 🎯 Overview
 
 RuboCop HK is a comprehensive configuration gem that provides curated RuboCop rules for modern Ruby and Rails applications. It follows a modular architecture that allows for flexible configuration inheritance and extensibility.
+
+**🆕 v1.2.0 Enhancement**: Added 45+ warning-only modern rules with comprehensive team adoption tooling, educational documentation, and gradual migration strategies.
 
 ### Design Principles
 
@@ -25,6 +30,116 @@ RuboCop HK is a comprehensive configuration gem that provides curated RuboCop ru
 - **🎯 Rails-First** - Optimized for Rails development patterns
 - **🔌 Extensible** - Plugin architecture for custom cops
 - **⚡ Performance** - Minimal overhead and fast execution
+- **⚠️ Warning-Only Modernization** - New rules as warnings to prevent build breaks
+- **📚 Educational Approach** - Detailed explanations for every modern rule
+- **🤝 Team-Focused** - Built-in tooling for team adoption workflows
+
+## 🆕 v1.2.0 Architecture Changes
+
+### Modern Rules Engine
+
+```mermaid
+graph TB
+    subgraph "Traditional RuboCop (Error-Only)"
+        A[Rule Violation] --> B[Build Failure]
+        B --> C[Developer Frustration]
+    end
+    
+    subgraph "RuboCop HK v1.2.0 (Warning-Only)"
+        D[Rule Violation] --> E[Warning Message]
+        E --> F[Educational Content]
+        F --> G[Gradual Learning]
+        G --> H[Voluntary Adoption]
+    end
+    
+    subgraph "Team Tooling"
+        I[make warning-summary] --> J[Team Progress]
+        K[make promote COPS=...] --> L[Selective Enforcement]
+        M[scripts/promote-warnings.rb] --> N[Safe Migration]
+    end
+    
+    H --> I
+    H --> K
+    L --> M
+```
+
+### Warning-Only Implementation Strategy
+
+```mermaid
+flowchart TD
+    A[New Modern Rule] --> B{Implementation Strategy}
+    B --> C[Add as WARNING severity]
+    C --> D[Add detailed Description]
+    D --> E[Add Why Fix explanation]
+    E --> F[Add Before/After examples]
+    F --> G[Add to promotion script]
+    G --> H[Update team documentation]
+    
+    subgraph "Educational Components"
+        I[MODERN_RULES_REFERENCE.md]
+        J[GRADUAL_ADOPTION_GUIDE.md]
+        K[Code review templates]
+        L[Sprint planning guides]
+    end
+    
+    H --> I
+    H --> J
+    H --> K
+    H --> L
+    
+    subgraph "Automation Tools"
+        M[scripts/promote-warnings.rb]
+        N[Makefile commands]
+        O[CI/CD integration hooks]
+    end
+    
+    G --> M
+    G --> N
+    G --> O
+```
+
+### Team Adoption Workflow
+
+```mermaid
+stateDiagram-v2
+    [*] --> Warning: Install v1.2.0
+    Warning --> Education: make warning-summary
+    Education --> QuickWins: make fix-easy-wins
+    QuickWins --> Strategic: Team consensus
+    Strategic --> Enforcement: make promote COPS=...
+    Enforcement --> Monitoring: Continuous improvement
+    Monitoring --> Education: New team members
+    
+    state Warning {
+        [*] --> NoFailure: 45+ new rules
+        NoFailure --> Visibility: Show opportunities
+        Visibility --> Learning: Educational content
+    }
+    
+    state Education {
+        [*] --> TeamGuides: GRADUAL_ADOPTION_GUIDE.md
+        TeamGuides --> RuleReference: MODERN_RULES_REFERENCE.md
+        RuleReference --> Discussion: Code review integration
+    }
+    
+    state QuickWins {
+        [*] --> AutoFix: Performance improvements
+        AutoFix --> SafeChanges: Test pattern updates
+        SafeChanges --> Momentum: Visible progress
+    }
+    
+    state Strategic {
+        [*] --> Rails8Compat: make check-rails8-warnings
+        Rails8Compat --> Security: Lint improvements
+        Security --> Modernization: Ruby 3.3 patterns
+    }
+    
+    state Enforcement {
+        [*] --> SelectivePromotion: Promote specific cops
+        SelectivePromotion --> BackupRestore: Safe configuration changes
+        BackupRestore --> TeamStandards: Agreed-upon rules
+    }
+```
 
 ## 🏛️ System Architecture
 
@@ -112,12 +227,21 @@ lib/
 │   └── hk.rb                  # Main module
 config/
 ├── default.yml               # Main configuration
-├── rubocop-style.yml         # Style rules
-├── rubocop-rails.yml         # Rails-specific rules
-├── rubocop-rspec.yml         # RSpec rules
+├── rubocop-style.yml         # Style rules (🆕 10 warning-only modern rules)
+├── rubocop-rails.yml         # Rails-specific rules (🆕 13 Rails 8.0 rules)
+├── rubocop-rspec.yml         # RSpec rules (🆕 12 modern testing rules)
 ├── rubocop-layout.yml        # Code layout rules
 ├── rubocop-metrics.yml       # Complexity metrics
-└── rubocop-lint.yml          # Lint rules
+├── rubocop-performance.yml   # Performance rules (🆕 8 modern optimization rules)
+└── rubocop-lint.yml          # Lint rules (🆕 10 security & quality rules)
+scripts/                      # 🆕 Team adoption tooling
+├── promote-warnings.rb       # Warning promotion automation
+└── backup-restore.rb         # Configuration backup/restore
+docs/                         # 🆕 Educational documentation
+├── GRADUAL_ADOPTION_GUIDE.md # Team adoption strategy
+├── MODERN_RULES_REFERENCE.md # Detailed rule explanations
+└── CODE_REVIEW_TEMPLATES.md  # Review integration guides
+Makefile                      # 🆕 15+ team workflow commands
 ```
 
 ### Module Dependencies
@@ -569,6 +693,149 @@ flowchart TD
     K --> L[CI Validation]
     L --> M[Code Review]
     M --> N[Merge to Main]
+```
+
+## 🛠️ Team Adoption Architecture
+
+### Warning Promotion System
+
+```mermaid
+graph TB
+    subgraph "Warning Management"
+        A[scripts/promote-warnings.rb] --> B[Configuration Parser]
+        B --> C[Cop Identifier]
+        C --> D[Backup Creator]
+        D --> E[Severity Modifier]
+        E --> F[Validation Engine]
+        F --> G[Rollback Capability]
+    end
+    
+    subgraph "Team Tooling Commands"
+        H[make warning-summary] --> I[Progress Dashboard]
+        J[make check-warnings] --> K[Active Warnings List]
+        L[make promote COPS=...] --> A
+        M[make fix-easy-wins] --> N[Auto-fix Safe Rules]
+        O[make check-rails8-warnings] --> P[Rails 8.0 Compatibility]
+    end
+    
+    subgraph "Educational Integration"
+        Q[GRADUAL_ADOPTION_GUIDE.md] --> R[4-Phase Strategy]
+        S[MODERN_RULES_REFERENCE.md] --> T[Rule Explanations]
+        U[CODE_REVIEW_TEMPLATES.md] --> V[Team Integration]
+    end
+    
+    I --> Q
+    K --> S
+    P --> U
+```
+
+### 4-Phase Adoption Strategy Architecture
+
+```mermaid
+stateDiagram-v2
+    state "Phase 1: Team Education" as P1 {
+        [*] --> ReadGuides: GRADUAL_ADOPTION_GUIDE.md
+        ReadGuides --> ReviewWarnings: make warning-summary
+        ReviewWarnings --> TeamDiscussion: Weekly standup
+        TeamDiscussion --> FocusNewCode: No pressure on legacy
+    }
+    
+    state "Phase 2: Quick Wins" as P2 {
+        [*] --> AutoFix: make fix-easy-wins
+        AutoFix --> PerformanceWins: Performance/* cops
+        PerformanceWins --> TestPatterns: RSpec/* improvements
+        TestPatterns --> BuildMomentum: Visible progress
+    }
+    
+    state "Phase 3: Strategic" as P3 {
+        [*] --> Rails8Compat: make check-rails8-warnings
+        Rails8Compat --> SecurityImprovements: Lint/* cops
+        SecurityImprovements --> ModernPatterns: Style/* cops
+        ModernPatterns --> TeamConsensus: Group decision making
+    }
+    
+    state "Phase 4: Enforcement" as P4 {
+        [*] --> SelectivePromotion: make promote COPS=...
+        SelectivePromotion --> TeamStandards: Agreed rules → errors
+        TeamStandards --> ContinuousImprovement: Monthly review
+        ContinuousImprovement --> Celebration: Milestone achievements
+    }
+    
+    [*] --> P1
+    P1 --> P2: Week 2
+    P2 --> P3: Month 1
+    P3 --> P4: Month 2
+    P4 --> [*]: Ongoing
+```
+
+### Educational Content Architecture
+
+```mermaid
+graph TD
+    subgraph "Rule Documentation Structure"
+        A[Individual Rule] --> B[Description]
+        B --> C[Why Fix explanation]
+        C --> D[Before/After examples] 
+        D --> E[Priority guidance]
+        E --> F[Team communication tips]
+    end
+    
+    subgraph "Documentation Files"
+        G[MODERN_RULES_REFERENCE.md] --> H[45+ Rule Details]
+        I[GRADUAL_ADOPTION_GUIDE.md] --> J[Implementation Strategy]
+        K[CODE_REVIEW_TEMPLATES.md] --> L[Review Integration]
+    end
+    
+    subgraph "Team Integration Points"
+        M[Sprint Planning] --> N[Prioritized Rule Lists]
+        O[Code Reviews] --> P[Template Responses]
+        Q[Team Standups] --> R[Progress Metrics]
+        S[Retrospectives] --> T[Improvement Planning]
+    end
+    
+    A --> G
+    J --> M
+    L --> O
+    H --> Q
+    J --> S
+```
+
+### Automation & CI Integration
+
+```mermaid
+flowchart TD
+    subgraph "Local Development"
+        A[Developer Commits] --> B[Pre-commit Hook]
+        B --> C[make check-warnings]
+        C --> D[Show Modernization Opportunities]
+        D --> E[Educational Moment]
+    end
+    
+    subgraph "CI Pipeline Integration"
+        F[PR Created] --> G[CI Runs RuboCop]
+        G --> H[Warnings Collected]
+        H --> I[Educational Comments Added]
+        I --> J[No Build Failure]
+        J --> K[Review Process Enhanced]
+    end
+    
+    subgraph "Team Dashboard"
+        L[make warning-summary] --> M[Progress Metrics]
+        M --> N[Team Performance]
+        N --> O[Modernization Score]
+        O --> P[Celebration Milestones]
+    end
+    
+    subgraph "Safe Migration Tools"
+        Q[make promote COPS=...] --> R[Configuration Backup]
+        R --> S[Selective Rule Promotion]
+        S --> T[Team Agreement Enforcement]
+        T --> U[Rollback if Issues]
+    end
+    
+    E --> F
+    K --> L
+    P --> Q
 ```
 
 ---

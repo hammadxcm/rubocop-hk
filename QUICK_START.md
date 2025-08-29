@@ -1,12 +1,13 @@
 # ⚡ Quick Start Guide - RuboCop HK
 
-> **Get up and running with RuboCop HK in under 5 minutes!**
+> **Get up and running with RuboCop HK in under 5 minutes!**  
+> **🆕 v1.2.0: Now with 45+ warning-only modern rules for Ruby 3.3 & Rails 8.0**
 
 <div align="center">
 
 [![Gem Version](https://badge.fury.io/rb/rubocop-hk.svg)](https://badge.fury.io/rb/rubocop-hk)
-[![Ruby](https://img.shields.io/badge/ruby-3.1+-red.svg)](https://www.ruby-lang.org)
-[![Rails](https://img.shields.io/badge/rails-7.0+-red.svg)](https://rubyonrails.org)
+[![Ruby](https://img.shields.io/badge/ruby-3.3+-red.svg)](https://www.ruby-lang.org)
+[![Rails](https://img.shields.io/badge/rails-8.0+-red.svg)](https://rubyonrails.org)
 
 **[📚 Full Documentation](README.md) • [📖 Usage Examples](USAGE.md) • [⚙️ Customization](CUSTOMIZATION.md)**
 
