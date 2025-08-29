@@ -41,9 +41,6 @@ AllCops:
     rubocop-minitest: true
     rubocop-capybara: true
 
-Rails:
-  Enabled: true
-
 # Modern plugin architecture (RuboCop 1.72+)
 plugins:
   - rubocop-rails

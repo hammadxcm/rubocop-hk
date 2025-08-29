@@ -71,12 +71,14 @@ RSpec.describe "Configuration Compatibility" do
   end
 
   describe "Rails configuration" do
-    let(:rails_config) { RuboCop::ConfigLoader.load_file("config/rubocop-rails.yml") }
+    let(:main_config) { RuboCop::ConfigLoader.load_file("config/default.yml") }
 
     it "enables Rails cops" do
-      expect(rails_config["Rails/EnumHash"]["Enabled"]).to be true
-      expect(rails_config["Rails/FilePath"]["Enabled"]).to be true
-      expect(rails_config["Rails/IndexBy"]["Enabled"]).to be true
+      # Rails cops are now enabled through the main config via rubocop-rails plugin
+      # Check that specific Rails cops are properly configured
+      expect(main_config["Rails/EnumHash"]["Enabled"]).to be true
+      expect(main_config["Rails/FilePath"]["Enabled"]).to be true
+      expect(main_config["Rails/IndexBy"]["Enabled"]).to be true
     end
   end
 

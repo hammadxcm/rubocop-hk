@@ -61,7 +61,8 @@ RSpec.describe "Configuration Files Integration" do
     end
 
     it "has proper Rails configuration" do
-      expect(config["Rails"]["Enabled"]).to be true
+      # Rails cops are now enabled via the rubocop-rails plugin
+      expect(config["plugins"]).to include("rubocop-rails")
     end
 
     it "targets modern Ruby and Rails versions" do
