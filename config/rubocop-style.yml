@@ -105,17 +105,7 @@ Style/FrozenStringLiteralComment:
     - "config/boot.rb"
     - "db/migrate/**/*"
 
-Style/HashSyntax:
-  Description: Checks hash literal syntax
-  Enabled: true
-  EnforcedStyle: ruby19
-  UseHashRocketsWithSymbolValues: false
-  PreferHashRocketsForNonAlnumEndingSymbols: false
-  SupportedStyles:
-  - ruby19
-  - hash_rockets
-  - no_mixed_keys
-  - ruby19_no_mixed_keys
+# Style/HashSyntax: Updated configuration moved to modern cops section below
 
 Style/MethodDefParentheses:
   Description: Checks if the method definitions have or don't have parentheses.
@@ -194,4 +184,90 @@ Style/TrivialAccessors:
   AllowPredicates: true
   AllowDSLWriters: true
   IgnoreClassMethods: false
+
+# ==========================================
+# Modern Ruby 3.3 Style Cops (2025) - All WARNING ONLY
+# These help adopt modern Ruby patterns without breaking builds
+# ==========================================
+
+Style/FetchEnvVar:
+  Description: |
+    Use ENV.fetch for environment variables instead of ENV[] for better error handling.
+    This prevents silent failures when environment variables are missing and provides
+    clear error messages. Example: ENV.fetch('API_KEY') vs ENV['API_KEY']
+  Enabled: true
+  Severity: warning
+
+Style/HashSyntax:
+  Description: |
+    Use modern Ruby hash syntax consistently. Ruby 1.9+ allows symbol: value syntax
+    which is more readable and concise than :symbol => value. This cop enforces
+    consistent usage across your codebase for better readability.
+  Enabled: true
+  Severity: warning
+  EnforcedStyle: ruby19_no_mixed_keys
+
+Style/ArgumentsForwarding:
+  Description: |
+    Use Ruby 2.7+ argument forwarding (...) instead of explicit *args, **kwargs.
+    This makes method delegation cleaner and more efficient. Example: def foo(...); bar(...); end
+    instead of def foo(*args, **kwargs); bar(*args, **kwargs); end
+  Enabled: true
+  Severity: warning
+  
+Style/CollectionCompact:
+  Description: |
+    Use Array#compact and Hash#compact instead of reject(&:nil?) or similar patterns.
+    These methods are more expressive and potentially more performant. They clearly
+    indicate intent to remove nil values from collections.
+  Enabled: true
+  Severity: warning
+
+Style/StringChars:
+  Description: |
+    Use String#chars instead of String#each_char.to_a for converting strings to arrays.
+    #chars is more direct and readable, clearly expressing the intent to get an array
+    of characters rather than iterating through them.
+  Enabled: true
+  Severity: warning
+
+Style/MapToHash:
+  Description: |
+    Use to_h instead of map followed by Hash[] for converting arrays to hashes.
+    This is more readable and potentially more performant, clearly expressing the
+    intent to create a hash from key-value pairs.
+  Enabled: true
+  Severity: warning
+
+Style/HashTransformKeys:
+  Description: |
+    Use transform_keys instead of each_with_object or map for transforming hash keys.
+    This method is more expressive and clearly indicates the intent to modify keys
+    while preserving values, making code more maintainable.
+  Enabled: true
+  Severity: warning
+
+Style/HashTransformValues:
+  Description: |
+    Use transform_values instead of each_with_object or map for transforming hash values.
+    This method is more expressive and clearly indicates the intent to modify values
+    while preserving keys, improving code readability and intent.
+  Enabled: true
+  Severity: warning
+
+Style/SlicingWithRange:
+  Description: |
+    Use range slicing syntax (arr[1..3]) instead of arr.slice(1, 3) when working with ranges.
+    This is more concise and idiomatic Ruby, making code more readable and consistent
+    with Ruby conventions for array manipulation.
+  Enabled: true
+  Severity: warning
+
+Style/RedundantArgument:
+  Description: |
+    Remove redundant arguments that match method defaults. This reduces code noise
+    and makes the essential parts of method calls more visible. It also future-proofs
+    code against changes in default values.
+  Enabled: true
+  Severity: warning
 

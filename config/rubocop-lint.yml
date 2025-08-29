@@ -41,3 +41,90 @@ Lint/UriEscapeUnescape:
 Lint/UselessAssignment:
   Description: Checks for useless assignment to a local variable.
   Enabled: true
+
+# ==========================================
+# Modern Security & Quality Lint Cops (2025) - All WARNING ONLY
+# These catch potential bugs and security issues without breaking builds
+# ==========================================
+
+Lint/RequireRangeParentheses:
+  Description: |
+    Use parentheses for ranges in conditionals to avoid precedence issues.
+    Without parentheses, expressions like x == 1..10 are parsed as (x == 1)..10
+    instead of x == (1..10). This prevents subtle bugs and makes intent clear.
+  Enabled: true
+  Severity: warning
+
+Lint/SymbolConversion:
+  Description: |
+    Avoid unnecessary symbol conversions that can impact performance.
+    Converting strings to symbols repeatedly or converting symbols back to strings
+    unnecessarily creates memory overhead. Use the appropriate type from the start
+    when possible for better performance.
+  Enabled: true
+  Severity: warning
+
+Lint/ToEnumArguments:
+  Description: |
+    Pass correct arguments to to_enum for proper enumerator behavior.
+    Incorrect arguments can cause enumerators to behave unexpectedly or
+    raise errors when iterated. This ensures enumerators work as expected
+    and prevents runtime errors.
+  Enabled: true
+  Severity: warning
+
+Lint/UnexpectedBlockArity:
+  Description: |
+    Check for unexpected block arity in method calls. When blocks expect
+    a certain number of arguments but receive different amounts, it can
+    cause unexpected behavior or errors. This helps catch such mismatches early.
+  Enabled: true
+  Severity: warning
+
+Lint/DuplicateBranch:
+  Description: |
+    Avoid duplicate branches in conditional statements. Having identical
+    code in multiple branches often indicates a logic error or unnecessary
+    complexity. This helps identify redundant code that can be simplified.
+  Enabled: true
+  Severity: warning
+
+Lint/DuplicateRegexpCharacterClassElement:
+  Description: |
+    Remove duplicate elements in regexp character classes. Duplicates like
+    [aa-z] or [a-za] don't change regexp behavior but add confusion and
+    may indicate typos. Clean character classes are easier to understand and maintain.
+  Enabled: true
+  Severity: warning
+
+Lint/EmptyBlock:
+  Description: |
+    Avoid empty blocks that serve no purpose. Empty blocks often indicate
+    incomplete implementation or can be removed entirely. This helps identify
+    dead code and potential bugs from incomplete implementations.
+  Enabled: true
+  Severity: warning
+
+Lint/NoReturnInBeginEndBlocks:
+  Description: |
+    Avoid using return in begin/end blocks as it can cause unexpected behavior.
+    Return statements in begin blocks can bypass ensure clauses or cause
+    confusing control flow. Use explicit value assignment instead.
+  Enabled: true
+  Severity: warning
+
+Lint/NumberedParameterAssignment:
+  Description: |
+    Avoid assigning to numbered parameters (_1, _2, etc.) as it can cause
+    confusion and unexpected behavior. Numbered parameters should be treated
+    as read-only to maintain clarity in block parameter usage.
+  Enabled: true
+  Severity: warning
+
+Lint/OrAssignmentToConstant:
+  Description: |
+    Avoid using ||= with constants as it can cause unexpected behavior.
+    Constants should be assigned once and not modified. Using ||= with
+    constants can lead to confusing code and potential runtime errors.
+  Enabled: true
+  Severity: warning
