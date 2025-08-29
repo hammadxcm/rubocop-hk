@@ -2,10 +2,11 @@
 
 # 🔧 RuboCop HK
 
-> **The Ultimate RuboCop Configuration for Modern Ruby & Rails 8.0+ Applications**
+> **The Ultimate RuboCop Configuration for Modern Ruby 3.3 & Rails 8.0+ Applications**  
+> **🆕 v1.2.0: 45+ Warning-Only Modern Rules with Team-Focused Adoption**
 
 [![Gem Version](https://badge.fury.io/rb/rubocop-hk.svg)](https://badge.fury.io/rb/rubocop-hk)
-[![Ruby](https://img.shields.io/badge/ruby-3.1+-red.svg)](https://www.ruby-lang.org)
+[![Ruby](https://img.shields.io/badge/ruby-3.3+-red.svg)](https://www.ruby-lang.org)
 [![Rails](https://img.shields.io/badge/rails-6.0--8.0+-red.svg)](https://rubyonrails.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![RuboCop](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
@@ -15,9 +16,9 @@
 [![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)]()
 [![Rails 8 Ready](https://img.shields.io/badge/Rails_8-Ready-brightgreen.svg)](https://rubyonrails.org)
 
-✨ **Rails 8.0+ Compatible** | 🚀 **Production-Ready** | 🎯 **Zero Configuration** | ⚡ **Performance Optimized**
+✨ **Rails 8.0+ Compatible** | 🚀 **Production-Ready** | 🎯 **Warning-Only Modern Rules** | ⚡ **Team-Focused Adoption** | 📚 **Educational Approach**
 
-**[📚 Quick Start](#-quick-start) • [📖 Usage Guide](#-usage-documentation) • [⚙️ Customization](#-advanced-customization) • [🏗️ Migration Guide](#-migration-guide) • [🤝 Contributing](CONTRIBUTING.md)**
+**[📚 Quick Start](#-quick-start) • [🆕 Modern Rules](#-modern-rules-v120) • [📖 Team Guide](#-team-adoption-guide) • [⚙️ Customization](#-advanced-customization) • [🏗️ Migration Guide](#-migration-guide)**
 
 </div>
 
@@ -56,6 +57,8 @@ end
 ## 📋 Table of Contents
 
 - [🚀 Quick Start](#-quick-start)
+- [🆕 Modern Rules (v1.2.0)](#-modern-rules-v120)
+- [📖 Team Adoption Guide](#-team-adoption-guide)
 - [🎯 Features](#-features)
 - [📦 Installation & Setup](#-installation--setup)
 - [⚙️ Configuration](#️-configuration)
@@ -80,7 +83,7 @@ end
 
 ```bash
 # 1. Add to your Gemfile
-echo 'gem "rubocop-hk", "~> 1.1.1", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.2.0", require: false' >> Gemfile
 
 # 2. Install the gem
 bundle install
@@ -88,12 +91,12 @@ bundle install
 # 3. Create configuration
 echo 'inherit_gem:\n  rubocop-hk: config/default.yml' > .rubocop.yml
 
-# 4. Run RuboCop
+# 4. Run RuboCop (with new modern warnings!)
 bundle exec rubocop
 ```
 
 <details>
-<summary>🎬 <strong>See it in action</strong></summary>
+<summary>🎬 <strong>See v1.2.0 in action</strong></summary>
 
 ```
 $ bundle exec rubocop
@@ -101,14 +104,123 @@ $ bundle exec rubocop
 Inspecting 23 files
 .......................
 
-23 files inspected, no offenses detected
+23 files inspected, no offenses detected, 12 warnings
 
-✨ Your code is now beautifully formatted! ✨
+✨ Your code follows modern Ruby 3.3 patterns! ✨
+⚠️  Consider addressing 12 modernization suggestions (all warnings-only)
+
+# See what's new:
+$ make check-warnings
+$ make help
 ```
 
 </details>
 
-**👉 For detailed setup instructions, see [QUICK_START.md](QUICK_START.md)**
+### 🆕 **New in v1.2.0: Modern Rules & Team Tools**
+
+```bash
+# Check modernization opportunities (warnings only)
+make check-warnings
+
+# See Rails 8.0 compatibility status
+make check-rails8-warnings
+
+# Auto-fix safe improvements
+make fix-easy-wins
+
+# Get comprehensive help
+make help
+```
+
+**👉 For team adoption, see [GRADUAL_ADOPTION_GUIDE.md](GRADUAL_ADOPTION_GUIDE.md)**  
+**👉 For detailed setup, see [QUICK_START.md](QUICK_START.md)**
+
+---
+
+## 🆕 Modern Rules (v1.2.0)
+
+### 🎯 **45+ Warning-Only Modern Rules**
+
+**🔥 New in v1.2.0**: We've added 45+ modern rules that guide your code toward Ruby 3.3 and Rails 8.0 best practices - **all as warnings only**, so they won't break your builds!
+
+<table>
+<tr>
+<td width="20%">
+
+#### 🎨 **Style (10 Rules)**
+- `Style/FetchEnvVar`
+- `Style/ArgumentsForwarding` 
+- `Style/CollectionCompact`
+- `Style/HashTransform*`
+- Plus 6 more...
+
+</td>
+<td width="20%">
+
+#### 🚄 **Rails 8.0 (13 Rules)**
+- `Rails/EnumSyntax` ⚠️ **Critical**
+- `Rails/ResponseParsedBody`
+- `Rails/DeprecatedActiveModelErrorsMethods`
+- Plus 10 more...
+
+</td>
+<td width="20%">
+
+#### 🧪 **RSpec (12 Rules)**
+- `RSpec/BeNil`
+- `RSpec/ChangeByZero`
+- `RSpec/ClassCheck`
+- Plus 9 more...
+
+</td>
+<td width="20%">
+
+#### ⚡ **Performance (8 Rules)**
+- `Performance/ConstantRegexp`
+- `Performance/RangeInclude`
+- `Performance/Sum`
+- Plus 5 more...
+
+</td>
+<td width="20%">
+
+#### 🔒 **Security (10 Rules)**
+- `Lint/RequireRangeParentheses`
+- `Lint/EmptyBlock`
+- `Lint/DuplicateBranch`
+- Plus 7 more...
+
+</td>
+</tr>
+</table>
+
+### 📚 **Educational Approach**
+
+Every rule includes:
+- **Why it matters** - Detailed explanations
+- **Before/After examples** - See the improvement  
+- **Priority guidance** - Which to tackle first
+- **Team communication** - Code review templates
+
+**👉 Complete reference: [MODERN_RULES_REFERENCE.md](MODERN_RULES_REFERENCE.md)**
+
+### 🛠️ **Team Adoption Tools**
+
+```bash
+# See current modernization opportunities  
+make check-warnings
+
+# Focus on Rails 8.0 compatibility
+make check-rails8-warnings  
+
+# Promote specific warnings to errors when ready
+make promote COPS='Style/FetchEnvVar Rails/EnumSyntax'
+
+# Auto-fix safe improvements
+make fix-easy-wins
+```
+
+**👉 Team guide: [GRADUAL_ADOPTION_GUIDE.md](GRADUAL_ADOPTION_GUIDE.md)**
 
 ---
 
@@ -120,19 +232,21 @@ Inspecting 23 files
 
 ### 🔥 **Modern Ruby & Rails**
 - ✅ **Rails 6.0-8.0+ Ready**
-- ✅ **Ruby 3.1-3.3+ Optimized** 
-- ✅ **Rails 8 Omakase Integration**
-- ✅ **Rails 8 Authentication Patterns**
-- ✅ **Double Quote Strings**
-- ✅ **300+ Curated Rules**
+- ✅ **Ruby 3.3+ Optimized** 
+- ✅ **45+ Warning-Only Modern Rules**
+- ✅ **Rails 8.0 Enum Compatibility**
+- ✅ **Educational Approach**
+- ✅ **345+ Curated Rules**
 
 </td>
 <td width="33%">
 
 ### 🚀 **Developer Experience**
 - ✅ **Zero Configuration**
+- ✅ **Warning-Only Modernization**
+- ✅ **Team Adoption Tools**
+- ✅ **Educational Explanations**
 - ✅ **Auto-correction**
-- ✅ **Fast Performance**
 - ✅ **IDE Integration**
 
 </td>
@@ -163,7 +277,7 @@ cat << 'EOF' >> Gemfile
 
 # Code quality and style enforcement
 group :development, :test do
-  gem "rubocop-hk", "~> 1.1.1", require: false
+  gem "rubocop-hk", "~> 1.2.0", require: false
 end
 EOF
 
@@ -248,7 +362,7 @@ Add this line to your application's Gemfile:
 
 ```ruby
 group :development, :test do
-  gem "rubocop-hk", "~> 1.1.1", require: false
+  gem "rubocop-hk", "~> 1.2.0", require: false
 end
 ```
 
@@ -263,6 +377,89 @@ Or install it directly:
 ```bash
 $ gem install rubocop-hk -v "~> 1.0.0"
 ```
+
+---
+
+## 📖 Team Adoption Guide
+
+### 🎯 **4-Phase Adoption Strategy**
+
+**New in v1.2.0**: We provide a complete team adoption strategy that makes modernization safe and manageable.
+
+<table>
+<tr>
+<td width="25%">
+
+#### **Phase 1: Education**
+*Week 1-2*
+- Review warning explanations
+- Share team guides
+- Focus on new code only
+- No pressure to fix existing issues
+
+</td>
+<td width="25%">
+
+#### **Phase 2: Quick Wins**  
+*Week 3-4*
+- Auto-fix safe improvements
+- Address performance warnings
+- Update test patterns
+- Build momentum
+
+</td>
+<td width="25%">
+
+#### **Phase 3: Strategic**
+*Month 2*
+- Rails 8.0 compatibility
+- Security improvements  
+- Modern Ruby patterns
+- Team consensus building
+
+</td>
+<td width="25%">
+
+#### **Phase 4: Enforcement**
+*Month 3+*
+- Promote warnings to errors
+- Set team standards
+- Celebrate milestones
+- Continuous improvement
+
+</td>
+</tr>
+</table>
+
+### 🛠️ **Daily Workflow Commands**
+
+```bash
+# Morning standup: Check team progress
+make warning-summary
+
+# During development: See suggestions
+make check-warnings
+
+# Before commit: Fix easy wins
+make fix-easy-wins
+
+# Sprint planning: Rails 8.0 readiness
+make check-rails8-warnings
+```
+
+### 📊 **Success Metrics & Milestones**
+
+- 🥉 **Bronze**: 25% warning reduction
+- 🥈 **Silver**: Zero Rails 8.0 warnings  
+- 🥇 **Gold**: First 5 rules promoted to errors
+- 🏆 **Platinum**: Full modern pattern adoption
+
+### 📚 **Team Resources**
+
+- **[GRADUAL_ADOPTION_GUIDE.md](GRADUAL_ADOPTION_GUIDE.md)** - Complete implementation strategy
+- **[MODERN_RULES_REFERENCE.md](MODERN_RULES_REFERENCE.md)** - Educational rule explanations  
+- **Code review templates** - Built into the guides
+- **Sprint integration** - Ready-made stories and tasks
 
 ---
 
@@ -522,7 +719,7 @@ cat >> Gemfile << 'EOF'
 
 # Code quality and linting
 group :development, :test do
-  gem "rubocop-hk", "~> 1.1.1", require: false
+  gem "rubocop-hk", "~> 1.2.0", require: false
 end
 EOF
 
@@ -636,7 +833,7 @@ cd my_api
 cat >> Gemfile << 'EOF'
 
 group :development, :test do
-  gem "rubocop-hk", "~> 1.1.1", require: false
+  gem "rubocop-hk", "~> 1.2.0", require: false
 end
 EOF
 
@@ -1429,7 +1626,7 @@ EOF
    ```ruby
    # Gemfile updates for Rails 7 compatibility
    gem "rails", "~> 7.0.0"
-   gem "rubocop-hk", "~> 1.1.1"
+   gem "rubocop-hk", "~> 1.2.0"
    
    # Update other gems
    gem "rspec-rails", "~> 6.0"  # Rails 7 compatible
@@ -3155,7 +3352,7 @@ bundle install
 gem install rubocop-hk -v "~> 1.0.0"
 
 # Version-specific fix for Rails 6:
-echo 'gem "rubocop-hk", "~> 1.1.1", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.2.0", require: false' >> Gemfile
 bundle install
 ```
 

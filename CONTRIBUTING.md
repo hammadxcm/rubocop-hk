@@ -2,7 +2,8 @@
 
 # 🤝 Contributing to RuboCop HK
 
-> **Thank you for your interest in making RuboCop HK even better!**
+> **Thank you for your interest in making RuboCop HK even better!**  
+> **🆕 v1.2.0: Now with 45+ warning-only modern rules and team adoption tooling**
 
 [![GitHub Issues](https://img.shields.io/github/issues/hammadxcm/rubocop-hk.svg)](https://github.com/hammadxcm/rubocop-hk/issues)
 [![GitHub PRs](https://img.shields.io/github/issues-pr/hammadxcm/rubocop-hk.svg)](https://github.com/hammadxcm/rubocop-hk/pulls)
@@ -19,6 +20,7 @@
 ## 📋 Table of Contents
 
 - [✨ Getting Started](#-getting-started)
+- [🆕 v1.2.0 Contribution Areas](#-v120-contribution-areas)
 - [🛠️ Development Setup](#️-development-setup)
 - [🤝 Making Contributions](#-making-contributions)
 - [🧪 Testing](#-testing)
@@ -42,6 +44,7 @@ RuboCop HK is a comprehensive RuboCop configuration gem optimized for modern Rub
 - 🚀 **Rails rules** for Rails best practices
 - 🧪 **RSpec rules** for testing standards
 - 📊 **Metrics rules** for code complexity management
+- **🆕 v1.2.0**: **45+ warning-only modern rules** with educational documentation and team adoption tooling
 
 ### 🌟 Ways to Contribute
 
@@ -90,13 +93,87 @@ Answer questions and share knowledge
 </tr>
 </table>
 
+## 🆕 v1.2.0 Contribution Areas
+
+### 🎯 **Modern Rules Development**
+
+**New in v1.2.0**: We've introduced 45+ warning-only modern rules that need ongoing refinement and testing.
+
+<table>
+<tr>
+<td width="25%">
+
+#### **🎨 Style Rules**
+- Ruby 3.3 modern patterns
+- Argument forwarding
+- Collection compacting
+- Hash transformations
+
+**Focus**: Clean, readable code
+
+</td>
+<td width="25%">
+
+#### **🚄 Rails 8.0 Rules**
+- Enum syntax compatibility
+- Response parsing
+- ActiveModel deprecations
+- Modern Rails patterns
+
+**Focus**: Rails 8.0+ readiness
+
+</td>
+<td width="25%">
+
+#### **🧪 RSpec Rules**
+- Modern matchers
+- Better assertions
+- Performance patterns
+- Testing best practices
+
+**Focus**: Quality test suites
+
+</td>
+<td width="25%">
+
+#### **⚡ Performance Rules**
+- Constant regexps
+- Range optimizations
+- Collection methods
+- Memory efficiency
+
+**Focus**: Fast Ruby code
+
+</td>
+</tr>
+</table>
+
+### 🛠️ **Team Adoption Tooling**
+
+We need help improving our team-focused tooling:
+
+- **scripts/promote-warnings.rb** - Warning promotion automation
+- **Makefile commands** - Daily workflow integration
+- **Educational content** - GRADUAL_ADOPTION_GUIDE.md and MODERN_RULES_REFERENCE.md
+- **CI/CD integration** - GitHub Actions and other CI systems
+
+### 📚 **Educational Content**
+
+Help us create better educational materials:
+
+- **Rule explanations** - Why each rule matters
+- **Before/After examples** - Show the improvement
+- **Team guides** - Sprint planning and retrospective integration
+- **Code review templates** - Make adoption easier
+
 ## Development Setup
 
 ### Prerequisites
 
-- **Ruby**: 3.1.0 or higher
+- **Ruby**: 3.3.0 or higher (**Updated for v1.2.0 modern rules**)
 - **Bundler**: Latest version
 - **Git**: For version control
+- **Make**: For using team adoption commands (`make help`)
 
 ### ⚡ **Quick Setup (Copy & Paste)**
 
@@ -111,7 +188,12 @@ bundle install
 # ✅ 3. Verify everything works
 bundle exec rspec && bundle exec rubocop
 
-# 🎉 4. You're ready to contribute!
+# 🆕 4. Try out the new v1.2.0 tooling
+make help
+make warning-summary
+make check-warnings
+
+# 🎉 5. You're ready to contribute!
 echo "✨ Setup complete! Start coding..."
 ```
 
@@ -209,8 +291,16 @@ bundle exec rspec
 # Run specific test file
 bundle exec rspec spec/rubocop/hk_spec.rb
 
+# 🆕 Run integration tests for modern rules
+bundle exec rspec spec/integration/modern_rules_spec.rb
+bundle exec rspec spec/integration/warning_promotion_spec.rb
+
 # Run with coverage
 bundle exec rspec --format documentation
+
+# 🆕 Test team adoption tooling
+make check-warnings
+make warning-summary
 ```
 
 ### Testing Your Changes
@@ -219,6 +309,9 @@ bundle exec rspec --format documentation
 2. **Manual testing**: Test your changes manually
 3. **Integration testing**: Test with real Rails applications
 4. **Multi-version testing**: Test across Ruby/Rails versions
+5. **🆕 Modern rules testing**: Test warning-only behavior doesn't break builds
+6. **🆕 Team tooling testing**: Verify Makefile commands work correctly
+7. **🆕 Educational content**: Test documentation clarity with team members
 
 ### Adding Tests
 
@@ -411,7 +504,7 @@ All contributors are recognized in our release notes and GitHub contributors lis
 ## FAQ
 
 ### Q: How do I propose a new RuboCop rule?
-A: Open an issue with the cop name, rationale, and code examples. We'll discuss whether it fits the project's philosophy.
+A: Open an issue with the cop name, rationale, and code examples. We'll discuss whether it fits the project's philosophy. **New in v1.2.0**: Consider if it should be warning-only for gradual adoption.
 
 ### Q: Can I disable a rule I disagree with?
 A: Yes! Users can override any rule in their `.rubocop.yml`. If a rule is commonly disabled, we may reconsider its inclusion.
@@ -420,7 +513,19 @@ A: Yes! Users can override any rule in their `.rubocop.yml`. If a rule is common
 A: Use GitHub Actions or local testing with tools like `rbenv` and different Rails app versions.
 
 ### Q: What's the project's philosophy on rules?
-A: We aim for practical, modern Ruby/Rails development with reasonable flexibility. Performance and readability are priorities.
+A: We aim for practical, modern Ruby/Rails development with reasonable flexibility. Performance and readability are priorities. **v1.2.0 adds**: Educational approach with warning-only modernization.
+
+### 🆕 Q: Why are the new modern rules warning-only?
+A: Warning-only rules prevent build failures while educating teams about modern patterns. Teams can promote warnings to errors when ready using `make promote COPS=...`.
+
+### 🆕 Q: How do I contribute to the educational documentation?
+A: Help improve GRADUAL_ADOPTION_GUIDE.md and MODERN_RULES_REFERENCE.md. Focus on clear explanations and practical examples.
+
+### 🆕 Q: How do I test the team adoption tooling?
+A: Run `make help` to see all available commands. Test `make warning-summary`, `make check-warnings`, and `make promote COPS=...` with different configurations.
+
+### 🆕 Q: Can I contribute new team workflow commands?
+A: Absolutely! Add new commands to the Makefile with clear documentation. Focus on daily developer workflows and team coordination.
 
 ---
 
