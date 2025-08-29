@@ -27,3 +27,112 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/NestedGroups:
   Description: Checks for nested example groups.
   Enabled: false
+
+RSpec/VerifiedDoubles:
+  Description: Prefer instance doubles over stubbing any instance of a class.
+  Enabled: false
+
+RSpec/MessageChain:
+  Description: Check that chains of messages are not being stubbed.
+  Enabled: false
+
+# ==========================================
+# Modern RSpec Cops (2025) - All WARNING ONLY
+# These improve test quality and readability without breaking builds
+# ==========================================
+
+RSpec/BeEq:
+  Description: |
+    Use be_eq matcher when testing for object equality. This is more explicit than
+    using == and provides better failure messages. It clearly indicates you're testing
+    for value equality rather than object identity (be_equal).
+  Enabled: true
+  Severity: warning
+
+RSpec/BeNil:
+  Description: |
+    Use be_nil matcher instead of be(nil) or eq(nil). This provides more descriptive
+    failure messages and is the conventional RSpec way to test for nil values.
+    Makes test intent clearer and improves readability.
+  Enabled: true
+  Severity: warning
+
+RSpec/ChangeByZero:
+  Description: |
+    Use 'not_to change' instead of 'to change.by(0)' for better expressiveness.
+    This makes test intent clearer - you're explicitly stating that something
+    should NOT change rather than implying it changes by zero.
+  Enabled: true
+  Severity: warning
+
+RSpec/ClassCheck:
+  Description: |
+    Use be_a/be_kind_of instead of be_instance_of when testing class inheritance.
+    be_instance_of tests for exact class match, while be_a allows inheritance,
+    which is usually what you want in object-oriented testing.
+  Enabled: true
+  Severity: warning
+
+RSpec/EmptyMetadata:
+  Description: |
+    Avoid empty metadata hashes in RSpec examples. Empty metadata serves no purpose
+    and adds noise to test files. Either add meaningful metadata or remove the
+    empty hash entirely for cleaner test code.
+  Enabled: true
+  Severity: warning
+
+RSpec/ExcessiveDocstringSpacing:
+  Description: |
+    Avoid excessive spacing in RSpec docstrings. Consistent formatting improves
+    readability and maintains professional code appearance. Too much spacing
+    makes tests harder to scan and understand quickly.
+  Enabled: true
+  Severity: warning
+
+RSpec/IdenticalEqualityAssertion:
+  Description: |
+    Avoid identical equality assertions like expect(foo).to eq(foo). These tests
+    will always pass and don't provide value. They may indicate copy-paste errors
+    or misunderstanding of what's being tested.
+  Enabled: true
+  Severity: warning
+
+RSpec/SubjectDeclaration:
+  Description: |
+    Use subject blocks consistently throughout your test suite. This ensures
+    uniform test structure and makes tests more predictable and maintainable.
+    Consistent patterns reduce cognitive load when reading tests.
+  Enabled: true
+  Severity: warning
+
+RSpec/VerifiedDoubleReference:
+  Description: |
+    Reference classes when using verified doubles for better test reliability.
+    Verified doubles catch method signature changes and prevent tests from
+    passing when the actual API has changed. However, kept flexible per your needs.
+  Enabled: false
+  Severity: warning
+
+RSpec/RedundantAround:
+  Description: |
+    Avoid redundant around blocks that only call yield. These add complexity
+    without providing value. Use before/after hooks or remove the around block
+    entirely for cleaner, more direct test setup.
+  Enabled: true
+  Severity: warning
+
+RSpec/ScatteredSetup:
+  Description: |
+    Group setup logic together instead of scattering it throughout tests.
+    This improves test readability and makes the setup phase clear and
+    maintainable. Scattered setup makes tests harder to understand.
+  Enabled: true
+  Severity: warning
+
+RSpec/StubbedMock:
+  Description: |
+    Avoid stubbing methods on mocked objects. This can create confusing test
+    scenarios where it's unclear what's being tested. Keep mocking and stubbing
+    separate for clearer test intent and easier debugging.
+  Enabled: true
+  Severity: warning

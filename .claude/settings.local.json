@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "Bash(bundle:*)"
+      "Bash(bundle:*)",
+      "Bash(rubocop:*)"
     ],
     "deny": [],
     "ask": []

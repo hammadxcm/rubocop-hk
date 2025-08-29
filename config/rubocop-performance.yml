@@ -31,3 +31,77 @@ Performance/CollectionLiteralInLoop:
   Exclude:
     - "config/**/*"
     - "db/**/*"
+
+# ==========================================
+# Modern Performance Cops (2025) - All WARNING ONLY
+# These improve code performance without breaking builds
+# ==========================================
+
+Performance/BlockGivenWithExplicitBlock:
+  Description: |
+    Use block_given? efficiently with explicit blocks. When a method accepts
+    an explicit block parameter (&block), using block_given? is redundant
+    because you can check if the block parameter is nil. This improves performance
+    by avoiding unnecessary method calls.
+  Enabled: true
+  Severity: warning
+
+Performance/ConstantRegexp:
+  Description: |
+    Use constant regexps for better performance. Creating regexp objects
+    repeatedly in loops or frequently-called methods is expensive. Store
+    regexps in constants to avoid recompilation and improve performance
+    in performance-critical code paths.
+  Enabled: true
+  Severity: warning
+
+Performance/MethodObjectAsBlock:
+  Description: |
+    Use method objects as blocks when appropriate for better performance.
+    Using &:method_name syntax is often more performant than creating
+    explicit blocks, especially in collection methods like map, select, etc.
+    This reduces object allocation overhead.
+  Enabled: true
+  Severity: warning
+
+Performance/RedundantEqualityComparisonBlock:
+  Description: |
+    Avoid redundant equality comparison blocks in collection methods.
+    Instead of arr.select { |x| x == value }, use more direct approaches
+    or built-in methods when available. This reduces unnecessary block
+    calls and improves performance.
+  Enabled: true
+  Severity: warning
+
+Performance/RedundantSplitRegexpArgument:
+  Description: |
+    Avoid redundant regexp arguments to String#split. When splitting on
+    single characters, use string arguments instead of regexp for better
+    performance. For example, use str.split(',') instead of str.split(/,/).
+  Enabled: true
+  Severity: warning
+
+Performance/StringInclude:
+  Description: |
+    Use String#include? instead of String#match? when you only need to
+    check for substring presence. #include? is faster for simple substring
+    checks because it doesn't need to compile regexp patterns or capture groups.
+  Enabled: true
+  Severity: warning
+
+Performance/Sum:
+  Description: |
+    Use Array#sum instead of inject(:+) or reduce(:+) for numeric calculations.
+    Array#sum is optimized for numeric operations and provides better performance
+    and clearer intent when summing arrays of numbers.
+  Enabled: true
+  Severity: warning
+
+Performance/RangeInclude:
+  Description: |
+    Use Range#cover? instead of Range#include? for performance. #cover? only
+    checks if the value falls within the range boundaries, while #include?
+    iterates through all values in the range, making #cover? much faster
+    for large ranges.
+  Enabled: true
+  Severity: warning
