@@ -11,7 +11,7 @@ RSpec.describe "Ruby Version Compatibility" do
     it "has correct Ruby version requirement in gemspec" do
       gemspec = Gem::Specification.load("rubocop-hk.gemspec")
       expect(gemspec.required_ruby_version).to satisfy do |requirement|
-        requirement.satisfied_by?(Gem::Version.new("3.2.0"))
+        requirement.satisfied_by?(Gem::Version.new("3.3.0"))
       end
     end
   end

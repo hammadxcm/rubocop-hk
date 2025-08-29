@@ -321,13 +321,9 @@ Rails/CompactBlank:
   Description: Use compact_blank instead of reject(&:blank?)
   Enabled: true
 
-Rails/DuplicateAssociation:
-  Description: Avoid duplicate associations in models
-  Enabled: true
+# Rails/DuplicateAssociation: Moved to modern cops section below
 
-Rails/DuplicateScope:
-  Description: Avoid duplicate scopes in models
-  Enabled: true
+# Rails/DuplicateScope: Moved to modern cops section below
 
 Rails/ExpandedDateRange:
   Description: Use Range#cover? instead of Range#include? for date ranges
@@ -345,9 +341,7 @@ Rails/PluralizationGrammar:
   Description: Use correct pluralization grammar
   Enabled: true
 
-Rails/ResponseParsedBody:
-  Description: Use response.parsed_body in tests
-  Enabled: true
+# Rails/ResponseParsedBody: Moved to modern cops section below
 
 Rails/RootJoinChain:
   Description: Use Rails.root.join for multiple path segments
@@ -372,3 +366,112 @@ Rails/TransactionExitStatement:
 Rails/UniqueValidationWithoutIndex:
   Description: Add database index for unique validations
   Enabled: true
+
+# ==========================================
+# Rails 8.0+ Modern Cops (2025) - All WARNING ONLY
+# These enforce Rails 8.0 best practices and modern patterns
+# ==========================================
+
+Rails/EnumSyntax:
+  Description: |
+    Use Rails 8.0+ enum syntax with positional arguments instead of keyword arguments.
+    The keyword argument syntax (enum status: {...}, _prefix: true) is deprecated in Rails 8.0.
+    Use: enum :status, {...}, prefix: true instead. This prepares your code for future Rails versions.
+  Enabled: true
+  Severity: warning
+
+Rails/RedundantActiveRecordAllMethod:
+  Description: |
+    Avoid redundant .all method calls in ActiveRecord queries. Modern Rails often
+    returns ActiveRecord::Relation objects that are already lazy-loaded, so .all
+    may be unnecessary and can impact performance. Remove when the relation is already sufficient.
+  Enabled: true
+  Severity: warning
+
+Rails/MigrationClassName:
+  Description: |
+    Use appropriate migration class names that reflect the migration's purpose.
+    Migration class names should be descriptive and follow Rails conventions
+    (PascalCase matching the filename). This improves code maintainability and searchability.
+  Enabled: true
+  Severity: warning
+
+Rails/WhereRange:
+  Description: |
+    Use range conditions in where clauses for better readability and performance.
+    Instead of where(created_at: start_date..end_date), consider using where(created_at: start_date...end_date)
+    or explicit range methods for clearer intent and potential query optimization.
+  Enabled: true
+  Severity: warning
+
+Rails/ThreeStateBooleanColumn:
+  Description: |
+    Avoid three-state boolean columns (true/false/null). These create confusion
+    about the meaning of null vs false. Use explicit status enums or separate
+    boolean columns with defaults to make data meaning clear and queries predictable.
+  Enabled: true
+  Severity: warning
+
+Rails/AddColumnIndex:
+  Description: |
+    Add database indexes when adding new columns that will be queried frequently.
+    This prevents performance issues as data grows. Consider adding indexes for
+    foreign keys, columns used in where clauses, and columns used for ordering.
+  Enabled: true
+  Severity: warning
+
+Rails/FreezeTime:
+  Description: |
+    Use Rails' travel_to instead of Time.stub or similar time mocking approaches.
+    travel_to is the Rails-standard way to manipulate time in tests and provides
+    better integration with Rails' time handling and ActiveSupport extensions.
+  Enabled: true
+  Severity: warning
+
+Rails/ResponseParsedBody:
+  Description: |
+    Use response.parsed_body in tests instead of JSON.parse(response.body).
+    This is more reliable, handles different content types automatically,
+    and is the Rails-standard approach for parsing response bodies in tests.
+  Enabled: true
+  Severity: warning
+
+Rails/DotSeparatedKeys:
+  Description: |
+    Use dot-separated keys in I18n for better organization and namespacing.
+    This creates clearer hierarchical structure in locale files and makes
+    translations easier to organize and maintain in large applications.
+  Enabled: true
+  Severity: warning
+
+Rails/RootPublicPath:
+  Description: |
+    Use Rails.root.join('public') instead of File.join(Rails.root, 'public').
+    This is more idiomatic Rails and handles path construction more reliably
+    across different operating systems and Ruby versions.
+  Enabled: true
+  Severity: warning
+
+Rails/DeprecatedActiveModelErrorsMethods:
+  Description: |
+    Avoid deprecated ActiveModel::Errors methods. Rails 6.1+ changed the errors
+    API significantly. Use errors.add instead of errors[] = and similar modern
+    approaches to future-proof your validation error handling.
+  Enabled: true
+  Severity: warning
+
+Rails/DuplicateAssociation:
+  Description: |
+    Avoid duplicate associations in ActiveRecord models. Multiple associations
+    with the same name can cause unexpected behavior and make code harder to
+    understand. Each association should have a unique, descriptive name.
+  Enabled: true
+  Severity: warning
+
+Rails/DuplicateScope:
+  Description: |
+    Avoid duplicate scopes in ActiveRecord models. Multiple scopes with the
+    same name override each other, leading to confusion. Each scope should
+    have a unique, descriptive name that clearly indicates its purpose.
+  Enabled: true
+  Severity: warning
