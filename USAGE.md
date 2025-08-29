@@ -1,7 +1,7 @@
 # 📚 Usage Guide - RuboCop HK
 
 > **Comprehensive usage examples and scenarios for RuboCop HK**  
-> **🆕 v1.2.0: Includes warning-only modern rules and team adoption workflows**
+> **🆕 v1.2.1: Includes warning-only modern rules and team adoption workflows**
 
 <div align="center">
 
@@ -16,7 +16,7 @@
 ## 📋 Table of Contents
 
 - [🎯 Basic Usage](#-basic-usage)
-- [🆕 Modern Rules Usage (v1.2.0)](#-modern-rules-usage-v120)
+- [🆕 Modern Rules Usage (v1.2.1)](#-modern-rules-usage-v120)
 - [🚀 Command Line Options](#-command-line-options)
 - [📁 Project Scenarios](#-project-scenarios)
 - [🔧 Configuration Examples](#-configuration-examples)

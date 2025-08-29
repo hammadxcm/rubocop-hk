@@ -1,4 +1,4 @@
-# 🚀 RuboCop HK v1.2.0 - Major Modernization Release
+# 🚀 RuboCop HK v1.2.1 - Major Modernization Release
 
 **Release Date**: 2025-08-29
 **Type**: Major Feature Release
@@ -165,6 +165,6 @@ This release represents a major evolution in RuboCop configuration management, f
 
 ---
 
-**Full Changelog**: [v1.1.1...v1.2.0](https://github.com/user/rubocop-hk/compare/v1.1.1...v1.2.0)
+**Full Changelog**: [v1.1.1...v1.2.1](https://github.com/user/rubocop-hk/compare/v1.1.1...v1.2.1)
 
 🎉 **Happy Coding with Modern Ruby & Rails!** 🎉

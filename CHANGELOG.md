@@ -18,6 +18,49 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.2.1] - 2025-08-29
+
+### 🐛 **Hotfix Release - CI/CD Stability & Ruby 3.3+ Support**
+
+**Critical hotfix**: This hotfix resolves all CI/CD pipeline failures from v1.2.0 and establishes Ruby 3.3+ as the minimum supported version for better stability and modern toolchain compatibility.
+
+#### 🛠️ **Critical Fixes**
+
+##### **CI/CD Pipeline Stability**
+- **Fixed RuboCop 1.80+ compatibility**: Resolved Rails cop validation errors by removing obsolete `Rails: Enabled: true` configuration
+- **Added missing gem entry point**: Created `lib/rubocop-hk.rb` for proper gem loading with `require 'rubocop-hk'`
+- **Updated all workflow Ruby versions**: Aligned CI, security, and compatibility tests to Ruby 3.3+ minimum
+- **Fixed test expectations**: Updated all tests to expect Ruby 3.3+ instead of mixed version requirements
+
+##### **Configuration Modernization**
+- **RuboCop 1.80+ compliance**: Removed deprecated Rails configuration sections, now using plugin-based architecture
+- **Filename exceptions**: Added proper exclusion for gem entry point file (`lib/rubocop-hk.rb`)
+- **Plugin architecture**: Rails cops now properly loaded via `plugins: - rubocop-rails` directive
+- **Coverage configuration**: Updated SimpleCov to filter entry point file appropriately
+
+##### **Code Quality & Refactoring**
+- **Script refactoring**: Split large `WarningPromoter` class into focused `BackupManager` and `CopPromoter` classes
+- **Complexity reduction**: Fixed RuboCop metrics violations (class length, cyclomatic complexity)
+- **Test coverage**: Maintained 100% coverage while adding comprehensive entry point tests
+- **Lint compliance**: All files pass RuboCop with 0 offenses across 19 files
+
+#### ⬆️ **Breaking Changes**
+
+##### **Ruby Version Requirement**
+- **Minimum Ruby version**: Updated from `>= 3.2.0` to `>= 3.3.0` for better toolchain stability
+- **Gemspec alignment**: All configurations now consistently target Ruby 3.3+
+- **CI matrix optimization**: Removed unsupported Ruby/Rails combinations from testing matrix
+
+##### **Compatibility Matrix Updates**
+- **Ruby compatibility**: Now tests Ruby 3.3/3.4 only (removed 3.1/3.2)
+- **Rails compatibility**: Focus on Rails 7.1/7.2/8.0 (removed deprecated 6.x versions)
+- **RuboCop compatibility**: Tests RuboCop 1.78-1.81 (removed outdated 1.72-1.75)
+
+#### 📚 **Documentation Updates**
+- **Version alignment**: Updated 19 markdown files from v1.2.0 to v1.2.1 references
+- **Installation guides**: All gem installation examples now use `~> 1.2.1`
+- **Architecture documentation**: Updated diagrams and workflows for v1.2.1
+
 ## [1.2.0] - 2025-08-29
 
 ### 🚀 **Major Modernization Release - Ruby 3.3 & Rails 8.0**
@@ -104,7 +147,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Priority learning paths
   - Code review integration templates
   - "Why fix" explanations for every rule
-- **`RELEASE_NOTES_v1.2.0.md`** - Comprehensive release documentation
+- **`RELEASE_NOTES_v1.2.1.md`** - Comprehensive release documentation
 
 ##### **Advanced Configuration Features**
 - **Warning-only implementation** - All new rules are warnings by default
@@ -148,7 +191,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Configuration loading** - Fixed inheritance and plugin loading
 
 ##### **Test Suite Reliability** 
-- **Version expectation updates** - All tests now expect v1.2.0
+- **Version expectation updates** - All tests now expect v1.2.1
 - **Test file reliability** - Fixed flaky integration tests
 - **Coverage maintenance** - Maintained 100% line coverage
 - **Documentation tests** - Fixed promotion workflow validation

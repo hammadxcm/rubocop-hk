@@ -3,7 +3,7 @@
 # 🔧 RuboCop HK
 
 > **The Ultimate RuboCop Configuration for Modern Ruby 3.3 & Rails 8.0+ Applications**  
-> **🆕 v1.2.0: 45+ Warning-Only Modern Rules with Team-Focused Adoption**
+> **🆕 v1.2.1: 45+ Warning-Only Modern Rules with Team-Focused Adoption**
 
 [![Gem Version](https://badge.fury.io/rb/rubocop-hk.svg)](https://badge.fury.io/rb/rubocop-hk)
 [![Ruby](https://img.shields.io/badge/ruby-3.3+-red.svg)](https://www.ruby-lang.org)
@@ -57,7 +57,7 @@ end
 ## 📋 Table of Contents
 
 - [🚀 Quick Start](#-quick-start)
-- [🆕 Modern Rules (v1.2.0)](#-modern-rules-v120)
+- [🆕 Modern Rules (v1.2.1)](#-modern-rules-v120)
 - [📖 Team Adoption Guide](#-team-adoption-guide)
 - [🎯 Features](#-features)
 - [📦 Installation & Setup](#-installation--setup)
@@ -83,7 +83,7 @@ end
 
 ```bash
 # 1. Add to your Gemfile
-echo 'gem "rubocop-hk", "~> 1.2.0", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.2.1", require: false' >> Gemfile
 
 # 2. Install the gem
 bundle install
@@ -96,7 +96,7 @@ bundle exec rubocop
 ```
 
 <details>
-<summary>🎬 <strong>See v1.2.0 in action</strong></summary>
+<summary>🎬 <strong>See v1.2.1 in action</strong></summary>
 
 ```
 $ bundle exec rubocop
@@ -116,7 +116,7 @@ $ make help
 
 </details>
 
-### 🆕 **New in v1.2.0: Modern Rules & Team Tools**
+### 🆕 **New in v1.2.1: Modern Rules & Team Tools**
 
 ```bash
 # Check modernization opportunities (warnings only)
@@ -137,11 +137,11 @@ make help
 
 ---
 
-## 🆕 Modern Rules (v1.2.0)
+## 🆕 Modern Rules (v1.2.1)
 
 ### 🎯 **45+ Warning-Only Modern Rules**
 
-**🔥 New in v1.2.0**: We've added 45+ modern rules that guide your code toward Ruby 3.3 and Rails 8.0 best practices - **all as warnings only**, so they won't break your builds!
+**🔥 New in v1.2.1**: We've added 45+ modern rules that guide your code toward Ruby 3.3 and Rails 8.0 best practices - **all as warnings only**, so they won't break your builds!
 
 <table>
 <tr>
@@ -277,7 +277,7 @@ cat << 'EOF' >> Gemfile
 
 # Code quality and style enforcement
 group :development, :test do
-  gem "rubocop-hk", "~> 1.2.0", require: false
+  gem "rubocop-hk", "~> 1.2.1", require: false
 end
 EOF
 
@@ -362,7 +362,7 @@ Add this line to your application's Gemfile:
 
 ```ruby
 group :development, :test do
-  gem "rubocop-hk", "~> 1.2.0", require: false
+  gem "rubocop-hk", "~> 1.2.1", require: false
 end
 ```
 
@@ -384,7 +384,7 @@ $ gem install rubocop-hk -v "~> 1.0.0"
 
 ### 🎯 **4-Phase Adoption Strategy**
 
-**New in v1.2.0**: We provide a complete team adoption strategy that makes modernization safe and manageable.
+**New in v1.2.1**: We provide a complete team adoption strategy that makes modernization safe and manageable.
 
 <table>
 <tr>
@@ -719,7 +719,7 @@ cat >> Gemfile << 'EOF'
 
 # Code quality and linting
 group :development, :test do
-  gem "rubocop-hk", "~> 1.2.0", require: false
+  gem "rubocop-hk", "~> 1.2.1", require: false
 end
 EOF
 
@@ -833,7 +833,7 @@ cd my_api
 cat >> Gemfile << 'EOF'
 
 group :development, :test do
-  gem "rubocop-hk", "~> 1.2.0", require: false
+  gem "rubocop-hk", "~> 1.2.1", require: false
 end
 EOF
 
@@ -1626,7 +1626,7 @@ EOF
    ```ruby
    # Gemfile updates for Rails 7 compatibility
    gem "rails", "~> 7.0.0"
-   gem "rubocop-hk", "~> 1.2.0"
+   gem "rubocop-hk", "~> 1.2.1"
    
    # Update other gems
    gem "rspec-rails", "~> 6.0"  # Rails 7 compatible
@@ -3352,7 +3352,7 @@ bundle install
 gem install rubocop-hk -v "~> 1.0.0"
 
 # Version-specific fix for Rails 6:
-echo 'gem "rubocop-hk", "~> 1.2.0", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.2.1", require: false' >> Gemfile
 bundle install
 ```
 
