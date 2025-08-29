@@ -214,8 +214,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
 
       expect(target_version).to eq(3.3)
       expect(RUBY_VERSION).to(satisfy do |v|
-        Gem::Version.new(v) >= Gem::Version.new("3.3.0") ||
-              Gem::Version.new(v) >= Gem::Version.new("3.2.0")
+        Gem::Version.new(v) >= Gem::Version.new("3.3.0")
       end)
     end
   end
