@@ -6,7 +6,7 @@ RSpec.describe "Modern Rules Integration", type: :integration do
   let(:config) { RuboCop::ConfigLoader.load_file("config/default.yml") }
 
   describe "Modern Style Rules (2025)" do
-    context "Ruby 3.3 specific cops" do
+    context "Ruby 3.2+ specific cops" do
       it "enables Style/FetchEnvVar with warning severity" do
         expect(config.for_cop("Style/FetchEnvVar")).to include(
           "Enabled" => true,
@@ -207,7 +207,7 @@ RSpec.describe "Modern Rules Integration", type: :integration do
       performance_config = File.read("config/rubocop-performance.yml")
       lint_config = File.read("config/rubocop-lint.yml")
 
-      expect(style_config).to include("Modern Ruby 3.3 Style Cops (2025)")
+      expect(style_config).to include("Modern Ruby 3.2+ Style Cops (2025)")
       expect(rails_config).to include("Rails 8.0+ Modern Cops (2025)")
       expect(rspec_config).to include("Modern RSpec Cops (2025)")
       expect(performance_config).to include("Modern Performance Cops (2025)")
