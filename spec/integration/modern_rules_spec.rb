@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe "Modern Rules Integration", type: :integration do
   let(:config) { RuboCop::ConfigLoader.load_file("config/default.yml") }
-  
+
   describe "Modern Style Rules (2025)" do
     context "Ruby 3.3 specific cops" do
       it "enables Style/FetchEnvVar with warning severity" do
@@ -39,7 +39,7 @@ RSpec.describe "Modern Rules Integration", type: :integration do
     context "configuration descriptions" do
       it "provides detailed explanations for new Style cops" do
         style_config = YAML.load_file("config/rubocop-style.yml")
-        
+
         expect(style_config["Style/FetchEnvVar"]["Description"]).to include("ENV.fetch")
         expect(style_config["Style/FetchEnvVar"]["Description"]).to include("error handling")
         expect(style_config["Style/ArgumentsForwarding"]["Description"]).to include("Ruby 2.7+")
@@ -74,7 +74,7 @@ RSpec.describe "Modern Rules Integration", type: :integration do
     context "Rails configuration descriptions" do
       it "provides Rails 8.0 specific guidance" do
         rails_config = YAML.load_file("config/rubocop-rails.yml")
-        
+
         expect(rails_config["Rails/EnumSyntax"]["Description"]).to include("Rails 8.0+")
         expect(rails_config["Rails/EnumSyntax"]["Description"]).to include("positional arguments")
       end
@@ -184,8 +184,9 @@ RSpec.describe "Modern Rules Integration", type: :integration do
     it "ensures all modern cops are warnings only" do
       all_modern_cops.each do |cop_name|
         cop_config = config.for_cop(cop_name)
-        expect(cop_config["Severity"]).to eq("warning"), 
-          "#{cop_name} should be warning-only but has severity: #{cop_config['Severity']}"
+        expect(cop_config["Severity"]).to eq("warning"),
+                                          "#{cop_name} should be warning-only but has severity: " \
+                                          "#{cop_config['Severity']}"
       end
     end
 
@@ -193,7 +194,7 @@ RSpec.describe "Modern Rules Integration", type: :integration do
       all_modern_cops.each do |cop_name|
         cop_config = config.for_cop(cop_name)
         expect(cop_config["Enabled"]).to be(true),
-          "#{cop_name} should be enabled but is: #{cop_config['Enabled']}"
+                                         "#{cop_name} should be enabled but is: #{cop_config['Enabled']}"
       end
     end
   end
@@ -215,13 +216,13 @@ RSpec.describe "Modern Rules Integration", type: :integration do
 
     it "provides warning-only documentation in all sections" do
       config_files = Dir.glob("config/rubocop-*.yml")
-      
+
       config_files.each do |file|
         content = File.read(file)
         next unless content.include?("WARNING ONLY")
-        
+
         expect(content).to include("All WARNING ONLY"),
-          "#{file} should indicate all new cops are warning-only"
+                           "#{file} should indicate all new cops are warning-only"
       end
     end
   end

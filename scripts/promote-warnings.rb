@@ -5,9 +5,11 @@
 # Usage: ruby scripts/promote-warnings.rb <cop_name1> <cop_name2> ...
 # Example: ruby scripts/promote-warnings.rb Style/FetchEnvVar Rails/EnumSyntax
 
+require "English"
 require "yaml"
 require "fileutils"
 
+# Handles promotion of RuboCop warning rules to errors
 class WarningPromoter
   CONFIG_FILES = %w[
     config/rubocop-style.yml
@@ -19,7 +21,7 @@ class WarningPromoter
 
   def initialize(cop_names)
     @cop_names = cop_names
-    @backup_dir = "config/backups/#{Time.now.strftime('%Y%m%d_%H%M%S')}"
+    @backup_dir = "config/backups/#{Time.now.utc.strftime('%Y%m%d_%H%M%S')}"
   end
 
   def promote!
@@ -73,10 +75,10 @@ class WarningPromoter
       original_content = content.dup
 
       @cop_names.each do |cop_name|
-        if promote_cop_in_content(content, cop_name)
+        if promote_cop_in_content?(content, cop_name)
           @promoted_count += 1
           puts "✅ Promoted #{cop_name} in #{file}"
-        elsif !@not_found.include?(cop_name) && !content.include?(cop_name)
+        elsif @not_found.exclude?(cop_name) && content.exclude?(cop_name)
           @not_found << cop_name
         end
       end
@@ -85,7 +87,7 @@ class WarningPromoter
     end
   end
 
-  def promote_cop_in_content(content, cop_name)
+  def promote_cop_in_content?(content, cop_name)
     # Pattern to match cop with Severity: warning
     pattern = /^(#{Regexp.escape(cop_name)}:.*?)\n  Severity: warning$/m
 
@@ -103,7 +105,7 @@ class WarningPromoter
 
     system("rubocop --config config/default.yml --format simple --dry-run lib/ > /dev/null 2>&1")
 
-    if $?.success?
+    if $CHILD_STATUS.success?
       puts "✅ Configuration is valid"
     else
       puts "❌ Configuration has errors - check syntax"
