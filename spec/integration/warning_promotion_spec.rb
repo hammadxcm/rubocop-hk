@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "English"
 require "spec_helper"
 require "tempfile"
 require "fileutils"
@@ -14,7 +15,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
   end
 
   after do
-    FileUtils.rm_rf(temp_dir) if Dir.exist?(temp_dir)
+    FileUtils.rm_rf(temp_dir)
   end
 
   describe "Warning Promotion Script" do
@@ -26,7 +27,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
     context "when running without arguments" do
       it "shows usage and available cops" do
         output = `ruby #{promotion_script} 2>&1`
-        
+
         expect(output).to include("Usage:")
         expect(output).to include("Available cops to promote:")
         expect(output).to include("Style/FetchEnvVar")
@@ -43,7 +44,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
         config_content = File.read(test_config_file)
         unless config_content.include?("Style/FetchEnvVar")
           config_content += <<~CONFIG
-            
+
             Style/FetchEnvVar:
               Description: Test cop for promotion
               Enabled: true
@@ -59,20 +60,20 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
 
         # This would be the actual promotion in a real scenario
         # For testing, we simulate the promotion logic
-        promoted_content = original_content.gsub(/^(.+?Style\/FetchEnvVar:.+?)\n  Severity: warning$/m, '\1')
-        
-        expect(promoted_content).not_to include("Style/FetchEnvVar:\n" + " " * 18 + "Severity: warning")
+        promoted_content = original_content.gsub(%r{^(.+?Style/FetchEnvVar:.+?)\n  Severity: warning$}m, '\1')
+
+        expect(promoted_content).not_to include("Style/FetchEnvVar:\n#{' ' * 18}Severity: warning")
         expect(promoted_content).to include("Style/FetchEnvVar:")
       end
 
       it "creates backups before making changes" do
         backup_pattern = File.join(temp_dir, "config", "backups", "*", "rubocop-style.yml")
-        
+
         # Simulate backup creation
-        backup_dir = File.join(temp_dir, "config", "backups", Time.now.strftime("%Y%m%d_120000"))
+        backup_dir = File.join(temp_dir, "config", "backups", Time.now.utc.strftime("%Y%m%d_120000"))
         FileUtils.mkdir_p(backup_dir)
         FileUtils.cp(test_config_file, File.join(backup_dir, "rubocop-style.yml"))
-        
+
         expect(Dir.glob(backup_pattern)).not_to be_empty
       end
     end
@@ -83,7 +84,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
 
     it "includes warning management commands" do
       makefile_content = File.read(makefile_path)
-      
+
       expect(makefile_content).to include("check-warnings:")
       expect(makefile_content).to include("warning-summary:")
       expect(makefile_content).to include("warning-count:")
@@ -93,7 +94,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
 
     it "has check-rails8-warnings for critical compatibility" do
       makefile_content = File.read(makefile_path)
-      
+
       expect(makefile_content).to include("check-rails8-warnings:")
       expect(makefile_content).to include("Rails/EnumSyntax")
       expect(makefile_content).to include("Rails/DeprecatedActiveModelErrorsMethods")
@@ -102,7 +103,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
     context "when running make commands" do
       it "can execute help command" do
         output = `make help 2>&1`
-        
+
         expect(output).to include("Warning Management:")
         expect(output).to include("make check-warnings")
         expect(output).to include("make promote COPS=")
@@ -110,7 +111,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
 
       it "can execute config-info command" do
         output = `make config-info 2>&1`
-        
+
         expect(output).to include("Ruby version target: 3.3")
         expect(output).to include("Rails version target: 8.0")
       end
@@ -122,14 +123,14 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
       Tempfile.new(["test", ".rb"]).tap do |file|
         file.write(<<~RUBY)
           # Test file for RuboCop integration
-          
+
           class TestClass
             def env_example
               api_key = ENV['API_KEY']  # Should trigger Style/FetchEnvVar warning
               api_key
             end
-            
-            def collection_example  
+          #{'  '}
+            def collection_example#{'  '}
               arr.reject(&:nil?)  # Should trigger Style/CollectionCompact warning
             end
           end
@@ -139,14 +140,14 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
     end
 
     after do
-      test_ruby_file.unlink if test_ruby_file
+      test_ruby_file&.unlink
     end
 
     it "detects modern rule violations as warnings" do
       # Create a test file that will definitely trigger our warnings
       File.write(test_ruby_file.path, <<~RUBY)
         # frozen_string_literal: true
-        
+
         class TestClass
           def env_example
             api_key = ENV['API_KEY']  # Should trigger Style/FetchEnvVar warning
@@ -154,25 +155,26 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
           end
         end
       RUBY
-      
+
       output = `bundle exec rubocop --config config/default.yml --format simple #{test_ruby_file.path} 2>/dev/null`
-      
+
       # Check that RuboCop runs successfully (warnings don't cause failure)
-      expect([0, 1]).to include($?.exitstatus), "RuboCop should complete successfully or with warnings only, got: #{output}"
+      expect([0, 1]).to include($CHILD_STATUS.exitstatus),
+                        "RuboCop should complete successfully or with warnings only, got: #{output}"
     end
 
     it "can run with specific modern cops only" do
-      output = `bundle exec rubocop --config config/default.yml --only Style/StringLiterals #{test_ruby_file.path} 2>/dev/null`
-      
+      `bundle exec rubocop --config config/default.yml --only Style/StringLiterals #{test_ruby_file.path} 2>/dev/null`
+
       # Use a cop we know exists and works
-      expect([0, 1]).to include($?.exitstatus), "Should complete successfully when checking specific cops"
+      expect([0, 1]).to include($CHILD_STATUS.exitstatus), "Should complete successfully when checking specific cops"
     end
   end
 
   describe "Documentation Integration" do
     it "has gradual adoption guide" do
       expect(File.exist?("GRADUAL_ADOPTION_GUIDE.md")).to be(true)
-      
+
       content = File.read("GRADUAL_ADOPTION_GUIDE.md")
       expect(content).to include("Phase 1: Team Education")
       expect(content).to include("Priority Rules")
@@ -181,7 +183,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
 
     it "has modern rules reference" do
       expect(File.exist?("MODERN_RULES_REFERENCE.md")).to be(true)
-      
+
       content = File.read("MODERN_RULES_REFERENCE.md")
       expect(content).to include("Style/FetchEnvVar")
       expect(content).to include("Rails/EnumSyntax")
@@ -190,7 +192,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
 
     it "documents the promotion workflow" do
       guide_content = File.read("GRADUAL_ADOPTION_GUIDE.md")
-      
+
       expect(guide_content).to include("Promotion to Errors")
       expect(guide_content).to include("warning")
       expect(guide_content).to include("Phase 4:")
@@ -201,7 +203,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
     it "maintains compatibility with RuboCop version requirements" do
       gemspec = Gem::Specification.load("rubocop-hk.gemspec")
       rubocop_dependency = gemspec.dependencies.find { |dep| dep.name == "rubocop" }
-      
+
       expect(rubocop_dependency).not_to be_nil
       expect(rubocop_dependency.requirement.satisfied_by?(Gem::Version.new("1.80.0"))).to be(true)
     end
@@ -209,10 +211,12 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
     it "supports the target Ruby version in configuration" do
       config = RuboCop::ConfigLoader.load_file("config/default.yml")
       target_version = config["AllCops"]["TargetRubyVersion"]
-      
+
       expect(target_version).to eq(3.3)
-      expect(RUBY_VERSION).to satisfy { |v| Gem::Version.new(v) >= Gem::Version.new("3.3.0") || 
-                                                Gem::Version.new(v) >= Gem::Version.new("3.2.0") }
+      expect(RUBY_VERSION).to(satisfy do |v|
+        Gem::Version.new(v) >= Gem::Version.new("3.3.0") ||
+              Gem::Version.new(v) >= Gem::Version.new("3.2.0")
+      end)
     end
   end
 end
