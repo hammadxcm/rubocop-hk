@@ -2,11 +2,11 @@
 
 ## 📋 Overview
 
-Your RuboCop gem has been updated with **45+ modern warning-only rules** for 2025. These rules help adopt Ruby 3.3 and Rails 8.0 best practices without breaking your development workflow.
+Your RuboCop gem has been updated with **45+ modern warning-only rules** for 2025. These rules help adopt Ruby 3.2+ and Rails 8.0 best practices without breaking your development workflow.
 
 ## ✅ **Step 1: Configuration Testing - COMPLETED**
 
-- ✅ Updated to Ruby 3.3 and Rails 8.0 targets
+- ✅ Updated to Ruby 3.2+ and Rails 8.0 targets
 - ✅ Added 45+ modern warning-only cops with detailed explanations
 - ✅ Tested configuration successfully
 - ✅ All new rules set to `Severity: warning` (won't break builds)
@@ -27,7 +27,7 @@ Your RuboCop gem has been updated with **45+ modern warning-only rules** for 202
 ### Phase 3: Strategic Improvements (Month 2)
 - [ ] Focus on Rails 8.0 preparation rules
 - [ ] Address security and lint warnings
-- [ ] Refactor code using modern Ruby 3.3 patterns
+- [ ] Refactor code using modern Ruby 3.2+ patterns
 
 ### Phase 4: Promotion to Errors (Month 3+)
 - [ ] Convert high-adoption warnings to errors
@@ -119,7 +119,7 @@ rubocop --auto-correct --only Style/CollectionCompact,Style/StringChars,Style/Re
 
 ### Technical Debt
 - Proactive Rails 8.0 preparation
-- Modern Ruby 3.3 feature adoption
+- Modern Ruby 3.2+ feature adoption
 - Reduced maintenance overhead
 
 ## ⚠️ **Important Notes**

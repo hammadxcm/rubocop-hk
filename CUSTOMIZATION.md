@@ -1,7 +1,7 @@
 # ⚙️ Customization Guide - RuboCop HK
 
 > **Advanced configuration options and team-specific customizations for RuboCop HK**  
-> **🆕 v1.2.0: Customize warning-only modern rules and team adoption workflows**
+> **🆕 v1.2.1: Customize warning-only modern rules and team adoption workflows**
 
 <div align="center">
 
@@ -18,7 +18,7 @@
 ## 📋 Table of Contents
 
 - [🎯 Configuration Basics](#-configuration-basics)
-- [🆕 Modern Rules Customization (v1.2.0)](#-modern-rules-customization-v120)
+- [🆕 Modern Rules Customization (v1.2.1)](#-modern-rules-customization-v120)
 - [🏢 Team-Specific Configurations](#-team-specific-configurations)  
 - [📊 Cop Categories](#-cop-categories)
 - [🎛️ Advanced Settings](#️-advanced-settings)
@@ -49,7 +49,7 @@ inherit_from:
 
 # 🎯 Global settings
 AllCops:
-  TargetRubyVersion: 3.3    # Your Ruby version
+  TargetRubyVersion: 3.2    # Your Ruby version
   TargetRailsVersion: 7.0   # Your Rails version (if applicable)
   NewCops: enable           # Handle new cops
   
@@ -108,7 +108,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 7.0
   
 # 🚀 Optimized for speed and iteration
@@ -1166,7 +1166,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 7.0
   
   # API-specific exclusions
@@ -1252,7 +1252,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 7.0
 
 # Microservice-specific settings
@@ -1325,7 +1325,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
 
 # Test specific cop configurations
 Style/StringLiterals:

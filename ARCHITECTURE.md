@@ -1,12 +1,12 @@
 # 🏗️ RuboCop HK Architecture
 
 > **Comprehensive architecture documentation for RuboCop HK configuration gem**  
-> **🆕 v1.2.0: Warning-Only Modern Rules with Team-Focused Adoption Strategy**
+> **🆕 v1.2.1: Warning-Only Modern Rules with Team-Focused Adoption Strategy**
 
 ## 📋 Table of Contents
 
 - [🎯 Overview](#-overview)
-- [🆕 v1.2.0 Architecture Changes](#-v120-architecture-changes)
+- [🆕 v1.2.1 Architecture Changes](#-v120-architecture-changes)
 - [🏛️ System Architecture](#️-system-architecture)
 - [📦 Module Structure](#-module-structure)
 - [⚙️ Configuration System](#️-configuration-system)
@@ -21,7 +21,7 @@
 
 RuboCop HK is a comprehensive configuration gem that provides curated RuboCop rules for modern Ruby and Rails applications. It follows a modular architecture that allows for flexible configuration inheritance and extensibility.
 
-**🆕 v1.2.0 Enhancement**: Added 45+ warning-only modern rules with comprehensive team adoption tooling, educational documentation, and gradual migration strategies.
+**🆕 v1.2.1 Enhancement**: Added 45+ warning-only modern rules with comprehensive team adoption tooling, educational documentation, and gradual migration strategies.
 
 ### Design Principles
 
@@ -34,7 +34,7 @@ RuboCop HK is a comprehensive configuration gem that provides curated RuboCop ru
 - **📚 Educational Approach** - Detailed explanations for every modern rule
 - **🤝 Team-Focused** - Built-in tooling for team adoption workflows
 
-## 🆕 v1.2.0 Architecture Changes
+## 🆕 v1.2.1 Architecture Changes
 
 ### Modern Rules Engine
 
@@ -45,7 +45,7 @@ graph TB
         B --> C[Developer Frustration]
     end
     
-    subgraph "RuboCop HK v1.2.0 (Warning-Only)"
+    subgraph "RuboCop HK v1.2.1 (Warning-Only)"
         D[Rule Violation] --> E[Warning Message]
         E --> F[Educational Content]
         F --> G[Gradual Learning]
@@ -102,7 +102,7 @@ flowchart TD
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Warning: Install v1.2.0
+    [*] --> Warning: Install v1.2.1
     Warning --> Education: make warning-summary
     Education --> QuickWins: make fix-easy-wins
     QuickWins --> Strategic: Team consensus
@@ -131,7 +131,7 @@ stateDiagram-v2
     state Strategic {
         [*] --> Rails8Compat: make check-rails8-warnings
         Rails8Compat --> Security: Lint improvements
-        Security --> Modernization: Ruby 3.3 patterns
+        Security --> Modernization: Ruby 3.2+ patterns
     }
     
     state Enforcement {

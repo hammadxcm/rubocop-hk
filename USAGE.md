@@ -1,7 +1,7 @@
 # 📚 Usage Guide - RuboCop HK
 
 > **Comprehensive usage examples and scenarios for RuboCop HK**  
-> **🆕 v1.2.0: Includes warning-only modern rules and team adoption workflows**
+> **🆕 v1.2.1: Includes warning-only modern rules and team adoption workflows**
 
 <div align="center">
 
@@ -16,7 +16,7 @@
 ## 📋 Table of Contents
 
 - [🎯 Basic Usage](#-basic-usage)
-- [🆕 Modern Rules Usage (v1.2.0)](#-modern-rules-usage-v120)
+- [🆕 Modern Rules Usage (v1.2.1)](#-modern-rules-usage-v120)
 - [🚀 Command Line Options](#-command-line-options)
 - [📁 Project Scenarios](#-project-scenarios)
 - [🔧 Configuration Examples](#-configuration-examples)
@@ -40,7 +40,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
 EOF
 
 # 2. Check your code
@@ -59,7 +59,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
   NewCops: enable
   
@@ -173,7 +173,7 @@ bundle exec rubocop --no-cache               # Disable caching
 
 ```bash
 # Step 1: Rails application with modern setup
-rails new awesome_app --ruby=3.3 --database=postgresql
+rails new awesome_app --ruby=3.2 --database=postgresql
 
 cd awesome_app
 
@@ -195,7 +195,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
   NewCops: enable
 
@@ -345,7 +345,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
   
 # Relaxed rules for rapid development
@@ -542,7 +542,7 @@ jobs:
     - name: 💎 Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.3
+        ruby-version: 3.2
         bundler-cache: true
         
     - name: 🔍 Run RuboCop
@@ -588,7 +588,7 @@ jobs:
     - name: 💎 Setup Ruby  
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.3
+        ruby-version: 3.2
         bundler-cache: true
         
     - name: 🧪 Run Tests

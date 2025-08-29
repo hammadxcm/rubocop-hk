@@ -2,11 +2,11 @@
 
 # 🔧 RuboCop HK
 
-> **The Ultimate RuboCop Configuration for Modern Ruby 3.3 & Rails 8.0+ Applications**  
-> **🆕 v1.2.0: 45+ Warning-Only Modern Rules with Team-Focused Adoption**
+> **The Ultimate RuboCop Configuration for Modern Ruby 3.2+ & Rails 8.0+ Applications**  
+> **🆕 v1.2.1: 45+ Warning-Only Modern Rules with Team-Focused Adoption**
 
 [![Gem Version](https://badge.fury.io/rb/rubocop-hk.svg)](https://badge.fury.io/rb/rubocop-hk)
-[![Ruby](https://img.shields.io/badge/ruby-3.3+-red.svg)](https://www.ruby-lang.org)
+[![Ruby](https://img.shields.io/badge/ruby-3.2+-red.svg)](https://www.ruby-lang.org)
 [![Rails](https://img.shields.io/badge/rails-6.0--8.0+-red.svg)](https://rubyonrails.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![RuboCop](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
@@ -57,7 +57,7 @@ end
 ## 📋 Table of Contents
 
 - [🚀 Quick Start](#-quick-start)
-- [🆕 Modern Rules (v1.2.0)](#-modern-rules-v120)
+- [🆕 Modern Rules (v1.2.1)](#-modern-rules-v120)
 - [📖 Team Adoption Guide](#-team-adoption-guide)
 - [🎯 Features](#-features)
 - [📦 Installation & Setup](#-installation--setup)
@@ -83,7 +83,7 @@ end
 
 ```bash
 # 1. Add to your Gemfile
-echo 'gem "rubocop-hk", "~> 1.2.0", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.2.1", require: false' >> Gemfile
 
 # 2. Install the gem
 bundle install
@@ -96,7 +96,7 @@ bundle exec rubocop
 ```
 
 <details>
-<summary>🎬 <strong>See v1.2.0 in action</strong></summary>
+<summary>🎬 <strong>See v1.2.1 in action</strong></summary>
 
 ```
 $ bundle exec rubocop
@@ -106,7 +106,7 @@ Inspecting 23 files
 
 23 files inspected, no offenses detected, 12 warnings
 
-✨ Your code follows modern Ruby 3.3 patterns! ✨
+✨ Your code follows modern Ruby 3.2+ patterns! ✨
 ⚠️  Consider addressing 12 modernization suggestions (all warnings-only)
 
 # See what's new:
@@ -116,7 +116,7 @@ $ make help
 
 </details>
 
-### 🆕 **New in v1.2.0: Modern Rules & Team Tools**
+### 🆕 **New in v1.2.1: Modern Rules & Team Tools**
 
 ```bash
 # Check modernization opportunities (warnings only)
@@ -137,11 +137,11 @@ make help
 
 ---
 
-## 🆕 Modern Rules (v1.2.0)
+## 🆕 Modern Rules (v1.2.1)
 
 ### 🎯 **45+ Warning-Only Modern Rules**
 
-**🔥 New in v1.2.0**: We've added 45+ modern rules that guide your code toward Ruby 3.3 and Rails 8.0 best practices - **all as warnings only**, so they won't break your builds!
+**🔥 New in v1.2.1**: We've added 45+ modern rules that guide your code toward Ruby 3.2+ and Rails 8.0 best practices - **all as warnings only**, so they won't break your builds!
 
 <table>
 <tr>
@@ -232,7 +232,7 @@ make fix-easy-wins
 
 ### 🔥 **Modern Ruby & Rails**
 - ✅ **Rails 6.0-8.0+ Ready**
-- ✅ **Ruby 3.3+ Optimized** 
+- ✅ **Ruby 3.2++ Optimized** 
 - ✅ **45+ Warning-Only Modern Rules**
 - ✅ **Rails 8.0 Enum Compatibility**
 - ✅ **Educational Approach**
@@ -277,7 +277,7 @@ cat << 'EOF' >> Gemfile
 
 # Code quality and style enforcement
 group :development, :test do
-  gem "rubocop-hk", "~> 1.2.0", require: false
+  gem "rubocop-hk", "~> 1.2.1", require: false
 end
 EOF
 
@@ -291,7 +291,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 7.0
   NewCops: enable
 EOF
@@ -362,7 +362,7 @@ Add this line to your application's Gemfile:
 
 ```ruby
 group :development, :test do
-  gem "rubocop-hk", "~> 1.2.0", require: false
+  gem "rubocop-hk", "~> 1.2.1", require: false
 end
 ```
 
@@ -384,7 +384,7 @@ $ gem install rubocop-hk -v "~> 1.0.0"
 
 ### 🎯 **4-Phase Adoption Strategy**
 
-**New in v1.2.0**: We provide a complete team adoption strategy that makes modernization safe and manageable.
+**New in v1.2.1**: We provide a complete team adoption strategy that makes modernization safe and manageable.
 
 <table>
 <tr>
@@ -475,7 +475,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3     # Your Ruby version
+  TargetRubyVersion: 3.2     # Your Ruby version
   TargetRailsVersion: 7.0    # Your Rails version (if using Rails)
   NewCops: enable            # Enable new cops as they're added
 ```
@@ -488,7 +488,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 7.0
   NewCops: enable
   
@@ -595,10 +595,10 @@ end
 
 | Ruby Version | Rails Version | RuboCop HK | Status | Production Ready | Performance | Notes |
 |:-------------|:--------------|:-----------|:-------|:-----------------|:------------|:------|
-| **🟢 Ruby 3.3+** | **Rails 8.0+** | **v0.1.0+** | ✅ **Fully Supported** | ✅ **Excellent** | ⚡ **Fastest** | Latest Rails 8 Omakase + Enhanced rules |
-| **🟢 Ruby 3.3** | Rails 7.2 | v0.1.0+ | ✅ **Fully Supported** | ✅ **Excellent** | ⚡ **Fast** | Recommended for new projects |
-| **🟢 Ruby 3.3** | Rails 7.1 | v0.1.0+ | ✅ **Fully Supported** | ✅ **Excellent** | ⚡ **Fast** | Stable and feature-rich |
-| **🟢 Ruby 3.3** | Rails 7.0 | v0.1.0+ | ✅ **Fully Supported** | ✅ **Excellent** | ⚡ **Fast** | Most stable combination |
+| **🟢 Ruby 3.2++** | **Rails 8.0+** | **v0.1.0+** | ✅ **Fully Supported** | ✅ **Excellent** | ⚡ **Fastest** | Latest Rails 8 Omakase + Enhanced rules |
+| **🟢 Ruby 3.2+** | Rails 7.2 | v0.1.0+ | ✅ **Fully Supported** | ✅ **Excellent** | ⚡ **Fast** | Recommended for new projects |
+| **🟢 Ruby 3.2+** | Rails 7.1 | v0.1.0+ | ✅ **Fully Supported** | ✅ **Excellent** | ⚡ **Fast** | Stable and feature-rich |
+| **🟢 Ruby 3.2+** | Rails 7.0 | v0.1.0+ | ✅ **Fully Supported** | ✅ **Excellent** | ⚡ **Fast** | Most stable combination |
 | **🟡 Ruby 3.2** | Rails 8.0+ | v0.1.0+ | ✅ **Supported** | ✅ **Very Good** | 🚀 **Good** | Excellent production choice |
 | **🟡 Ruby 3.2** | Rails 7.0-7.2 | v0.1.0+ | ✅ **Supported** | ✅ **Very Good** | 🚀 **Good** | Widely adopted in enterprise |
 | **🟠 Ruby 3.1** | Rails 7.0-8.0 | v0.1.0+ | ✅ **Minimum Support** | ✅ **Good** | 📈 **Adequate** | Consider upgrading Ruby soon |
@@ -657,7 +657,7 @@ end
 
 <div align="center">
 
-| Environment | Ruby 3.1 | Ruby 3.2 | Ruby 3.3 | Ruby 3.4-dev |
+| Environment | Ruby 3.1 | Ruby 3.2 | Ruby 3.2+ | Ruby 3.4-dev |
 |:------------|:--------:|:--------:|:--------:|:-------------:|
 | **Rails 8.0** | 🟡 | ✅ | ✅ | 🔧 |
 | **Rails 7.2** | ✅ | ✅ | ✅ | 🔧 |
@@ -719,7 +719,7 @@ cat >> Gemfile << 'EOF'
 
 # Code quality and linting
 group :development, :test do
-  gem "rubocop-hk", "~> 1.2.0", require: false
+  gem "rubocop-hk", "~> 1.2.1", require: false
 end
 EOF
 
@@ -732,7 +732,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
   NewCops: enable
 
@@ -833,7 +833,7 @@ cd my_api
 cat >> Gemfile << 'EOF'
 
 group :development, :test do
-  gem "rubocop-hk", "~> 1.2.0", require: false
+  gem "rubocop-hk", "~> 1.2.1", require: false
 end
 EOF
 
@@ -846,7 +846,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
 
 # API-specific customizations
@@ -929,7 +929,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3     # Latest stable Ruby
+  TargetRubyVersion: 3.2     # Latest stable Ruby
   TargetRailsVersion: 8.0    # Rails 8 features
   NewCops: enable            # Enable new cops as released
 
@@ -1164,7 +1164,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
 
 # API-specific Rails cops
@@ -1226,7 +1226,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
   NewCops: enable
 
@@ -1433,7 +1433,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
 
 # 🚫 Disable specific cops
@@ -1561,7 +1561,7 @@ EOF
      rubocop-hk: config/default.yml
 
    AllCops:
-     TargetRubyVersion: 3.3  # Updated from 3.2
+     TargetRubyVersion: 3.2  # Updated from 3.2
      TargetRailsVersion: 8.0  # Updated from 7.x
      NewCops: enable          # Enable Rails 8 cops
 
@@ -1626,7 +1626,7 @@ EOF
    ```ruby
    # Gemfile updates for Rails 7 compatibility
    gem "rails", "~> 7.0.0"
-   gem "rubocop-hk", "~> 1.2.0"
+   gem "rubocop-hk", "~> 1.2.1"
    
    # Update other gems
    gem "rspec-rails", "~> 6.0"  # Rails 7 compatible
@@ -1694,16 +1694,16 @@ bundle install
 bundle exec rubocop
 ```
 
-#### **Ruby 3.2 → Ruby 3.3**
+#### **Ruby 3.2 → Ruby 3.2+**
 
 ```bash
 # Similar process with additional performance benefits
 rvm install 3.3.0
 rvm use 3.3.0
 
-# Update configuration for Ruby 3.3 features
+# Update configuration for Ruby 3.2+ features
 cat >> .rubocop.yml << 'EOF'
-# Ruby 3.3 performance optimizations
+# Ruby 3.2+ performance optimizations
 Performance/StringReplacement:
   Enabled: true
   
@@ -1715,7 +1715,7 @@ EOF
 **Performance Comparison**:
 - Ruby 3.1 → 3.2: ~10-15% performance improvement
 - Ruby 3.2 → 3.3: ~15-20% performance improvement
-- RuboCop run time: ~25% faster on Ruby 3.3 vs 3.1
+- RuboCop run time: ~25% faster on Ruby 3.2+ vs 3.1
 
 </details>
 
@@ -1899,7 +1899,7 @@ inherit_gem:
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
 
 # RuboCop HK uses double quotes by default
@@ -2037,7 +2037,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
   NewCops: enable
 
@@ -2195,7 +2195,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
 
 # API-specific Rails rules
@@ -2245,7 +2245,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
 
 # Microservice-optimized metrics
@@ -2711,7 +2711,7 @@ let g:ale_fix_on_save = 1
 <summary><strong>📦 Dockerfile Example</strong></summary>
 
 ```dockerfile
-FROM ruby:3.3-alpine
+FROM ruby:3.2-alpine
 
 # Install dependencies
 RUN apk add --no-cache \
@@ -2761,7 +2761,7 @@ volumes:
 
 ```bash
 # Run RuboCop in Docker without building an image
-docker run --rm -v $(pwd):/app -w /app ruby:3.3 \
+docker run --rm -v $(pwd):/app -w /app ruby:3.2 \
   bash -c "gem install rubocop-hk -v '~> 1.0.0' && rubocop --autocorrect"
 ```
 
@@ -2836,7 +2836,7 @@ stages:
 
 🔧 RuboCop:
   stage: quality
-  image: ruby:3.3
+  image: ruby:3.2
   cache:
     key: gems-cache
     paths:
@@ -2871,7 +2871,7 @@ version: 2.1
 executors:
   ruby-executor:
     docker:
-      - image: cimg/ruby:3.3
+      - image: cimg/ruby:3.2
     working_directory: ~/project
 
 jobs:
@@ -2962,7 +2962,7 @@ pipeline {
 
 | Combination | Stability | Performance | Support | Use Case |
 |:------------|:----------|:-----------|:--------|:---------|
-| **Ruby 3.3 + Rails 8.0** | ⭐⭐⭐⭐⭐ | ⚡⚡⚡⚡⚡ | 🛡️ 5+ years | New applications, greenfield projects |
+| **Ruby 3.2+ + Rails 8.0** | ⭐⭐⭐⭐⭐ | ⚡⚡⚡⚡⚡ | 🛡️ 5+ years | New applications, greenfield projects |
 | **Ruby 3.2 + Rails 7.2** | ⭐⭐⭐⭐⭐ | ⚡⚡⚡⚡ | 🛡️ 4+ years | Enterprise applications, risk-averse teams |
 
 #### **🥈 Tier 2: Solid Production Choices**
@@ -2970,7 +2970,7 @@ pipeline {
 | Combination | Stability | Performance | Support | Use Case |
 |:------------|:----------|:-----------|:--------|:---------|
 | **Ruby 3.2 + Rails 8.0** | ⭐⭐⭐⭐ | ⚡⚡⚡⚡⚡ | 🛡️ 4+ years | Balanced approach, good performance |
-| **Ruby 3.3 + Rails 7.1** | ⭐⭐⭐⭐ | ⚡⚡⚡⚡ | 🛡️ 3+ years | Latest Ruby with stable Rails |
+| **Ruby 3.2+ + Rails 7.1** | ⭐⭐⭐⭐ | ⚡⚡⚡⚡ | 🛡️ 3+ years | Latest Ruby with stable Rails |
 | **Ruby 3.1 + Rails 7.0** | ⭐⭐⭐⭐ | ⚡⚡⚡ | 🛡️ 2+ years | Conservative enterprise choice |
 
 #### **🥉 Tier 3: Maintenance Mode**
@@ -2997,9 +2997,9 @@ bundle outdated                         # Dependency check
 
 | Ruby Version | Rails Version | Execution Time | Memory Usage | Relative Performance |
 |:-------------|:--------------|:---------------|:-------------|:---------------------|
-| **Ruby 3.3** | Rails 8.0 | 12s | 180MB | 🚀 **Baseline (100%)** |
+| **Ruby 3.2+** | Rails 8.0 | 12s | 180MB | 🚀 **Baseline (100%)** |
 | **Ruby 3.2** | Rails 8.0 | 14s | 195MB | 🏃 **85% performance** |
-| **Ruby 3.3** | Rails 7.2 | 13s | 175MB | 🏃 **92% performance** |
+| **Ruby 3.2+** | Rails 7.2 | 13s | 175MB | 🏃 **92% performance** |
 | **Ruby 3.2** | Rails 7.1 | 15s | 200MB | 🚶 **80% performance** |
 | **Ruby 3.1** | Rails 7.0 | 18s | 220MB | 🐌 **67% performance** |
 | **Ruby 3.1** | Rails 6.1 | 22s | 240MB | 🐌 **55% performance** |
@@ -3042,7 +3042,7 @@ AllCops:
 
 | Version | Security Support Until | Risk Level | Recommendation |
 |:--------|:----------------------|:-----------|:---------------|
-| **Ruby 3.3** | March 2027+ | 🟢 **Low** | ✅ Use in production |
+| **Ruby 3.2+** | March 2027+ | 🟢 **Low** | ✅ Use in production |
 | **Ruby 3.2** | March 2026+ | 🟢 **Low** | ✅ Use in production |
 | **Ruby 3.1** | March 2025+ | 🟡 **Medium** | ⚠️ Plan upgrade |
 | **Ruby 3.0** | March 2024 | 🔴 **High** | ❌ Upgrade immediately |
@@ -3352,7 +3352,7 @@ bundle install
 gem install rubocop-hk -v "~> 1.0.0"
 
 # Version-specific fix for Rails 6:
-echo 'gem "rubocop-hk", "~> 1.2.0", require: false' >> Gemfile
+echo 'gem "rubocop-hk", "~> 1.2.1", require: false' >> Gemfile
 bundle install
 ```
 
@@ -3482,7 +3482,7 @@ A: Check our [Contributing Guide](CONTRIBUTING.md) for details on adding new cop
 
 ### **Q: Which Ruby/Rails versions should I use for new projects?**
 A: **Recommended for 2025**:
-- **Ruby 3.3** + **Rails 8.0** - Best performance and latest features
+- **Ruby 3.2+** + **Rails 8.0** - Best performance and latest features
 - **Ruby 3.2** + **Rails 7.2** - Enterprise-grade stability
 
 ### **Q: How do I upgrade from Rails 6 to Rails 7/8?**
@@ -3551,7 +3551,7 @@ AllCops:
   MaxFilesInCache: 20000
   
   # Parallel processing
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
   
   # Optimize file exclusions
@@ -3705,7 +3705,7 @@ inherit_gem:
 AllCops:
   # Limit parallel workers for memory-constrained environments
   # Default uses all CPU cores, but you can limit it
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   
   # For memory-constrained CI environments, disable parallel processing
   # Remove --parallel flag and run single-threaded
@@ -3819,7 +3819,7 @@ done
 # Using Docker for isolation
 docker run --rm -v $(pwd):/app -w /app ruby:3.1 bundle exec rubocop
 docker run --rm -v $(pwd):/app -w /app ruby:3.2 bundle exec rubocop
-docker run --rm -v $(pwd):/app -w /app ruby:3.3 bundle exec rubocop
+docker run --rm -v $(pwd):/app -w /app ruby:3.2 bundle exec rubocop
 ```
 
 </details>

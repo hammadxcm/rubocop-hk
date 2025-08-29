@@ -1,7 +1,7 @@
 # ⚡ Quick Start Guide - RuboCop HK
 
 > **Get up and running with RuboCop HK in under 5 minutes!**  
-> **🆕 v1.2.0: Now with 45+ warning-only modern rules for Ruby 3.3 & Rails 8.0**
+> **🆕 v1.2.1: Now with 45+ warning-only modern rules for Ruby 3.3 & Rails 8.0**
 
 <div align="center">
 
@@ -90,7 +90,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3      # 🎯 Your Ruby version
+  TargetRubyVersion: 3.2      # 🎯 Your Ruby version
   TargetRailsVersion: 7.0     # 🚂 Your Rails version  
   NewCops: enable             # ✨ Get latest improvements
 
@@ -132,7 +132,7 @@ inherit_gem:
   rubocop-hk: config/default.yml
 
 AllCops:
-  TargetRubyVersion: 3.3      # 🎯 Your Ruby version
+  TargetRubyVersion: 3.2      # 🎯 Your Ruby version
   NewCops: enable
 EOF
 

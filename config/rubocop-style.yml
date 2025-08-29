@@ -186,7 +186,7 @@ Style/TrivialAccessors:
   IgnoreClassMethods: false
 
 # ==========================================
-# Modern Ruby 3.3 Style Cops (2025) - All WARNING ONLY
+# Modern Ruby 3.2+ Style Cops (2025) - All WARNING ONLY
 # These help adopt modern Ruby patterns without breaking builds
 # ==========================================
 
