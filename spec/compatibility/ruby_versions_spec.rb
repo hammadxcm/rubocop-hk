@@ -4,8 +4,8 @@ require "spec_helper"
 
 RSpec.describe "Ruby Version Compatibility" do
   describe "Ruby version requirements" do
-    it "supports Ruby 3.2+" do
-      expect(Gem::Version.new(RUBY_VERSION)).to be >= Gem::Version.new("3.2.0")
+    it "supports Ruby 3.3+" do
+      expect(Gem::Version.new(RUBY_VERSION)).to be >= Gem::Version.new("3.3.0")
     end
 
     it "has correct Ruby version requirement in gemspec" do

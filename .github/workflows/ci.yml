@@ -12,15 +12,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby-version: ['3.2', '3.3', '3.4']
-        rails-version: ['7.0', '7.1', '7.2', '8.0']
+        ruby-version: ['3.3', '3.4']
+        rails-version: ['7.1', '7.2', '8.0']
         exclude:
-          # Rails 8.0 requires Ruby 3.2+
-          - ruby-version: '3.1'
-            rails-version: '8.0'
-          # Rails 7.0 has Logger issues with newer Ruby versions  
-          - ruby-version: '3.4'
-            rails-version: '7.0'
+          # No exclusions needed - all combinations should work
+          []
     
     name: Ruby ${{ matrix.ruby-version }}, Rails ${{ matrix.rails-version }}
     

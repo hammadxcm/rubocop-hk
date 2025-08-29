@@ -3,7 +3,8 @@
     "allow": [
       "WebSearch",
       "Bash(bundle:*)",
-      "Bash(rubocop:*)"
+      "Bash(rubocop:*)",
+      "Bash(git branch:*)"
     ],
     "deny": [],
     "ask": []
