@@ -1,7 +1,7 @@
 # ⚙️ Customization Guide - RuboCop HK
 
 > **Advanced configuration options and team-specific customizations for RuboCop HK**  
-> **🆕 v1.2.0: Customize warning-only modern rules and team adoption workflows**
+> **🆕 v1.2.1: Customize warning-only modern rules and team adoption workflows**
 
 <div align="center">
 
@@ -18,7 +18,7 @@
 ## 📋 Table of Contents
 
 - [🎯 Configuration Basics](#-configuration-basics)
-- [🆕 Modern Rules Customization (v1.2.0)](#-modern-rules-customization-v120)
+- [🆕 Modern Rules Customization (v1.2.1)](#-modern-rules-customization-v120)
 - [🏢 Team-Specific Configurations](#-team-specific-configurations)  
 - [📊 Cop Categories](#-cop-categories)
 - [🎛️ Advanced Settings](#️-advanced-settings)
