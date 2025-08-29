@@ -92,7 +92,7 @@ RSpec.describe "Gem Integration" do
 
     it "has proper AllCops configuration" do
       config = RuboCop::ConfigLoader.load_file("config/default.yml")
-      expect(config["AllCops"]["TargetRubyVersion"]).to eq(3.3)
+      expect(config["AllCops"]["TargetRubyVersion"]).to eq(3.2)
       expect(config["AllCops"]["TargetRailsVersion"]).to eq(8.0)
       expect(config["AllCops"]["NewCops"]).to eq("enable")
     end

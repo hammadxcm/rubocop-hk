@@ -65,7 +65,7 @@ RSpec.describe "Configuration Files Integration" do
     end
 
     it "targets modern Ruby and Rails versions" do
-      expect(config["AllCops"]["TargetRubyVersion"]).to eq(3.3)
+      expect(config["AllCops"]["TargetRubyVersion"]).to eq(3.2)
       expect(config["AllCops"]["TargetRailsVersion"]).to eq(8.0)
     end
   end

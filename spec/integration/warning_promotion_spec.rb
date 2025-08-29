@@ -112,7 +112,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
       it "can execute config-info command" do
         output = `make config-info 2>&1`
 
-        expect(output).to include("Ruby version target: 3.3")
+        expect(output).to include("Ruby version target: 3.2")
         expect(output).to include("Rails version target: 8.0")
       end
     end
@@ -212,7 +212,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
       config = RuboCop::ConfigLoader.load_file("config/default.yml")
       target_version = config["AllCops"]["TargetRubyVersion"]
 
-      expect(target_version).to eq(3.3)
+      expect(target_version).to eq(3.2)
       expect(RUBY_VERSION).to(satisfy do |v|
         Gem::Version.new(v) >= Gem::Version.new("3.3.0") ||
               Gem::Version.new(v) >= Gem::Version.new("3.2.0")

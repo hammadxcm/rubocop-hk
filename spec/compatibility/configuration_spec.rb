@@ -32,7 +32,7 @@ RSpec.describe "Configuration Compatibility" do
     end
 
     it "targets modern Ruby and Rails versions" do
-      expect(default_config["AllCops"]["TargetRubyVersion"]).to eq(3.3)
+      expect(default_config["AllCops"]["TargetRubyVersion"]).to eq(3.2)
       expect(default_config["AllCops"]["TargetRailsVersion"]).to eq(8.0)
     end
 

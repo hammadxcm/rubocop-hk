@@ -1,6 +1,9 @@
 # Rails 6-8.x Configuration - Modern Best Practices for 2025
 # Optimized for Rails 6.0-8.0+ applications with backward compatibility
 
+plugins:
+  - rubocop-rails
+
 # ==========================================
 # Core Rails Cops - Compatible with Rails 6-8.x
 # ==========================================

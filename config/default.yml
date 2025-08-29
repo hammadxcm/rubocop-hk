@@ -1,6 +1,6 @@
 AllCops:
   # Target versions for Rails 6-8.x applications (2025)
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.2
   TargetRailsVersion: 8.0
   
   # Enhanced exclusions for typical Rails project structure

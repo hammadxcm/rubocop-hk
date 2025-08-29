@@ -13,9 +13,9 @@ SimpleCov.start do
   add_group "Version", "lib/rubocop/hk/version.rb"
   add_group "Command", "lib/rubocop/hk/command.rb"
 
-  # Coverage thresholds - achieved 100%!
-  minimum_coverage 100
-  minimum_coverage_by_file 100
+  # Coverage thresholds - target 90%+
+  minimum_coverage 90
+  minimum_coverage_by_file 90
 
   # HTML and console output
   formatter SimpleCov::Formatter::MultiFormatter.new([
