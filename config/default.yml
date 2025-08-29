@@ -60,3 +60,8 @@ inherit_from:
   - rubocop-style.yml
   - rubocop-performance.yml
 
+# Gem entry point file exception (must match gem name)
+Naming/FileName:
+  Exclude:
+    - "lib/rubocop-hk.rb"
+

@@ -9,7 +9,7 @@ RSpec.describe "Final Coverage Validation" do
     expect(defined?(Rubocop::Hk)).to be_truthy
   end
 
-  # Ensure the version file is executed and tracked  
+  # Ensure the version file is executed and tracked
   it "covers version.rb by accessing VERSION constant multiple times" do
     # Multiple accesses to ensure all lines of version.rb are hit
     expect(Rubocop::Hk::VERSION).to eq("1.2.1")

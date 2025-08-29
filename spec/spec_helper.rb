@@ -10,7 +10,7 @@ SimpleCov.start do
   # Explicitly track all Ruby files in lib (except filtered ones)
   track_files "lib/**/*.rb"
 
-  # Add specific files to ensure they're tracked  
+  # Add specific files to ensure they're tracked
   add_group "Main Library", "lib/rubocop/hk.rb"
   add_group "Version", "lib/rubocop/hk/version.rb"
   add_group "Command", "lib/rubocop/hk/command.rb"
