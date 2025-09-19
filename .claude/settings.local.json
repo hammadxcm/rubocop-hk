@@ -3,4 +3,4 @@
     "allow": [
       "WebSearch",
       "Bash(bundle:*)",
-      "Bash(rubocop
+      "Bash(rubocop:
