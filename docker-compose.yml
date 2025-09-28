@@ -1,7 +1,7 @@
 services:
   gem:
     container_name: rubocop-hk-gem
-    image: ruby:3.1.7
+    image: ruby:3.3
     init: true
     working_dir: /app
     environment:

@@ -20,11 +20,12 @@ Gem::Specification.new do |spec|
   # Enable MFA for security (2025 best practice)
   spec.metadata["rubygems_mfa_required"] = "true"
 
-  spec.files = Dir["README.md", "STYLEGUIDE.md", "LICENSE", "config/*.yml", "lib/**/*.rb"]
+  spec.files = Dir["README.md", "STYLEGUIDE.md", "LICENSE", "config/*.yml", "lib/**/*.rb", "bin/*"]
   spec.require_paths = ["lib"]
+  spec.executables = ["rubocop-hk"]
 
   # Gem dependencies
-  spec.add_dependency("rubocop", "~> 1.80.0")
+  spec.add_dependency("rubocop", ">= 1.78.0", "< 1.82.0")
   spec.add_dependency("rubocop-performance", "~> 1.25.0")
   spec.add_dependency("rubocop-rails", "~> 2.33.0")
   spec.add_dependency("rubocop-rspec", "~> 3.6.0")
