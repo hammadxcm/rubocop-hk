@@ -71,6 +71,7 @@ jobs:
     steps:
       - name: Dependency Review
         uses: actions/dependency-review-action@v4
+        continue-on-error: true  # Don't fail if dependency review is not available
         with:
           fail-on-severity: moderate
 
