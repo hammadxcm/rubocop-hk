@@ -1,0 +1,89 @@
+inherit_gem:
+  rubocop-hk: config/default.yml
+
+# Gem development specific overrides
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+
+# Relaxed rules for test files and gem development
+Style/StringLiterals:
+  Exclude:
+    - 'spec/**/*'
+    - 'bin/*'
+
+Style/TrailingCommaInArrayLiteral:
+  Exclude:
+    - 'spec/**/*'
+
+Layout/TrailingEmptyLines:
+  Exclude:
+    - 'bin/*'
+
+# File naming exceptions for CLI executables
+Naming/FileName:
+  Exclude:
+    - 'bin/rubocop-hk'
+    - 'lib/rubocop-hk.rb'
+
+# Allow longer blocks in test files
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+# Allow longer methods in test files
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/**/*'
+
+# Allow constant definition in test blocks
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - 'spec/**/*'
+
+# Allow empty test classes
+Lint/EmptyClass:
+  Exclude:
+    - 'spec/**/*'
+
+# Allow flexible layout in test files
+Layout/DotPosition:
+  Exclude:
+    - 'spec/**/*'
+
+# Allow longer lines in test files and scripts
+Layout/LineLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'scripts/**/*'
+
+# Allow performance optimizations to be less strict in scripts and specs
+Performance/ChainArrayAllocation:
+  Exclude:
+    - 'scripts/**/*'
+    - 'spec/**/*'
+
+# Disable specific RSpec cops that are too strict for our test style
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/RepeatedExample:
+  Enabled: false
+
+RSpec/LeakyConstantDeclaration:
+  Enabled: false
+
+RSpec/RemoveConst:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+# Allow CLI tools to output to stdout
+Rails/Output:
+  Exclude:
+    - "lib/rubocop/hk/command.rb"
+
+# Gemspec MFA requirement disabled for automated publishing
+Gemspec/RequireMFA:
+  Enabled: false
