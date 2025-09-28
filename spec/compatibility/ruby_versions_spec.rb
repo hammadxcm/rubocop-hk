@@ -74,7 +74,7 @@ RSpec.describe "Ruby Version Compatibility" do
     it "has compatible RuboCop dependency" do
       rubocop_dep = gemspec.dependencies.find { |dep| dep.name == "rubocop" }
       expect(rubocop_dep).not_to be_nil
-      expect(rubocop_dep.requirement.to_s).to include("1.80")
+      expect(rubocop_dep.requirement.to_s).to include("1.78")
     end
 
     it "has compatible rubocop-rails dependency" do
