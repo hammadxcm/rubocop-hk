@@ -60,7 +60,9 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
 
         # This would be the actual promotion in a real scenario
         # For testing, we simulate the promotion logic
-        promoted_content = original_content.gsub(%r{^(.+?Style/FetchEnvVar:.+?)\n  Severity: warning$}m, '\1')
+        promoted_content = original_content.gsub(
+          %r{^(.+?Style/FetchEnvVar:.+?)\n  Severity: warning$}m, '\1'
+        )
 
         expect(promoted_content).not_to include("Style/FetchEnvVar:\n#{' ' * 18}Severity: warning")
         expect(promoted_content).to include("Style/FetchEnvVar:")
@@ -70,7 +72,8 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
         backup_pattern = File.join(temp_dir, "config", "backups", "*", "rubocop-style.yml")
 
         # Simulate backup creation
-        backup_dir = File.join(temp_dir, "config", "backups", Time.now.utc.strftime("%Y%m%d_120000"))
+        backup_dir = File.join(temp_dir, "config", "backups",
+                               Time.now.utc.strftime("%Y%m%d_120000"))
         FileUtils.mkdir_p(backup_dir)
         FileUtils.cp(test_config_file, File.join(backup_dir, "rubocop-style.yml"))
 
@@ -167,7 +170,8 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
       `bundle exec rubocop --config config/default.yml --only Style/StringLiterals #{test_ruby_file.path} 2>/dev/null`
 
       # Use a cop we know exists and works
-      expect([0, 1]).to include($CHILD_STATUS.exitstatus), "Should complete successfully when checking specific cops"
+      expect([0, 1]).to include($CHILD_STATUS.exitstatus),
+                        "Should complete successfully when checking specific cops"
     end
   end
 
