@@ -21,7 +21,7 @@ A comprehensive RuboCop configuration for modern Ruby 3.3+ and Rails 7.1+ applic
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rubocop-hk', '~> 1.2.1', require: false
+gem 'rubocop-hk', '~> 1.2.2', require: false
 ```
 
 And then execute:
@@ -79,13 +79,14 @@ See [CUSTOMIZATION.md](CUSTOMIZATION.md) for detailed configuration options.
 - RuboCop >= 1.78.0
 - Rails >= 7.1.0 (if using Rails cops)
 
-## New in v1.2.1
+## New in v1.2.2
 
-This hotfix release resolves CI/CD pipeline issues and establishes Ruby 3.3+ support:
+This patch release improves CI/CD compatibility and dependency management:
 
-- **Fixed RuboCop 1.80+ compatibility** - Resolved Rails cop validation errors
-- **Added missing gem entry point** - Proper gem loading with `require 'rubocop-hk'`  
-- **Updated Ruby version requirement** - Now requires Ruby >= 3.3.0
+- **Enhanced RuboCop compatibility** - Support for RuboCop 1.78-1.81+ with flexible version constraints
+- **Fixed CI/CD pipeline issues** - Resolved Docker Ruby version compatibility and test failures
+- **Improved dependency management** - Better version ranges for more reliable installations
+- **Maintained Ruby 3.3+ support** - Continues to target modern Ruby versions
 - **45+ warning-only modern rules** - Gradual adoption without breaking builds
 
 See [CHANGELOG.md](CHANGELOG.md) for complete release notes.
