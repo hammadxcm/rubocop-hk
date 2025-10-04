@@ -6,4 +6,4 @@
       "Bash(rubocop:*)",
       "Bash(git branch:*)"
     ],
-    "deny
+    "deny"
