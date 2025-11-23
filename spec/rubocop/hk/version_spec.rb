@@ -12,11 +12,11 @@ RSpec.describe "Rubocop::Hk::VERSION" do
   end
 
   it "has the expected value" do
-    expect(Rubocop::Hk::VERSION).to eq("1.2.2")
+    expect(Rubocop::Hk::VERSION).to eq("1.3.0")
   end
 
   it "is accessible from the main module" do
-    expect(Rubocop::Hk::VERSION).to eq("1.2.2")
+    expect(Rubocop::Hk::VERSION).to eq("1.3.0")
   end
 
   it "is frozen" do

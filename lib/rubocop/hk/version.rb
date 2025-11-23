@@ -3,6 +3,6 @@
 module Rubocop
   # RuboCop HK - Modern RuboCop configuration
   module Hk
-    VERSION = "1.2.2" unless defined?(VERSION)
+    VERSION = "1.3.0" unless defined?(VERSION)
   end
 end
