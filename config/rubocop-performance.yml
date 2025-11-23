@@ -2,6 +2,10 @@
 # Configuration for rubocop-performance plugin
 # Focused on Ruby performance patterns for Rails 6.0+ applications
 
+# Load the rubocop-performance plugin
+plugins:
+  - rubocop-performance
+
 # Note: Performance cops are now provided by the rubocop-performance gem
 # This configuration file provides sensible defaults for performance-oriented development
 
