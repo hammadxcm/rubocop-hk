@@ -18,6 +18,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.3.0] - 2025-11-23
+
+### 🔧 **CI/CD Fixes & Dependency Updates**
+
+**Maintenance release**: This release focuses on fixing CI/CD pipeline failures, updating security vulnerabilities, and ensuring cross-platform compatibility.
+
+#### 🛠️ **Fixes**
+
+##### **CI/CD & Platform Compatibility**
+- **Fixed Windows test failures**: Updated file executability checks to handle Windows platform differences
+- **Fixed PowerShell string escaping**: Resolved YAML syntax issues in Windows CI workflows
+- **Configuration loading**: Updated plugin loading mechanism from `require:` to modern `plugins:` directive
+- **RuboCop version compatibility**: Ensured compatibility with RuboCop 1.78-1.81 by pinning plugin versions
+- **Removed deprecated cop**: Removed `Rails/SafeNavigation` (moved to Style namespace in RuboCop)
+
+##### **All CI/CD Checks Passing**
+- ✅ Ruby 3.3 & 3.4 on Ubuntu, macOS, and Windows
+- ✅ Rails 7.1, 7.2, and 8.0 compatibility
+- ✅ RuboCop 1.78, 1.79, 1.80, 1.81 compatibility
+- ✅ All tests passing (160 examples, 0 failures)
+- ✅ 100% code coverage maintained
+
+#### 🔒 **Security**
+
+##### **Dependency Updates**
+- **rack**: Updated from 3.2.0 to 3.2.4
+  - Fixes CVE-2025-61770 (DoS via unbounded multipart preamble buffering)
+  - Fixes CVE-2025-61771 (DoS via large non-file field buffering)
+  - Fixes CVE-2025-61772 (DoS via unbounded per-part headers)
+  - Fixes CVE-2025-61780 (Information disclosure vulnerability)
+  - Fixes CVE-2025-61919 (DoS via unbounded URL-encoded body parsing)
+- **rexml**: Updated from 3.4.1 to 3.4.4
+  - Fixes CVE-2025-58767 (DoS when parsing malformed XML)
+- **uri**: Updated from 1.0.3 to 1.1.1
+  - Fixes CVE-2025-61594 (URI credential leakage bypass)
+
+#### 📝 **Documentation**
+- Updated configuration examples to use `plugins:` directive
+- Added comprehensive release notes with security updates
+- Verified all documentation reflects current compatibility matrix
+
+#### ⚙️ **Technical Improvements**
+- **Config files**: Updated rubocop-performance.yml, rubocop-rails.yml, rubocop-rspec.yml to use `plugins:` directive
+- **Test suite**: Enhanced Windows compatibility in warning_promotion_spec.rb
+- **Workflow improvements**: Optimized compatibility-test.yml for better platform support
+
 ## [1.2.1] - 2025-08-29
 
 ### 🐛 **Hotfix Release - CI/CD Stability & Ruby 3.3+ Support**
