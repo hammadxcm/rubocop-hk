@@ -1,7 +1,7 @@
 # ⚡ Quick Start Guide - RuboCop HK
 
-> **Get up and running with RuboCop HK in under 5 minutes!**  
-> **🆕 v1.2.1: Now with 45+ warning-only modern rules for Ruby 3.3 & Rails 8.0**
+> **Get up and running with RuboCop HK in under 5 minutes!**
+> **🆕 v1.3.0: Cross-platform reliability with 45+ warning-only modern rules for Ruby 3.3 & Rails 8.0**
 
 <div align="center">
 
@@ -76,7 +76,7 @@ cat << 'EOF' >> Gemfile
 
 # 🔧 Code quality and style enforcement  
 group :development, :test do
-  gem "rubocop-hk", "~> 1.0.9", require: false
+  gem "rubocop-hk", "~> 1.3.0", require: false
 end
 EOF
 
