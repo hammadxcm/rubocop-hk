@@ -21,7 +21,8 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
   describe "Warning Promotion Script" do
     it "exists and is executable" do
       expect(File.exist?(promotion_script)).to be(true)
-      expect(File.executable?(promotion_script)).to be(true)
+      # Skip executable check on Windows as file permissions work differently
+      expect(File.executable?(promotion_script)).to be(true) unless Gem.win_platform?
     end
 
     context "when running without arguments" do
