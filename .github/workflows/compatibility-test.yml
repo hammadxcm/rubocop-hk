@@ -38,7 +38,15 @@ jobs:
       run: bundle exec rspec
     
     - name: Test configuration loading
-      run: bundle exec ruby -e "require 'rubocop'; require 'yaml'; config = RuboCop::ConfigLoader.load_file('config/default.yml'); puts 'Configuration loaded successfully'; puts \"Total cops: #{config.keys.count { |k| k.include?('/') }}\""
+      run: |
+        bundle exec ruby -e "
+          require 'rubocop'
+          require 'yaml'
+          config = RuboCop::ConfigLoader.load_file('config/default.yml')
+          puts 'Configuration loaded successfully'
+          cop_count = config.keys.count { |k| k.include?('/') }
+          puts \"Total cops: #{cop_count}\"
+        "
 
   rails-compatibility:
     runs-on: ubuntu-latest
