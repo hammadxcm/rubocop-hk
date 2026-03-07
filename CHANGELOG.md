@@ -18,6 +18,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-03-08
+
+### 🔒 **Security & CI/CD Improvements**
+
+#### 🛠️ **Fixes**
+- **CodeQL false positives**: Excluded `vendor/` and `tmp/` from CodeQL scanning in both `codeql.yml` and `security.yml` to eliminate 30 false-positive alerts from vendored `rdoc` dependency
+- **Rails 8.0 compatibility test**: Fixed `--pre` flag usage for stable Rails 8.0 gem install; removed unnecessary `experimental` flag since Rails 8 fully supports Ruby 3.4
+
+#### ✨ **Added**
+- **Rails 8.1 support**: Added Rails 8.1 to CI and compatibility test matrices (Ruby 3.3 + 3.4)
+- **Auto version bump**: CI automatically bumps version on main using commit message flags:
+  - `[major]` — major bump (e.g. 1.3.0 → 2.0.0)
+  - `[minor]` — minor bump (e.g. 1.3.0 → 1.4.0)
+  - `[no-bump]` / `[skip-release]` — skip bump and release
+  - Default (no flag) — patch bump (e.g. 1.3.0 → 1.3.1)
+- **Auto release**: CI publishes to RubyGems and creates GitHub release after all tests pass on main
+- **Secret scanning**: Enabled GitHub secret scanning and push protection
+- **Vendor gitignore**: Added `vendor/` to `.gitignore`
+
+#### 🔒 **Security**
+- Dismissed 30 false-positive code scanning alerts (vendored rdoc dependency)
+- Enabled secret scanning and push protection via GitHub API
+
+#### 📊 **Compatibility**
+- ✅ Ruby 3.3 & 3.4
+- ✅ Rails 7.1, 7.2, 8.0, 8.1
+- ✅ RuboCop 1.78–1.81
+- ✅ Ubuntu, macOS, Windows
+
 ## [1.3.0] - 2025-11-23
 
 ### 🔧 **CI/CD Fixes & Dependency Updates**
