@@ -129,25 +129,89 @@ jobs:
     needs: [test, lint, coverage]
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
         bundler-cache: true
-    
+
     - name: Build gem
       run: |
         gem build rubocop-hk.gemspec
         ls -la *.gem
-    
+
     - name: Test gem installation
       run: |
         gem install ./rubocop-hk-*.gem
         ruby -e "require 'rubocop-hk'; puts 'Gem loaded successfully'"
-    
+
     - name: Upload gem artifact
       uses: actions/upload-artifact@v4
       with:
         name: rubocop-hk-gem
         path: "*.gem"
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [test, lint, coverage, security, build]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      contents: write
+      packages: write
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+
+    - name: Get gem version
+      id: gem_version
+      run: |
+        VERSION=$(ruby -e "require_relative 'lib/rubocop/hk/version'; puts Rubocop::Hk::VERSION")
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        echo "Gem version: $VERSION"
+
+    - name: Check if version already published
+      id: check_version
+      run: |
+        if gem search rubocop-hk --versions --exact | grep -q "${{ steps.gem_version.outputs.VERSION }}"; then
+          echo "already_published=true" >> $GITHUB_OUTPUT
+          echo "Version ${{ steps.gem_version.outputs.VERSION }} already published"
+        else
+          echo "already_published=false" >> $GITHUB_OUTPUT
+          echo "Version ${{ steps.gem_version.outputs.VERSION }} is new"
+        fi
+
+    - name: Build gem
+      if: steps.check_version.outputs.already_published == 'false'
+      run: gem build rubocop-hk.gemspec
+
+    - name: Publish to RubyGems
+      if: steps.check_version.outputs.already_published == 'false'
+      env:
+        GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_AUTH_TOKEN }}
+      run: |
+        mkdir -p ~/.gem
+        echo "---" > ~/.gem/credentials
+        echo ":rubygems_api_key: $GEM_HOST_API_KEY" >> ~/.gem/credentials
+        chmod 600 ~/.gem/credentials
+        gem push rubocop-hk-*.gem --verbose
+
+    - name: Create git tag and GitHub Release
+      if: steps.check_version.outputs.already_published == 'false'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        VERSION="v${{ steps.gem_version.outputs.VERSION }}"
+        git tag "$VERSION"
+        git push origin "$VERSION"
+        gh release create "$VERSION" rubocop-hk-*.gem \
+          --title "RuboCop HK $VERSION" \
+          --generate-notes \
+          --latest

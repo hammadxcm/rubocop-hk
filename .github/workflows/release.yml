@@ -1,4 +1,4 @@
-name: Release
+name: Release (Manual)
 
 on:
   push:
@@ -14,16 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
         bundler-cache: true
-    
+
     - name: Run full test suite
       run: bundle exec rspec
-    
+
     - name: Run RuboCop
       run: bundle exec rubocop --parallel
 
@@ -32,28 +32,42 @@ jobs:
     needs: test
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
         bundler-cache: true
-    
+
     - name: Extract version from tag
       id: extract_version
       run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
-    
+
+    - name: Check if version already published
+      id: check_version
+      run: |
+        VERSION="${{ steps.extract_version.outputs.VERSION }}"
+        if gem search rubocop-hk --versions --exact | grep -q "$VERSION"; then
+          echo "already_published=true" >> $GITHUB_OUTPUT
+          echo "Version $VERSION already published (likely by auto-release)"
+        else
+          echo "already_published=false" >> $GITHUB_OUTPUT
+        fi
+
     - name: Build gem
+      if: steps.check_version.outputs.already_published == 'false'
       run: |
         gem build rubocop-hk.gemspec
         ls -la *.gem
-    
+
     - name: Test gem installation
+      if: steps.check_version.outputs.already_published == 'false'
       run: |
         gem install ./rubocop-hk-*.gem
         ruby -e "require 'rubocop/hk'; puts Rubocop::Hk::VERSION"
-    
+
     - name: Publish to RubyGems
+      if: steps.check_version.outputs.already_published == 'false'
       env:
         GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_AUTH_TOKEN }}
       run: |
@@ -62,46 +76,16 @@ jobs:
         echo ":rubygems_api_key: $GEM_HOST_API_KEY" >> ~/.gem/credentials
         chmod 600 ~/.gem/credentials
         gem push rubocop-hk-*.gem --verbose
-    
+
     - name: Create GitHub Release
+      if: steps.check_version.outputs.already_published == 'false'
       uses: softprops/action-gh-release@v2
       with:
         files: |
           rubocop-hk-*.gem
-        body: |
-          ## RuboCop HK v${{ steps.extract_version.outputs.VERSION }}
-          
-          See [CHANGELOG.md](CHANGELOG.md) for detailed changes.
-          
-          ### Installation
-          
-          ```bash
-          gem install rubocop-hk -v "${{ steps.extract_version.outputs.VERSION }}"
-          ```
-          
-          ### Quick Start
-          
-          ```yaml
-          # .rubocop.yml
-          inherit_gem:
-            rubocop-hk: config/default.yml
-          ```
         generate_release_notes: true
         make_latest: true
 
-  notify:
-    runs-on: ubuntu-latest
-    needs: build-and-publish
-    if: always()
-    steps:
-    - name: Notify success
-      if: needs.build-and-publish.result == 'success'
-      run: |
-        echo "✅ Successfully released rubocop-hk ${GITHUB_REF#refs/tags/v}"
-        echo "🎉 Available on RubyGems: https://rubygems.org/gems/rubocop-hk"
-    
-    - name: Notify failure
-      if: needs.build-and-publish.result == 'failure'
-      run: |
-        echo "❌ Failed to release rubocop-hk ${GITHUB_REF#refs/tags/v}"
-        echo "💡 Check the build logs for details"
+    - name: Skip notice
+      if: steps.check_version.outputs.already_published == 'true'
+      run: echo "Skipped - version already published by auto-release in CI"
