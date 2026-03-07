@@ -30,6 +30,10 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
+        config: |
+          paths-ignore:
+            - vendor
+            - tmp
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1

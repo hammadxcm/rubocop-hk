@@ -56,11 +56,7 @@ jobs:
       matrix:
         ruby-version: ['3.3', '3.4']
         rails-version: ['7.1', '7.2', '8.0']
-        include:
-          - ruby-version: '3.4'
-            rails-version: '8.0'
-            experimental: true
-    continue-on-error: ${{ matrix.experimental || false }}
+    continue-on-error: false
     
     name: Rails ${{ matrix.rails-version }} with Ruby ${{ matrix.ruby-version }}
     
@@ -75,11 +71,7 @@ jobs:
     
     - name: Create test Rails app
       run: |
-        if [[ "${{ matrix.rails-version }}" == "8.0" ]]; then
-          gem install rails --pre
-        else
-          gem install rails -v "~> ${{ matrix.rails-version }}.0"
-        fi
+        gem install rails -v "~> ${{ matrix.rails-version }}.0"
         
         rails new compatibility_test_app_${{ matrix.ruby-version }}_${{ matrix.rails-version }} \
           --skip-git --skip-bundle --api --skip-test

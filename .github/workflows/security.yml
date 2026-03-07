@@ -91,6 +91,10 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: ruby
+          config: |
+            paths-ignore:
+              - vendor
+              - tmp
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3
