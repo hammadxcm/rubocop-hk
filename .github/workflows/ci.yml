@@ -191,15 +191,29 @@ jobs:
           echo "Patch version bump (default)"
         fi
 
-    - name: Bump version
+    - name: Check current version against RubyGems
       if: steps.bump_type.outputs.bump != 'none'
-      id: new_version
+      id: check_current
+      run: |
+        CURRENT_VERSION=$(ruby -e "require_relative 'lib/rubocop/hk/version'; puts Rubocop::Hk::VERSION")
+        echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+
+        if gem search rubocop-hk --versions --exact | grep -q "$CURRENT_VERSION"; then
+          echo "needs_bump=true" >> $GITHUB_OUTPUT
+          echo "Version $CURRENT_VERSION already on RubyGems, will bump"
+        else
+          echo "needs_bump=false" >> $GITHUB_OUTPUT
+          echo "Version $CURRENT_VERSION not yet on RubyGems, publishing as-is"
+        fi
+
+    - name: Bump version
+      if: steps.bump_type.outputs.bump != 'none' && steps.check_current.outputs.needs_bump == 'true'
       run: |
         BUMP_TYPE="${{ steps.bump_type.outputs.bump }}"
         ruby -e "
           version_file = 'lib/rubocop/hk/version.rb'
           content = File.read(version_file)
-          current = content.match(/VERSION = \"(\d+)\.(\d+)\.(\d+)\"/)\
+          current = content.match(/VERSION = \"(\d+)\.(\d+)\.(\d+)\"/)
 
           major, minor, patch = current[1].to_i, current[2].to_i, current[3].to_i
           puts \"Current version: #{major}.#{minor}.#{patch}\"
@@ -220,37 +234,30 @@ jobs:
           File.write(version_file, new_content)
         "
 
-        NEW_VERSION=$(ruby -e "require_relative 'lib/rubocop/hk/version'; puts Rubocop::Hk::VERSION")
-        echo "VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
-        echo "New version: $NEW_VERSION"
-
-    - name: Check if version already published
-      if: steps.bump_type.outputs.bump != 'none'
-      id: check_version
-      run: |
-        if gem search rubocop-hk --versions --exact | grep -q "${{ steps.new_version.outputs.VERSION }}"; then
-          echo "already_published=true" >> $GITHUB_OUTPUT
-          echo "Version ${{ steps.new_version.outputs.VERSION }} already exists on RubyGems"
-        else
-          echo "already_published=false" >> $GITHUB_OUTPUT
-          echo "Version ${{ steps.new_version.outputs.VERSION }} is new"
-        fi
-
     - name: Commit version bump
-      if: steps.bump_type.outputs.bump != 'none' && steps.check_version.outputs.already_published == 'false'
+      if: steps.bump_type.outputs.bump != 'none' && steps.check_current.outputs.needs_bump == 'true'
       run: |
+        NEW_VERSION=$(ruby -e "require_relative 'lib/rubocop/hk/version'; puts Rubocop::Hk::VERSION")
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add lib/rubocop/hk/version.rb
-        git commit -m "Bump version to ${{ steps.new_version.outputs.VERSION }} [no-bump]"
+        git commit -m "Bump version to $NEW_VERSION [no-bump]"
         git push origin main
 
+    - name: Get release version
+      if: steps.bump_type.outputs.bump != 'none'
+      id: release_version
+      run: |
+        VERSION=$(ruby -e "require_relative 'lib/rubocop/hk/version'; puts Rubocop::Hk::VERSION")
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        echo "Release version: $VERSION"
+
     - name: Build gem
-      if: steps.bump_type.outputs.bump != 'none' && steps.check_version.outputs.already_published == 'false'
+      if: steps.bump_type.outputs.bump != 'none'
       run: gem build rubocop-hk.gemspec
 
     - name: Publish to RubyGems
-      if: steps.bump_type.outputs.bump != 'none' && steps.check_version.outputs.already_published == 'false'
+      if: steps.bump_type.outputs.bump != 'none'
       env:
         GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_AUTH_TOKEN }}
       run: |
@@ -261,11 +268,11 @@ jobs:
         gem push rubocop-hk-*.gem --verbose
 
     - name: Create git tag and GitHub Release
-      if: steps.bump_type.outputs.bump != 'none' && steps.check_version.outputs.already_published == 'false'
+      if: steps.bump_type.outputs.bump != 'none'
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        VERSION="v${{ steps.new_version.outputs.VERSION }}"
+        VERSION="v${{ steps.release_version.outputs.VERSION }}"
         git tag "$VERSION"
         git push origin "$VERSION"
         gh release create "$VERSION" rubocop-hk-*.gem \
