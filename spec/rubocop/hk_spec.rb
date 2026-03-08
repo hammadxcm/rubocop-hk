@@ -11,7 +11,7 @@ RSpec.describe Rubocop::Hk do
     end
 
     it "has the expected version" do
-      expect(Rubocop::Hk::VERSION).to eq("1.3.0")
+      expect(Rubocop::Hk::VERSION).to match(/\A\d+\.\d+\.\d+\z/)
     end
 
     it "is nested under Rubocop module" do

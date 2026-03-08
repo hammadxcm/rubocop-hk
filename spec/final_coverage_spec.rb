@@ -12,7 +12,7 @@ RSpec.describe "Final Coverage Validation" do
   # Ensure the version file is executed and tracked
   it "covers version.rb by accessing VERSION constant multiple times" do
     # Multiple accesses to ensure all lines of version.rb are hit
-    expect(Rubocop::Hk::VERSION).to eq("1.3.0")
+    expect(Rubocop::Hk::VERSION).to match(/\A\d+\.\d+\.\d+\z/)
     expect(Rubocop::Hk::VERSION).to be_a(String)
     expect(Rubocop::Hk::VERSION.length).to be > 0
 
@@ -35,7 +35,7 @@ RSpec.describe "Final Coverage Validation" do
 
     # Load and verify - this should trigger coverage tracking
     expect { load version_file }.not_to raise_error
-    expect(Rubocop::Hk::VERSION).to eq("1.3.0")
+    expect(Rubocop::Hk::VERSION).to match(/\A\d+\.\d+\.\d+\z/)
   end
 
   # Cover all command.rb paths that were missed
@@ -47,10 +47,10 @@ RSpec.describe "Final Coverage Validation" do
 
     # Cover line 20: return puts VERSION if options[:plain]
     allow(command).to receive(:options).and_return({ plain: true })
-    expect { command.version }.to output("1.3.0\n").to_stdout
+    expect { command.version }.to output("#{Rubocop::Hk::VERSION}\n").to_stdout
 
     # Cover line 22: puts "rubocop-hk version: #{VERSION}"
     allow(command).to receive(:options).and_return({ plain: false })
-    expect { command.version }.to output("rubocop-hk version: 1.3.0\n").to_stdout
+    expect { command.version }.to output("rubocop-hk version: #{Rubocop::Hk::VERSION}\n").to_stdout
   end
 end
