@@ -1,0 +1,215 @@
+Layout/CaseIndentation:
+  Description: Indentation of when in a case/when/[else/]end.
+  Enabled: true
+  EnforcedStyle: case
+  IndentOneStep: false
+  SupportedStyles:
+  - case
+  - end
+
+Layout/ClosingHeredocIndentation:
+  Description: Checks the indentation of here document closings.
+  Enabled: true
+
+Layout/CommentIndentation:
+  Description: Indentation of comments.
+  Enabled: true
+
+Layout/DotPosition:
+  Description: Checks the . position in multi-line method calls..
+  Enabled: true
+  EnforcedStyle: trailing
+  SupportedStyles:
+  - leading
+  - trailing
+
+Layout/ElseAlignment:
+  Description: Align elses and elsifs correctly.
+  Enabled: true
+
+Layout/EmptyLineAfterMagicComment:
+  Description: Checks for a newline after the final magic comment.
+  Enabled: true
+
+Layout/EmptyLinesAroundAccessModifier:
+  Description: Access modifiers should be surrounded by blank lines.
+  Enabled: true
+  EnforcedStyle: around
+  SupportedStyles:
+  - around
+  - only_before
+
+Layout/EmptyLinesAroundBlockBody:
+  Description: Keeps track of empty lines around block bodies.
+  Enabled: true
+  EnforcedStyle: no_empty_lines
+  SupportedStyles:
+  - empty_lines
+  - no_empty_lines
+
+Layout/EmptyLinesAroundClassBody:
+  Description: Keeps track of empty lines around class bodies.
+  Enabled: true
+  EnforcedStyle: no_empty_lines
+  SupportedStyles:
+  - empty_lines
+  - empty_lines_except_namespace
+  - empty_lines_special
+  - no_empty_lines
+  - beginning_only
+  - ending_only
+
+Layout/EmptyLinesAroundMethodBody:
+  Description: Keeps track of empty lines around method bodies.
+  Enabled: true
+
+Layout/EmptyLinesAroundModuleBody:
+  Description: Keeps track of empty lines around module bodies.
+  Enabled: true
+  EnforcedStyle: no_empty_lines
+  SupportedStyles:
+  - empty_lines
+  - empty_lines_except_namespace
+  - empty_lines_special
+  - no_empty_lines
+
+Layout/EndAlignment:
+  Description: Align ends correctly.
+  Enabled: true
+  EnforcedStyleAlignWith: variable
+  SupportedStylesAlignWith:
+  - keyword
+  - variable
+  - start_of_line
+
+Layout/FirstArgumentIndentation:
+  Description: Checks the indentation of the first parameter in a method call.
+  Enabled: true
+  EnforcedStyle: consistent
+  SupportedStyles:
+  - consistent
+  - consistent_relative_to_receiver
+  - special_for_inner_method_call
+  - special_for_inner_method_call_in_parentheses
+
+Layout/IndentationConsistency:
+  Description: Keep indentation consistent.
+  Enabled: true
+  EnforcedStyle: normal
+  SupportedStyles:
+  - normal
+  - indented_internal_methods
+
+Layout/IndentationWidth:
+  Description: Checks indentation that doesn’t use the specified number of spaces.
+  Enabled: true
+  Width: 2
+
+Layout/LeadingCommentSpace:
+  Description: Checks whether comments have a leading space after the symbol denoting the start.
+  Enabled: true
+
+Layout/LineLength:
+  Description: Length of lines in the source code
+  Max: 100
+  AutoCorrect: true
+  AllowHeredoc: true
+  AllowURI: true
+  URISchemes:
+  - http
+  - https
+  IgnoreCopDirectives: true
+
+Layout/MultilineMethodCallIndentation:
+  Description: Checks indentation of method calls with the dot operator that span more
+    than one line.
+  Enabled: true
+  EnforcedStyle: aligned
+  SupportedStyles:
+  - aligned
+  - indented
+
+Layout/SpaceAfterColon:
+  Description: Whether or not to require a space after colon.
+  Enabled: true
+
+Layout/SpaceAfterComma:
+  Description: Whether or not to require a space after commas.
+  Enabled: true
+
+Layout/SpaceAfterSemicolon:
+  Description: Whether or not to require a space after semicolons.
+  Enabled: true
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  Description: Checks that the equals signs in parameter default assignments have or
+    don't have surrounding space depending on configuration.
+  Enabled: true
+  EnforcedStyle: space
+  SupportedStyles:
+  - space
+  - no_space
+
+Layout/SpaceAroundKeyword:
+  Description: Whether or not to require a space around keywords.
+  Enabled: true
+
+Layout/SpaceBeforeComma:
+  Description: Whether or not to require a space before commas.
+  Enabled: true
+
+Layout/SpaceBeforeComment:
+  Description: Checks for missing space between code and a comment on the same line.
+  Enabled: true
+
+Layout/SpaceBeforeFirstArg:
+  Description: Checks that exactly one space is used between a method name and the first argument
+    for method calls without parentheses.
+  Enabled: true
+
+Layout/SpaceBeforeBlockBraces:
+  Description: Checks that block braces have or don’t have a space before the opening brace.
+  Enabled: true
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: space
+  SupportedStyles:
+  - space
+  - no_space
+
+Layout/SpaceInsideBlockBraces:
+  Description: Checks that block braces have or don't have surrounding space. For blocks
+    taking parameters, checks that the left brace has or doesn't have trailing space.
+  Enabled: true
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: no_space
+  SpaceBeforeBlockParameters: true
+  SupportedStyles:
+  - space
+  - no_space
+
+Layout/SpaceInsideHashLiteralBraces:
+  Description: Checks that braces used for hash literals have or don’t have surrounding space.
+  Enabled: true
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: no_space
+  SupportedStyles:
+  - space
+  - no_space
+  - compact
+
+Layout/SpaceInsideParens:
+  Description: Checks for spaces inside ordinary round parentheses.
+  Enabled: true
+
+Layout/TrailingEmptyLines:
+  Description: Checks for trailing blank lines and a final newline in the source code.
+  Enabled: true
+  EnforcedStyle: final_newline
+  SupportedStyles:
+  - final_newline
+  - final_blank_line
+
+Layout/TrailingWhitespace:
+  Description: Checks for trailing whitespace in the source code.
+  Enabled: true
+  AllowInHeredoc: false

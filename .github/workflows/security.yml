@@ -1,0 +1,103 @@
+name: Security
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * 1' # Weekly on Monday at 6 AM UTC
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  security_audit:
+    runs-on: ubuntu-latest
+    name: Security audit
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Install bundler-audit
+        run: |
+          gem install bundler-audit
+          bundle-audit update
+
+      - name: Run bundler-audit
+        run: bundle-audit check
+
+      - name: Run RuboCop security checks
+        run: |
+          bundle exec rubocop \
+            --only Security \
+            --format github
+
+      - name: Check for hard-coded secrets
+        run: |
+          # Simple secret scanning - exclude vendor, bundle, and common false positives
+          SECRET_MATCHES=$(grep -r -E "(password|secret|key|token)\s*=\s*['\"][^'\"]{8,}" . \
+            --exclude-dir=.git \
+            --exclude-dir=node_modules \
+            --exclude-dir=vendor \
+            --exclude-dir=.bundle \
+            --exclude-dir=coverage \
+            --exclude-dir=tmp \
+            --exclude="*.md" \
+            --exclude="security.yml" \
+            --exclude="*_spec.rb" \
+            --exclude="*_test.rb" \
+            | grep -v -E "(example|test|spec|comment|documentation)" || true)
+          
+          if [ -n "$SECRET_MATCHES" ]; then
+            echo "Potential secrets found in source code:"
+            echo "$SECRET_MATCHES"
+            exit 1
+          else
+            echo "No obvious secrets detected in source code"
+          fi
+
+  dependency_review:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        continue-on-error: true  # Don't fail if dependency review is not available
+        with:
+          fail-on-severity: moderate
+
+  codeql:
+    name: CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ruby
+          config: |
+            paths-ignore:
+              - vendor
+              - tmp
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3

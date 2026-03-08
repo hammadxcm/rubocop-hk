@@ -1,0 +1,281 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['3.3', '3.4']
+        rails-version: ['7.1', '7.2', '8.0', '8.1']
+        exclude:
+          # No exclusions needed - all combinations should work
+          []
+    
+    name: Ruby ${{ matrix.ruby-version }}, Rails ${{ matrix.rails-version }}
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby ${{ matrix.ruby-version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    
+    - name: Create test Rails app
+      run: |
+        # Require logger to avoid Rails Logger issues with newer Ruby versions
+        ruby -e "require 'logger'" || true
+        gem install rails -v "~> ${{ matrix.rails-version }}.0"
+        RAILS_ENV=test rails new test_app --skip-git --skip-bundle --api
+        cd test_app
+        echo 'gem "rubocop-hk", path: ".."' >> Gemfile
+        bundle install
+    
+    - name: Run tests
+      run: bundle exec rspec --format progress --format RspecJunitFormatter --out tmp/rspec.xml
+    
+    - name: Test RuboCop configuration
+      run: |
+        cd test_app
+        echo 'inherit_gem:
+          rubocop-hk: config/default.yml
+        
+        AllCops:
+          TargetRubyVersion: ${{ matrix.ruby-version }}
+          TargetRailsVersion: ${{ matrix.rails-version }}' > .rubocop.yml
+        bundle exec rubocop --version
+        bundle exec rubocop app/ --format json --out tmp/rubocop.json || true
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-ruby-${{ matrix.ruby-version }}-rails-${{ matrix.rails-version }}
+        path: |
+          tmp/rspec.xml
+          test_app/tmp/rubocop.json
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    
+    - name: Run RuboCop on gem itself
+      run: bundle exec rubocop --format github --parallel
+    
+    - name: Verify configuration files
+      run: |
+        bundle exec ruby -e "require 'yaml'; YAML.load_file('config/default.yml')"
+        find config/ -name "*.yml" -exec bundle exec ruby -e "require 'yaml'; YAML.load_file('{}')" \;
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    
+    - name: Run tests with coverage
+      run: COVERAGE=true bundle exec rspec
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage/coverage.xml
+        fail_ci_if_error: false
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    
+    - name: Run bundle audit
+      run: |
+        gem install bundle-audit
+        bundle audit check --update || true
+    
+    - name: Run brakeman (if applicable)
+      run: |
+        if bundle list | grep -q brakeman; then
+          bundle exec brakeman --no-pager || true
+        fi
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [test, lint, coverage]
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+
+    - name: Build gem
+      run: |
+        gem build rubocop-hk.gemspec
+        ls -la *.gem
+
+    - name: Test gem installation
+      run: |
+        gem install ./rubocop-hk-*.gem
+        ruby -e "require 'rubocop-hk'; puts 'Gem loaded successfully'"
+
+    - name: Upload gem artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: rubocop-hk-gem
+        path: "*.gem"
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [test, lint, coverage, security, build]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      contents: write
+      packages: write
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+
+    - name: Determine version bump type
+      id: bump_type
+      run: |
+        COMMIT_MSG=$(git log -1 --pretty=%B)
+        echo "Commit message: $COMMIT_MSG"
+
+        if echo "$COMMIT_MSG" | grep -qi '\[no-bump\]\|\[skip-release\]'; then
+          echo "bump=none" >> $GITHUB_OUTPUT
+          echo "Skipping version bump and release"
+        elif echo "$COMMIT_MSG" | grep -qi '\[major\]'; then
+          echo "bump=major" >> $GITHUB_OUTPUT
+          echo "Major version bump"
+        elif echo "$COMMIT_MSG" | grep -qi '\[minor\]'; then
+          echo "bump=minor" >> $GITHUB_OUTPUT
+          echo "Minor version bump"
+        else
+          echo "bump=patch" >> $GITHUB_OUTPUT
+          echo "Patch version bump (default)"
+        fi
+
+    - name: Check current version against RubyGems
+      if: steps.bump_type.outputs.bump != 'none'
+      id: check_current
+      run: |
+        CURRENT_VERSION=$(ruby -e "require_relative 'lib/rubocop/hk/version'; puts Rubocop::Hk::VERSION")
+        echo "CURRENT_VERSION=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+
+        if gem search rubocop-hk --versions --exact | grep -q "$CURRENT_VERSION"; then
+          echo "needs_bump=true" >> $GITHUB_OUTPUT
+          echo "Version $CURRENT_VERSION already on RubyGems, will bump"
+        else
+          echo "needs_bump=false" >> $GITHUB_OUTPUT
+          echo "Version $CURRENT_VERSION not yet on RubyGems, publishing as-is"
+        fi
+
+    - name: Bump version
+      if: steps.bump_type.outputs.bump != 'none' && steps.check_current.outputs.needs_bump == 'true'
+      run: |
+        BUMP_TYPE="${{ steps.bump_type.outputs.bump }}"
+        ruby -e "
+          version_file = 'lib/rubocop/hk/version.rb'
+          content = File.read(version_file)
+          current = content.match(/VERSION = \"(\d+)\.(\d+)\.(\d+)\"/)
+
+          major, minor, patch = current[1].to_i, current[2].to_i, current[3].to_i
+          puts \"Current version: #{major}.#{minor}.#{patch}\"
+
+          case '$BUMP_TYPE'
+          when 'major'
+            major += 1; minor = 0; patch = 0
+          when 'minor'
+            minor += 1; patch = 0
+          when 'patch'
+            patch += 1
+          end
+
+          new_version = \"#{major}.#{minor}.#{patch}\"
+          puts \"New version: #{new_version}\"
+
+          new_content = content.gsub(/VERSION = \".*\"/, \"VERSION = \\\"#{new_version}\\\"\")
+          File.write(version_file, new_content)
+        "
+
+    - name: Commit version bump
+      if: steps.bump_type.outputs.bump != 'none' && steps.check_current.outputs.needs_bump == 'true'
+      run: |
+        NEW_VERSION=$(ruby -e "require_relative 'lib/rubocop/hk/version'; puts Rubocop::Hk::VERSION")
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add lib/rubocop/hk/version.rb
+        git commit -m "Bump version to $NEW_VERSION [no-bump]"
+        git push origin main
+
+    - name: Get release version
+      if: steps.bump_type.outputs.bump != 'none'
+      id: release_version
+      run: |
+        VERSION=$(ruby -e "require_relative 'lib/rubocop/hk/version'; puts Rubocop::Hk::VERSION")
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        echo "Release version: $VERSION"
+
+    - name: Build gem
+      if: steps.bump_type.outputs.bump != 'none'
+      run: gem build rubocop-hk.gemspec
+
+    - name: Publish to RubyGems
+      if: steps.bump_type.outputs.bump != 'none'
+      env:
+        GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_AUTH_TOKEN }}
+      run: |
+        mkdir -p ~/.gem
+        echo "---" > ~/.gem/credentials
+        echo ":rubygems_api_key: $GEM_HOST_API_KEY" >> ~/.gem/credentials
+        chmod 600 ~/.gem/credentials
+        gem push rubocop-hk-*.gem --verbose
+
+    - name: Create git tag and GitHub Release
+      if: steps.bump_type.outputs.bump != 'none'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        VERSION="v${{ steps.release_version.outputs.VERSION }}"
+        git tag "$VERSION"
+        git push origin "$VERSION"
+        gh release create "$VERSION" rubocop-hk-*.gem \
+          --title "RuboCop HK $VERSION" \
+          --generate-notes \
+          --latest

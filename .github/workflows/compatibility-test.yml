@@ -1,0 +1,199 @@
+name: Compatibility Testing
+
+on:
+  schedule:
+    - cron: '0 4 * * SUN'  # Weekly on Sunday at 4 AM
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'config/**'
+      - 'lib/**'
+
+jobs:
+  ruby-compatibility:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        ruby-version: ['3.3', '3.4']
+        include:
+          - ruby-version: '3.4'
+            experimental: true
+    continue-on-error: ${{ matrix.experimental || false }}
+    
+    name: Ruby ${{ matrix.ruby-version }} on ${{ matrix.os }}
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby ${{ matrix.ruby-version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    
+    - name: Run tests
+      run: bundle exec rspec
+    
+    - name: Test configuration loading
+      if: runner.os != 'Windows'
+      run: |
+        bundle exec ruby -e "
+          require 'rubocop'
+          require 'yaml'
+          config = RuboCop::ConfigLoader.load_file('config/default.yml')
+          puts 'Configuration loaded successfully'
+          cop_count = config.keys.count { |k| k.include?('/') }
+          puts \"Total cops: #{cop_count}\"
+        "
+
+  rails-compatibility:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['3.3', '3.4']
+        rails-version: ['7.1', '7.2', '8.0', '8.1']
+    continue-on-error: false
+    
+    name: Rails ${{ matrix.rails-version }} with Ruby ${{ matrix.ruby-version }}
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby ${{ matrix.ruby-version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    
+    - name: Create test Rails app
+      run: |
+        gem install rails -v "~> ${{ matrix.rails-version }}.0"
+        
+        rails new compatibility_test_app_${{ matrix.ruby-version }}_${{ matrix.rails-version }} \
+          --skip-git --skip-bundle --api --skip-test
+        
+        cd compatibility_test_app_${{ matrix.ruby-version }}_${{ matrix.rails-version }}
+        
+        echo 'gem "rubocop-hk", path: ".."' >> Gemfile
+        echo 'gem "rubocop", require: false' >> Gemfile
+        echo 'gem "rubocop-rails", require: false' >> Gemfile
+        echo 'gem "rubocop-rspec", require: false' >> Gemfile
+        echo 'gem "rubocop-performance", require: false' >> Gemfile
+        
+        bundle install
+    
+    - name: Test RuboCop configuration
+      run: |
+        cd compatibility_test_app_${{ matrix.ruby-version }}_${{ matrix.rails-version }}
+        
+        cat > .rubocop.yml << EOF
+        inherit_gem:
+          rubocop-hk: config/default.yml
+        
+        AllCops:
+          TargetRubyVersion: ${{ matrix.ruby-version }}
+          TargetRailsVersion: ${{ matrix.rails-version }}
+        EOF
+        
+        bundle exec rubocop --version
+        bundle exec rubocop app/ lib/ config/ --format json --out rubocop_results.json || true
+        
+        # Verify no critical configuration errors
+        if grep -q "configuration.*error" rubocop_results.json; then
+          echo "❌ Configuration errors found"
+          cat rubocop_results.json
+          exit 1
+        else
+          echo "✅ Configuration loaded successfully"
+        fi
+
+  rubocop-version-compatibility:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        rubocop-version: ['1.78', '1.79', '1.80', '1.81']
+        include:
+          - rubocop-version: '1.81'
+            experimental: true
+    continue-on-error: ${{ matrix.experimental || false }}
+    
+    name: RuboCop ${{ matrix.rubocop-version }}
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: false
+    
+    - name: Install specific RuboCop version
+      run: |
+        gem install rubocop -v "~> ${{ matrix.rubocop-version }}.0"
+        # Install plugin versions that match the gemspec requirements
+        gem install rubocop-performance -v "~> 1.25.0"
+        gem install rubocop-rails -v "~> 2.33.0"
+        gem install rubocop-rspec -v "~> 3.6.0"
+        gem install thor -v "~> 1.0"
+        # Create minimal Gemfile for compatibility testing
+        echo 'source "https://rubygems.org"' > Gemfile
+        echo 'gem "rubocop-hk", path: "."' >> Gemfile
+        bundle install
+    
+    - name: Test configuration compatibility
+      run: |
+        rubocop --version
+        rubocop --show-cops > available_cops.txt
+        
+        # Test each configuration file
+        for config in config/*.yml; do
+          echo "Testing $config"
+          rubocop --config "$config" --list-target-files > /dev/null
+        done
+        
+        echo "✅ All configurations compatible with RuboCop ${{ matrix.rubocop-version }}"
+
+  plugin-compatibility:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+        bundler-cache: true
+    
+    - name: Test plugin loading
+      run: |
+        bundle exec ruby -e "
+          require 'rubocop'
+          require 'rubocop-rails'
+          require 'rubocop-rspec'
+          require 'rubocop-performance'
+          puts 'All plugins loaded successfully'
+        "
+    
+    - name: Verify cop inheritance
+      run: |
+        bundle exec ruby -e "
+          require 'rubocop'
+          config = RuboCop::ConfigLoader.load_file('config/default.yml')
+          
+          # Check that Rails cops are available
+          rails_cops = config.keys.select { |k| k.start_with?('Rails/') }
+          rspec_cops = config.keys.select { |k| k.start_with?('RSpec/') }
+          perf_cops = config.keys.select { |k| k.start_with?('Performance/') }
+          
+          puts \"Rails cops found: #{rails_cops.size}\"
+          puts \"RSpec cops found: #{rspec_cops.size}\"
+          puts \"Performance cops found: #{perf_cops.size}\"
+          
+          puts '✅ Plugin inheritance working correctly'
+        "

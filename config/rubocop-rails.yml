@@ -1,0 +1,477 @@
+# Rails 6-8.x Configuration - Modern Best Practices for 2025
+# Optimized for Rails 6.0-8.0+ applications with backward compatibility
+
+# Load the rubocop-rails plugin
+plugins:
+  - rubocop-rails
+
+# ==========================================
+# Core Rails Cops - Compatible with Rails 6-8.x
+# ==========================================
+
+Rails/ActionControllerFlashBeforeRender:
+  Description: Checks for calls to flash before render in controller actions
+  Enabled: true
+
+Rails/ActionControllerTestCase:
+  Description: Use ActionDispatch::IntegrationTest instead of ActionController::TestCase
+  Enabled: true
+
+Rails/ActiveRecordAliases:
+  Description: Avoid deprecated ActiveRecord aliases
+  Enabled: true
+
+Rails/ActiveRecordCallbacksOrder:
+  Description: Enforce consistent ordering of ActiveRecord callbacks
+  Enabled: true
+
+Rails/ActiveSupportAliases:
+  Description: Avoid deprecated ActiveSupport aliases
+  Enabled: true
+
+Rails/ApplicationController:
+  Description: Controllers should inherit from ApplicationController
+  Enabled: true
+
+Rails/ApplicationRecord:
+  Description: Models should inherit from ApplicationRecord
+  Enabled: true
+
+Rails/BelongsTo:
+  Description: Use belongs_to associations correctly
+  Enabled: true
+
+Rails/BulkChangeTable:
+  Description: Use change_table with bulk operations for multiple column changes
+  Enabled: true
+
+Rails/CreateTableWithTimestamps:
+  Description: Always add timestamps to new tables
+  Enabled: true
+
+Rails/Date:
+  Description: Use Rails time zone methods instead of Date methods
+  Enabled: true
+
+Rails/DefaultScope:
+  Description: Avoid using default_scope in ActiveRecord models
+  Enabled: true
+  Severity: warning
+
+Rails/Delegate:
+  Description: Prefer delegate method for object delegation
+  Enabled: true
+  EnforceForPrefixed: true
+
+Rails/DynamicFindBy:
+  Description: Use find_by instead of dynamic finders
+  Enabled: true
+
+Rails/EnumHash:
+  Description: Use hash syntax for enums instead of array syntax
+  Enabled: true
+
+Rails/EnumUniqueness:
+  Description: Ensure enum values are unique
+  Enabled: true
+
+Rails/EnvironmentComparison:
+  Description: Prefer Rails.env methods over string comparisons
+  Enabled: true
+
+Rails/Exit:
+  Description: Favor exit! in Rails applications
+  Enabled: true
+
+Rails/FilePath:
+  Description: Use Rails.root.join for file path construction
+  Enabled: true
+  EnforcedStyle: arguments
+
+Rails/FindBy:
+  Description: Prefer find_by over where.first
+  Enabled: true
+
+Rails/FindEach:
+  Description: Use find_each instead of each for large datasets
+  Enabled: true
+
+Rails/HasAndBelongsToMany:
+  Description: Prefer has_many :through over has_and_belongs_to_many
+  Enabled: true
+
+Rails/HasManyOrHasOneDependent:
+  Description: Always specify dependent option for has_many/has_one associations
+  Enabled: true
+
+Rails/HelperInstanceVariable:
+  Description: Avoid instance variables in helpers
+  Enabled: true
+
+Rails/HttpPositionalArguments:
+  Description: Use keyword arguments for HTTP request methods in tests
+  Enabled: true
+
+Rails/HttpStatus:
+  Description: Use symbolic HTTP status codes
+  Enabled: true
+  EnforcedStyle: symbolic
+
+Rails/I18nLocaleTexts:
+  Description: Move locale texts to locale files
+  Enabled: true
+
+Rails/IndexBy:
+  Description: Use index_by instead of manually building hashes
+  Enabled: true
+
+Rails/IndexWith:
+  Description: Use index_with instead of manually building hashes with same values
+  Enabled: true
+
+Rails/InverseOf:
+  Description: Specify inverse_of for associations to improve performance
+  Enabled: true
+
+Rails/LexicallyScopedActionFilter:
+  Description: Avoid lexically scoped action filters
+  Enabled: true
+
+Rails/LinkToBlank:
+  Description: Add rel="noopener" when using target="_blank" in links
+  Enabled: true
+
+Rails/MailerName:
+  Description: Mailer class names should end with 'Mailer'
+  Enabled: true
+
+Rails/MatchRoute:
+  Description: Avoid using match with :via option in routes
+  Enabled: true
+
+Rails/NegateInclude:
+  Description: Use exclude? instead of !include?
+  Enabled: true
+
+Rails/NotNullColumn:
+  Description: Add NOT NULL constraint to columns that should not be null
+  Enabled: true
+
+Rails/OrderById:
+  Description: Specify explicit order when using first/last/take
+  Enabled: true
+
+Rails/Output:
+  Description: Avoid puts/p in production code
+  Enabled: true
+  Include:
+    - app/**/*.rb
+    - lib/**/*.rb
+  Exclude:
+    - db/seeds.rb
+    - lib/tasks/**/*.rb
+
+Rails/OutputSafety:
+  Description: Avoid bypassing Rails output safety mechanisms
+  Enabled: true
+
+Rails/Pick:
+  Description: Use pick instead of pluck().first
+  Enabled: true
+
+Rails/PluckInWhere:
+  Description: Use exists? instead of pluck in where clauses
+  Enabled: true
+
+Rails/Presence:
+  Description: Use presence method for conditional assignments
+  Enabled: true
+
+Rails/Present:
+  Description: Use present? instead of !blank?
+  Enabled: true
+
+Rails/RedundantAllowNil:
+  Description: Avoid redundant allow_nil option
+  Enabled: true
+
+Rails/RedundantForeignKey:
+  Description: Avoid redundant foreign_key option
+  Enabled: true
+
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Description: Avoid redundant presence validation on belongs_to associations
+  Enabled: true
+
+Rails/RedundantReceiverInWithOptions:
+  Description: Avoid redundant receiver in with_options block
+  Enabled: true
+
+Rails/ReflectionClassName:
+  Description: Use string class names in associations for better performance
+  Enabled: true
+
+Rails/RelativeDateConstant:
+  Description: Avoid using relative date constants
+  Enabled: true
+
+Rails/RenderInline:
+  Description: Avoid inline rendering in controllers
+  Enabled: true
+
+Rails/RenderPlainText:
+  Description: Use render plain instead of render text
+  Enabled: true
+
+Rails/RequestReferer:
+  Description: Use request.referer instead of request.referrer
+  Enabled: true
+
+Rails/ReversibleMigration:
+  Description: Ensure migrations are reversible
+  Enabled: true
+
+Rails/SafeNavigationWithBlank:
+  Description: Avoid safe navigation with blank?
+  Enabled: true
+
+Rails/ScopeArgs:
+  Description: Use lambda for scope arguments
+  Enabled: true
+
+Rails/ShortI18n:
+  Description: Use short I18n methods (t instead of translate)
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Description: Avoid methods that skip model validations
+  Enabled: true
+  ForbiddenMethods:
+    - decrement!
+    - decrement_counter
+    - increment!
+    - increment_counter
+    - toggle!
+    - touch
+    - touch_all
+    - update_all
+    - update_attribute
+    - update_column
+    - update_columns
+    - update_counters
+  Exclude:
+    - spec/**/*
+    - test/**/*
+    - db/migrate/**/*
+
+Rails/SquishedSQLHeredocs:
+  Description: Use squiggly heredocs for SQL
+  Enabled: true
+
+Rails/StripHeredoc:
+  Description: Use strip_heredoc for multi-line strings
+  Enabled: true
+
+Rails/TimeZone:
+  Description: Use Rails time zone methods
+  Enabled: true
+
+Rails/TimeZoneAssignment:
+  Description: Use Time.zone= for setting time zone
+  Enabled: true
+
+Rails/UnknownEnv:
+  Description: Avoid unknown Rails environments
+  Enabled: true
+  Environments:
+    - development
+    - test
+    - production
+    - staging
+
+Rails/UnusedIgnoredColumns:
+  Description: Remove unused ignored columns
+  Enabled: true
+
+Rails/Validation:
+  Description: Use validates instead of validate with custom validator
+  Enabled: true
+
+Rails/WhereEquals:
+  Description: Use where with hash conditions instead of SQL strings
+  Enabled: true
+
+Rails/WhereExists:
+  Description: Use exists instead of where with present check
+  Enabled: true
+
+Rails/WhereNot:
+  Description: Use where.not instead of where with negation
+  Enabled: true
+
+Rails/WhereMissing:
+  Description: Use where.missing instead of left joins with null checks
+  Enabled: true
+
+# ==========================================
+# Rails 7.0+ Enhanced Cops (where available)
+# ==========================================
+
+Rails/CompactBlank:
+  Description: Use compact_blank instead of reject(&:blank?)
+  Enabled: true
+
+# Rails/DuplicateAssociation: Moved to modern cops section below
+
+# Rails/DuplicateScope: Moved to modern cops section below
+
+Rails/ExpandedDateRange:
+  Description: Use Range#cover? instead of Range#include? for date ranges
+  Enabled: true
+
+Rails/I18nLazyLookup:
+  Description: Use lazy lookup for I18n keys in controllers and views
+  Enabled: true
+
+Rails/Inquiry:
+  Description: Use ActiveSupport::StringInquirer for string inquiry methods
+  Enabled: true
+
+Rails/PluralizationGrammar:
+  Description: Use correct pluralization grammar
+  Enabled: true
+
+# Rails/ResponseParsedBody: Moved to modern cops section below
+
+Rails/RootJoinChain:
+  Description: Use Rails.root.join for multiple path segments
+  Enabled: true
+
+Rails/ToFormattedS:
+  Description: Use to_formatted_s instead of to_s with format
+  Enabled: true
+
+Rails/ToSWithArgument:
+  Description: Use to_formatted_s instead of to_s with argument
+  Enabled: true
+
+Rails/TopLevelHashWithIndifferentAccess:
+  Description: Avoid top-level HashWithIndifferentAccess
+  Enabled: true
+
+Rails/TransactionExitStatement:
+  Description: Avoid transaction exit statements
+  Enabled: true
+
+Rails/UniqueValidationWithoutIndex:
+  Description: Add database index for unique validations
+  Enabled: true
+
+# ==========================================
+# Rails 8.0+ Modern Cops (2025) - All WARNING ONLY
+# These enforce Rails 8.0 best practices and modern patterns
+# ==========================================
+
+Rails/EnumSyntax:
+  Description: |
+    Use Rails 8.0+ enum syntax with positional arguments instead of keyword arguments.
+    The keyword argument syntax (enum status: {...}, _prefix: true) is deprecated in Rails 8.0.
+    Use: enum :status, {...}, prefix: true instead. This prepares your code for future Rails versions.
+  Enabled: true
+  Severity: warning
+
+Rails/RedundantActiveRecordAllMethod:
+  Description: |
+    Avoid redundant .all method calls in ActiveRecord queries. Modern Rails often
+    returns ActiveRecord::Relation objects that are already lazy-loaded, so .all
+    may be unnecessary and can impact performance. Remove when the relation is already sufficient.
+  Enabled: true
+  Severity: warning
+
+Rails/MigrationClassName:
+  Description: |
+    Use appropriate migration class names that reflect the migration's purpose.
+    Migration class names should be descriptive and follow Rails conventions
+    (PascalCase matching the filename). This improves code maintainability and searchability.
+  Enabled: true
+  Severity: warning
+
+Rails/WhereRange:
+  Description: |
+    Use range conditions in where clauses for better readability and performance.
+    Instead of where(created_at: start_date..end_date), consider using where(created_at: start_date...end_date)
+    or explicit range methods for clearer intent and potential query optimization.
+  Enabled: true
+  Severity: warning
+
+Rails/ThreeStateBooleanColumn:
+  Description: |
+    Avoid three-state boolean columns (true/false/null). These create confusion
+    about the meaning of null vs false. Use explicit status enums or separate
+    boolean columns with defaults to make data meaning clear and queries predictable.
+  Enabled: true
+  Severity: warning
+
+Rails/AddColumnIndex:
+  Description: |
+    Add database indexes when adding new columns that will be queried frequently.
+    This prevents performance issues as data grows. Consider adding indexes for
+    foreign keys, columns used in where clauses, and columns used for ordering.
+  Enabled: true
+  Severity: warning
+
+Rails/FreezeTime:
+  Description: |
+    Use Rails' travel_to instead of Time.stub or similar time mocking approaches.
+    travel_to is the Rails-standard way to manipulate time in tests and provides
+    better integration with Rails' time handling and ActiveSupport extensions.
+  Enabled: true
+  Severity: warning
+
+Rails/ResponseParsedBody:
+  Description: |
+    Use response.parsed_body in tests instead of JSON.parse(response.body).
+    This is more reliable, handles different content types automatically,
+    and is the Rails-standard approach for parsing response bodies in tests.
+  Enabled: true
+  Severity: warning
+
+Rails/DotSeparatedKeys:
+  Description: |
+    Use dot-separated keys in I18n for better organization and namespacing.
+    This creates clearer hierarchical structure in locale files and makes
+    translations easier to organize and maintain in large applications.
+  Enabled: true
+  Severity: warning
+
+Rails/RootPublicPath:
+  Description: |
+    Use Rails.root.join('public') instead of File.join(Rails.root, 'public').
+    This is more idiomatic Rails and handles path construction more reliably
+    across different operating systems and Ruby versions.
+  Enabled: true
+  Severity: warning
+
+Rails/DeprecatedActiveModelErrorsMethods:
+  Description: |
+    Avoid deprecated ActiveModel::Errors methods. Rails 6.1+ changed the errors
+    API significantly. Use errors.add instead of errors[] = and similar modern
+    approaches to future-proof your validation error handling.
+  Enabled: true
+  Severity: warning
+
+Rails/DuplicateAssociation:
+  Description: |
+    Avoid duplicate associations in ActiveRecord models. Multiple associations
+    with the same name can cause unexpected behavior and make code harder to
+    understand. Each association should have a unique, descriptive name.
+  Enabled: true
+  Severity: warning
+
+Rails/DuplicateScope:
+  Description: |
+    Avoid duplicate scopes in ActiveRecord models. Multiple scopes with the
+    same name override each other, leading to confusion. Each scope should
+    have a unique, descriptive name that clearly indicates its purpose.
+  Enabled: true
+  Severity: warning

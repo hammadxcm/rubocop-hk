@@ -1,0 +1,64 @@
+AllCops:
+  # Target versions for Rails 6-8.x applications (2025)
+  TargetRubyVersion: 3.3
+  TargetRailsVersion: 8.0
+  
+  # Enhanced exclusions for typical Rails project structure
+  Exclude:
+    - "bin/**/*"
+    - "db/**/*"
+    - "db/schema.rb"
+    - "db/migrate/**/*"
+    - "node_modules/**/*"
+    - "**/vendor/**/*"
+    - "**/vendor/**/.*"
+    - ".git/**/*"
+    - "tmp/**/*"
+    - "log/**/*"
+    - "public/**/*"
+    - "storage/**/*"
+    - "config/boot.rb"
+    - "config/environment.rb"
+    - "config/puma.rb"
+    - "config/spring.rb"
+
+  # Enhanced output formatting
+  DefaultFormatter: progress
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
+  
+  # Enable new cops for modern Rails/Ruby features
+  NewCops: enable
+  
+  # Parser engine (prism for Ruby 3.4+)
+  ParserEngine: parser_whitequark
+  
+  # Extension suggestions for Rails 6-8.x
+  SuggestExtensions:
+    rubocop-performance: true
+    rubocop-thread_safety: false
+    rubocop-minitest: true
+    rubocop-capybara: true
+
+# Modern plugin architecture (RuboCop 1.72+)
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+# Configuration inheritance - modular approach
+inherit_from:
+  - rubocop-layout.yml
+  - rubocop-lint.yml
+  - rubocop-metrics.yml
+  - rubocop-rspec.yml
+  - rubocop-rails.yml
+  - rubocop-style.yml
+  - rubocop-performance.yml
+
+# Gem entry point file exception (must match gem name)
+Naming/FileName:
+  Exclude:
+    - "lib/rubocop-hk.rb"
+
