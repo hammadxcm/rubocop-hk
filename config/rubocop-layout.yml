@@ -118,7 +118,7 @@ Layout/LineLength:
   URISchemes:
   - http
   - https
-  IgnoreCopDirectives: true
+  AllowCopDirectives: true
 
 Layout/MultilineMethodCallIndentation:
   Description: Checks indentation of method calls with the dot operator that span more

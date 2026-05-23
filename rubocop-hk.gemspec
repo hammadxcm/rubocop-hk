@@ -25,10 +25,10 @@ Gem::Specification.new do |spec|
   spec.executables = ["rubocop-hk"]
 
   # Gem dependencies
-  spec.add_dependency("rubocop", ">= 1.78.0", "< 1.82.0")
-  spec.add_dependency("rubocop-performance", "~> 1.25.0")
-  spec.add_dependency("rubocop-rails", "~> 2.33.0")
-  spec.add_dependency("rubocop-rspec", "~> 3.6.0")
+  spec.add_dependency("rubocop", ">= 1.86.0", "< 2.0")
+  spec.add_dependency("rubocop-performance", "~> 1.26")
+  spec.add_dependency("rubocop-rails", "~> 2.35")
+  spec.add_dependency("rubocop-rspec", "~> 3.9")
   spec.add_dependency("thor", "~> 1.0")
 
   # Development dependencies are defined in Gemfile

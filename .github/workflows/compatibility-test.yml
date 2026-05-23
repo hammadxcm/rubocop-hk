@@ -116,11 +116,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rubocop-version: ['1.78', '1.79', '1.80', '1.81']
-        include:
-          - rubocop-version: '1.81'
-            experimental: true
-    continue-on-error: ${{ matrix.experimental || false }}
+        rubocop-version: ['1.86']
+    continue-on-error: false
     
     name: RuboCop ${{ matrix.rubocop-version }}
     
@@ -137,9 +134,9 @@ jobs:
       run: |
         gem install rubocop -v "~> ${{ matrix.rubocop-version }}.0"
         # Install plugin versions that match the gemspec requirements
-        gem install rubocop-performance -v "~> 1.25.0"
-        gem install rubocop-rails -v "~> 2.33.0"
-        gem install rubocop-rspec -v "~> 3.6.0"
+        gem install rubocop-performance -v "~> 1.26"
+        gem install rubocop-rails -v "~> 2.35"
+        gem install rubocop-rspec -v "~> 3.9"
         gem install thor -v "~> 1.0"
         # Create minimal Gemfile for compatibility testing
         echo 'source "https://rubygems.org"' > Gemfile

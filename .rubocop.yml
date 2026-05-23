@@ -63,6 +63,11 @@ Performance/ChainArrayAllocation:
     - 'scripts/**/*'
     - 'spec/**/*'
 
+# Standalone utility scripts may group related classes in one file
+Style/OneClassPerFile:
+  Exclude:
+    - 'scripts/**/*'
+
 # Disable specific RSpec cops that are too strict for our test style
 RSpec/DescribeClass:
   Enabled: false

@@ -74,25 +74,25 @@ RSpec.describe "Ruby Version Compatibility" do
     it "has compatible RuboCop dependency" do
       rubocop_dep = gemspec.dependencies.find { |dep| dep.name == "rubocop" }
       expect(rubocop_dep).not_to be_nil
-      expect(rubocop_dep.requirement.to_s).to include("1.78")
+      expect(rubocop_dep.requirement.to_s).to include("1.86")
     end
 
     it "has compatible rubocop-rails dependency" do
       rails_dep = gemspec.dependencies.find { |dep| dep.name == "rubocop-rails" }
       expect(rails_dep).not_to be_nil
-      expect(rails_dep.requirement.to_s).to include("2.33")
+      expect(rails_dep.requirement.to_s).to include("2.35")
     end
 
     it "has compatible rubocop-rspec dependency" do
       rspec_dep = gemspec.dependencies.find { |dep| dep.name == "rubocop-rspec" }
       expect(rspec_dep).not_to be_nil
-      expect(rspec_dep.requirement.to_s).to include("3.6")
+      expect(rspec_dep.requirement.to_s).to include("3.9")
     end
 
     it "has rubocop-performance dependency" do
       performance_dep = gemspec.dependencies.find { |dep| dep.name == "rubocop-performance" }
       expect(performance_dep).not_to be_nil
-      expect(performance_dep.requirement.to_s).to include("1.25")
+      expect(performance_dep.requirement.to_s).to include("1.26")
     end
   end
 end
