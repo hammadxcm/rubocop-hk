@@ -21,7 +21,7 @@ A comprehensive RuboCop configuration for modern Ruby 3.3+ and Rails 7.1+ applic
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rubocop-hk', '~> 1.3.0', require: false
+gem 'rubocop-hk', '~> 1.4.0', require: false
 ```
 
 And then execute:
@@ -76,21 +76,20 @@ See [CUSTOMIZATION.md](CUSTOMIZATION.md) for detailed configuration options.
 ## Requirements
 
 - Ruby >= 3.3.0
-- RuboCop >= 1.78.0
+- RuboCop >= 1.86.0
 - Rails >= 7.1.0 (if using Rails cops)
 
-## New in v1.3.0
+## New in v1.4.0
 
-This maintenance release focuses on cross-platform reliability and security:
+This release tracks the latest stable RuboCop toolchain:
 
-- **✅ All CI/CD checks passing** - Ruby 3.3 & 3.4 on Ubuntu, macOS, and Windows
-- **🔒 Security updates** - Updated rack, rexml, and uri to fix 7 CVEs
-- **🔧 Fixed Windows compatibility** - Enhanced test suite for Windows platforms
-- **⚡ Improved plugin loading** - Updated to modern `plugins:` directive
-- **🎯 RuboCop 1.78-1.81 compatible** - Verified compatibility across versions
+- **⬆️ RuboCop 1.86 line** - Widened the constraint to `>= 1.86.0, < 2.0` so you always get the current 1.x release
+- **🔌 Updated plugins** - rubocop-performance `~> 1.26`, rubocop-rails `~> 2.35`, rubocop-rspec `~> 3.9`
+- **🛠️ Config compatibility** - Renamed the obsolete `Layout/LineLength` parameter `IgnoreCopDirectives` to `AllowCopDirectives`
+- **🎯 Ruby 3.3 / 3.4 & Rails 7.1–8.1** - Verified across the supported matrix
 - **📦 45+ warning-only modern rules** - Gradual adoption without breaking builds
 
-See [CHANGELOG.md](CHANGELOG.md) for complete release notes and security details.
+See [CHANGELOG.md](CHANGELOG.md) for complete release notes.
 
 ## Contributing
 
