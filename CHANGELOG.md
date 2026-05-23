@@ -18,6 +18,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-05-23
+
+### ⬆️ **Dependency Upgrades**
+
+#### ✨ **Changed**
+- **RuboCop 1.86 line**: Widened the `rubocop` constraint from `>= 1.78.0, < 1.82.0` to a permissive `>= 1.86.0, < 2.0`, letting consumers track the current 1.x line (matches how `rubocop-rails`/`rubocop-performance` declare their own RuboCop dependency)
+- **Plugin bumps**: `rubocop-performance` `~> 1.26`, `rubocop-rails` `~> 2.35`, `rubocop-rspec` `~> 3.9`
+
+#### 🛠️ **Fixes**
+- **Obsolete parameter**: Renamed `Layout/LineLength`'s `IgnoreCopDirectives` to `AllowCopDirectives` (renamed upstream in RuboCop), removing the deprecation warning on 1.86+
+
 ## [1.3.1] - 2026-03-08
 
 ### 🔒 **Security & CI/CD Improvements**

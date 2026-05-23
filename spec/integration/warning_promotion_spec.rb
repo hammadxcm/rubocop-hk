@@ -210,7 +210,7 @@ RSpec.describe "Warning Promotion Workflow", type: :integration do
       rubocop_dependency = gemspec.dependencies.find { |dep| dep.name == "rubocop" }
 
       expect(rubocop_dependency).not_to be_nil
-      expect(rubocop_dependency.requirement.satisfied_by?(Gem::Version.new("1.80.0"))).to be(true)
+      expect(rubocop_dependency.requirement.satisfied_by?(Gem::Version.new("1.86.0"))).to be(true)
     end
 
     it "supports the target Ruby version in configuration" do
