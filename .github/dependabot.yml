@@ -54,3 +54,7 @@ updates:
     labels:
       - "github-actions"
       - "ci"
+    groups:
+      github-actions:
+        patterns:
+          - "*"

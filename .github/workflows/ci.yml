@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ main, develop ]
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,26 +17,27 @@ jobs:
       matrix:
         ruby-version: ['3.3', '3.4']
         rails-version: ['7.1', '7.2', '8.0', '8.1']
-        exclude:
-          # No exclusions needed - all combinations should work
-          []
     
     name: Ruby ${{ matrix.ruby-version }}, Rails ${{ matrix.rails-version }}
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      with:
+        persist-credentials: false
     
     - name: Set up Ruby ${{ matrix.ruby-version }}
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
     
     - name: Create test Rails app
+      env:
+        RAILS_VERSION: ${{ matrix.rails-version }}
       run: |
         # Require logger to avoid Rails Logger issues with newer Ruby versions
         ruby -e "require 'logger'" || true
-        gem install rails -v "~> ${{ matrix.rails-version }}.0"
+        gem install rails -v "~> ${RAILS_VERSION}.0"
         RAILS_ENV=test rails new test_app --skip-git --skip-bundle --api
         cd test_app
         echo 'gem "rubocop-hk", path: ".."' >> Gemfile
@@ -55,7 +59,7 @@ jobs:
         bundle exec rubocop app/ --format json --out tmp/rubocop.json || true
     
     - name: Upload test results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       if: always()
       with:
         name: test-results-ruby-${{ matrix.ruby-version }}-rails-${{ matrix.rails-version }}
@@ -66,10 +70,12 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      with:
+        persist-credentials: false
     
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
       with:
         ruby-version: '3.3'
         bundler-cache: true
@@ -85,10 +91,12 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      with:
+        persist-credentials: false
     
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
       with:
         ruby-version: '3.3'
         bundler-cache: true
@@ -97,7 +105,7 @@ jobs:
       run: COVERAGE=true bundle exec rspec
     
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
       with:
         file: ./coverage/coverage.xml
         fail_ci_if_error: false
@@ -105,10 +113,12 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      with:
+        persist-credentials: false
     
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
       with:
         ruby-version: '3.3'
         bundler-cache: true
@@ -128,10 +138,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, lint, coverage]
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      with:
+        persist-credentials: false
 
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
       with:
         ruby-version: '3.3'
         bundler-cache: true
@@ -147,7 +159,7 @@ jobs:
         ruby -e "require 'rubocop-hk'; puts 'Gem loaded successfully'"
 
     - name: Upload gem artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
         name: rubocop-hk-gem
         path: "*.gem"
@@ -158,18 +170,22 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     permissions:
       contents: write
-      packages: write
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       with:
+        # Credentials are kept on purpose: later steps `git push` the version
+        # bump commit and release tag. This job only runs on push to main.
+        persist-credentials: true  # zizmor: ignore[artipacked]
         fetch-depth: 0
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
       with:
         ruby-version: '3.3'
-        bundler-cache: true
+        # No dependency cache in the publish job (cache-poisoning hardening);
+        # this job only needs plain ruby + `gem build`.
+        bundler-cache: false
 
     - name: Determine version bump type
       id: bump_type
@@ -208,8 +224,9 @@ jobs:
 
     - name: Bump version
       if: steps.bump_type.outputs.bump != 'none' && steps.check_current.outputs.needs_bump == 'true'
+      env:
+        BUMP_TYPE: ${{ steps.bump_type.outputs.bump }}
       run: |
-        BUMP_TYPE="${{ steps.bump_type.outputs.bump }}"
         ruby -e "
           version_file = 'lib/rubocop/hk/version.rb'
           content = File.read(version_file)
@@ -271,8 +288,9 @@ jobs:
       if: steps.bump_type.outputs.bump != 'none'
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        RELEASE_VERSION: ${{ steps.release_version.outputs.VERSION }}
       run: |
-        VERSION="v${{ steps.release_version.outputs.VERSION }}"
+        VERSION="v${RELEASE_VERSION}"
         git tag "$VERSION"
         git push origin "$VERSION"
         gh release create "$VERSION" rubocop-hk-*.gem \

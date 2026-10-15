@@ -6,20 +6,25 @@ on:
       - 'v*'
 
 permissions:
-  contents: write
-  packages: write
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      with:
+        persist-credentials: false
 
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
       with:
         ruby-version: '3.3'
-        bundler-cache: true
+        # No dependency cache in the release workflow (cache-poisoning hardening).
+        bundler-cache: false
+
+    - name: Install dependencies
+      run: bundle install
 
     - name: Run full test suite
       run: bundle exec rspec
@@ -30,14 +35,19 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     needs: test
+    permissions:
+      contents: write  # create the GitHub Release
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      with:
+        persist-credentials: false
 
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
       with:
         ruby-version: '3.3'
-        bundler-cache: true
+        # No dependency cache in the publish job (cache-poisoning hardening).
+        bundler-cache: false
 
     - name: Extract version from tag
       id: extract_version
@@ -45,8 +55,9 @@ jobs:
 
     - name: Check if version already published
       id: check_version
+      env:
+        VERSION: ${{ steps.extract_version.outputs.VERSION }}
       run: |
-        VERSION="${{ steps.extract_version.outputs.VERSION }}"
         if gem search rubocop-hk --versions --exact | grep -q "$VERSION"; then
           echo "already_published=true" >> $GITHUB_OUTPUT
           echo "Version $VERSION already published (likely by auto-release)"
@@ -79,7 +90,7 @@ jobs:
 
     - name: Create GitHub Release
       if: steps.check_version.outputs.already_published == 'false'
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
       with:
         files: |
           rubocop-hk-*.gem
