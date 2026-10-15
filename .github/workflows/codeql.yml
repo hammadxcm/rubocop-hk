@@ -8,6 +8,9 @@ on:
   schedule:
     - cron: '30 2 * * 1'  # Weekly on Monday at 2:30 AM
 
+permissions:
+  contents: read
+
 jobs:
   analyze:
     name: Analyze
@@ -24,10 +27,12 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      with:
+        persist-credentials: false
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@ce5e7eeac396d720fe2d802714996c8ce561e311 # v3.39.0
       with:
         languages: ${{ matrix.language }}
         config: |
@@ -36,13 +41,13 @@ jobs:
             - tmp
 
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a # v1.329.0
       with:
         ruby-version: '3.3'
         bundler-cache: true
 
     - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+      uses: github/codeql-action/autobuild@ce5e7eeac396d720fe2d802714996c8ce561e311 # v3.39.0
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@ce5e7eeac396d720fe2d802714996c8ce561e311 # v3.39.0
